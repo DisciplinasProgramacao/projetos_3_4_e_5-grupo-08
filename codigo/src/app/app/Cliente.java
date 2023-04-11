@@ -1,3 +1,6 @@
+package app;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente {
@@ -7,11 +10,11 @@ public class Cliente {
     List<Serie> listaJaVistas;
 
 
-    public Cliente(String nomeDeUsuario, String senha, List<Serie> listaParaVer, List<Serie> listaJaVistas) {
+    public Cliente(String nomeDeUsuario, String senha) {
         this.nomeDeUsuario = nomeDeUsuario;
         this.senha = senha;
-        this.listaParaVer = listaParaVer;
-        this.listaJaVistas = listaJaVistas;
+        this.listaParaVer = new ArrayList<Serie>();
+        this.listaJaVistas =  new ArrayList<Serie>();
     }
 
     public String getNomeDeUsuario() {
@@ -45,7 +48,7 @@ public class Cliente {
     }
 
     public List<Serie> filtrarPorGenero(String genero) {
-        List<Serie> lista = null;
+        List<Serie> lista = new ArrayList<Serie>();
 
         for(int i = 0; i < this.listaJaVistas.size(); i++) {
             if(this.listaJaVistas.get(i).getGenero() == genero) lista.add(this.listaJaVistas.get(i));
@@ -59,7 +62,7 @@ public class Cliente {
     }
 
     public List<Serie> filtrarPorIdioma(String idioma) {
-        List<Serie> lista = null;
+        List<Serie> lista = new ArrayList<Serie>();
 
         for(int i = 0; i < this.listaJaVistas.size(); i++) {
             if(this.listaJaVistas.get(i).getIdioma() == idioma) lista.add(this.listaJaVistas.get(i));
@@ -73,14 +76,14 @@ public class Cliente {
     }
 
     public List<Serie> filtrarPorQtdEpisodios(int quantEpisodios) {
-        List<Serie> lista = null;
+        List<Serie> lista = new ArrayList<Serie>();
 
         for(int i = 0; i < this.listaJaVistas.size(); i++) {
-            if(this.listaJaVistas.get(i).getEpisodios() == quantEpisodios) lista.add(this.listaJaVistas.get(i));
+            if(this.listaJaVistas.get(i).getQuantidadeEpisodios() == quantEpisodios) lista.add(this.listaJaVistas.get(i));
         }
 
         for(int i = 0; i < this.listaParaVer.size(); i++) {
-            if(this.listaParaVer.get(i).getEpisodios() == quantEpisodios) lista.add(this.listaParaVer.get(i));
+            if(this.listaParaVer.get(i).getQuantidadeEpisodios() == quantEpisodios) lista.add(this.listaParaVer.get(i));
         }
 
         return lista;
