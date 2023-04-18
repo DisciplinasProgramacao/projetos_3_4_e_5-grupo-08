@@ -16,22 +16,26 @@ public class PlataformaStreaming {
     }
 
     public void adicionarCliente(Cliente cliente){
-
+    	
     }
 
     public Lista<Serie> filtrarPorGenero(String genero){
-        return ;
+        
+    	clienteAtual.filtrarPorGenero(genero);
+    	return ;
     }
 
     public Lista<Serie> filtrarPorIdioma(String idioma){
-        return ;
+        clienteAtual.filtrarPorIdioma(idioma);
+    	return ;
     }
 
     public Lista<Serie> filtrarPorQtdEpisodios(int quantEpisodios){
-        return ;
+        clienteAtual.filtrarPorQtdEpisodios(quantEpisodios);
+    	return ;
     }
 
     public void registrarAudiencia(Serie serie){
-
+    	clienteAtual.registrarAudiencia(serie);
     }
 }
