@@ -1,33 +1,13 @@
 package app;
 
-public class Serie {
-    private String[] GENEROS;
+public abstract class Stream {
     private String nome;
     private String genero;
     private String idioma;
-    private int quantidadeEpisodios;
     private int audiencia;
-    
-    public Serie(String nome, String genero, String idioma, int quantidadeEpisodios, int audiencia){
-        setNome(nome);
-        setGenero(genero);
-        setIdioma(idioma);
-        setQuantidadeEpisodios(quantidadeEpisodios);
-        setAudiencia(audiencia);
-    }
-    
+
     public void registrarAudiencia(int qnt){
         setAudiencia(qnt);
-    }
-
-
-
-    public String[] getGENEROS() {
-        return GENEROS;
-    }
-
-    public void setGENEROS(String[] gENEROS) {
-        GENEROS = gENEROS;
     }
 
     public String getNome() {
@@ -54,14 +34,6 @@ public class Serie {
         this.idioma = idioma;
     }
 
-    public int getQuantidadeEpisodios() {
-        return quantidadeEpisodios;
-    }
-
-    public void setQuantidadeEpisodios(int quantidadeEpisodios) {
-        this.quantidadeEpisodios = quantidadeEpisodios;
-    }
-
     public int getAudiencia() {
         return audiencia;
     }
@@ -69,4 +41,5 @@ public class Serie {
     public void setAudiencia(int audiencia) {
         this.audiencia = audiencia;
     }
+    
 }
