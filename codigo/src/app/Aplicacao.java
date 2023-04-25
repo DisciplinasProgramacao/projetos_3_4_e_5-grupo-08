@@ -1,4 +1,4 @@
-package org.example;
+package app;
 
 public class Aplicacao {
 
