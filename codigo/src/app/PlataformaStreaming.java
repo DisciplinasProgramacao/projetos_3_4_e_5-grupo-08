@@ -8,12 +8,14 @@ public class PlataformaStreaming {
 
     private String nome;
     private HashSet<Serie> series;
+    private HashSet<Filme> filmes;
     private HashSet<Cliente> clientes;
     private Cliente clienteAtual;
 
     public PlataformaStreaming(String nome) {
         this.nome = nome;
         this.series = new HashSet<Serie>();
+        this.filmes = new HashSet<Filme>();
         this.clientes = new HashSet<Cliente>();
         this.clienteAtual = null;
     }
@@ -44,11 +46,15 @@ public class PlataformaStreaming {
         series.add(serie);
     }
 
+    public void adicionarFilme(Filme filme){
+        filmes.add(filme);
+    }
+
     public void adicionarCliente(Cliente cliente){
         clientes.add(cliente);
     }
 
-    public List<Serie> filtrarPorGenero(String genero){
+    public List<Serie> filtrarSeriesPorGenero(String genero){
     	List<Serie> result = new ArrayList<Serie>();
         for(Serie i : series) {
             if(i.getGenero() == genero) {
@@ -59,7 +65,7 @@ public class PlataformaStreaming {
         return result;
     }
 
-    public List<Serie> filtrarPorIdioma(String idioma){
+    public List<Serie> filtrarSeriesPorIdioma(String idioma){
     	List<Serie> result = new ArrayList<Serie>();
         for(Serie i : series) {
             if(i.getIdioma() == idioma) {
@@ -70,10 +76,21 @@ public class PlataformaStreaming {
         return result;
     }
 
-    public List<Serie> filtrarPorQtdEpisodios(int quantEpisodios){
+    public List<Serie> filtrarSeriesPorQtdEpisodios(int quantEpisodios){
         List<Serie> result = new ArrayList<Serie>();
         for(Serie i : series) {
             if(i.getQuantidadeEpisodios() == quantEpisodios) {
+                result.add(i);
+            }
+        }
+
+        return result;
+    }
+
+    public List<Serie> filtrarSeriesPorNome(String nome){
+        List<Serie> result = new ArrayList<Serie>();
+        for(Serie i : series) {
+            if(i.getNome() == nome) {
                 result.add(i);
             }
         }
