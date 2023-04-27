@@ -54,6 +54,10 @@ public class PlataformaStreaming {
         clientes.add(cliente);
     }
 
+    public String getNomeClienteAtual(){
+        return clienteAtual.getNomeDeUsuario();
+    }
+
     public List<Serie> filtrarSeriesPorGenero(String genero){
     	List<Serie> result = new ArrayList<Serie>();
         for(Serie i : series) {
