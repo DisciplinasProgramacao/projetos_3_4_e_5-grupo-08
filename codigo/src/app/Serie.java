@@ -7,7 +7,11 @@ public class Serie {
     private String idioma;
     private int quantidadeEpisodios;
     private int audiencia;
-    
+
+    public Serie(/* idSerie,nome,data */){
+
+    }
+
     public Serie(String nome, String genero, String idioma, int quantidadeEpisodios, int audiencia){
         setNome(nome);
         setGenero(genero);
