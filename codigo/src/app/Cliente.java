@@ -5,26 +5,18 @@ import java.util.List;
 
 public class Cliente {
     private String nomeDeUsuario;
-    private String senha;
     private String login;
+    private String senha;
     List<Serie> listaParaVer;
     List<Serie> listaJaVistas;
 
 
-    public Cliente(String nomeDeUsuario, String login, String senha) {
-        this.nomeDeUsuario = nomeDeUsuario;
-        this.senha = senha;
-        this.login = login;
+    public Cliente(String nomeDeUsuario,String login, String senha) {
+        setNomeDeUsuario(nomeDeUsuario);
+        setLogin(login);
+        setSenha(senha);
         this.listaParaVer = new ArrayList<Serie>();
         this.listaJaVistas =  new ArrayList<Serie>();
-    }
-
-    public String getLogin() {
-        return this.login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getNomeDeUsuario() {
@@ -35,6 +27,14 @@ public class Cliente {
         this.nomeDeUsuario = nomeDeUsuario;
     }
 
+    public String getLogin(){
+        return this.login;
+    }
+
+    public void setLogin(String login){
+        this.login = login;
+    }
+
     public String getSenha() {
         return this.senha;
     }
@@ -43,8 +43,12 @@ public class Cliente {
         this.senha = senha;
     }
 
-    public void adicionarNaLista(Serie serie) {
+    public void adicionarNaListaParaVer(Serie serie) {
         this.listaParaVer.add(serie);
+    }
+
+    public void adicionarNaListaJaVisto(Serie serie) {
+        this.listaJaVistas.add(serie);
     }
 
     public void retirarDaLista(String nomeSerie) {
