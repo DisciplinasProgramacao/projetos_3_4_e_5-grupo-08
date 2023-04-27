@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import app.Cliente;
-import app.Serie;
+import org.example.Cliente;
+import org.example.Serie;
 
 
 public class ClienteTest {
@@ -47,7 +47,7 @@ public class ClienteTest {
 	@Test
 	public void testFiltrarPorGenero() {
 		cliente.registrarAudiencia(serie1);
-		cliente.adicionarNaLista(serie2);
+		cliente.adicionarNaListaParaVer(serie2);
 		List<Serie> listaFiltrada = cliente.filtrarPorGenero("Genero1");
 		assertEquals(1, listaFiltrada.size());
 		assertTrue(listaFiltrada.contains(serie1));
@@ -57,7 +57,7 @@ public class ClienteTest {
 	@Test
 	public void testFiltrarPorIdioma() {
 		cliente.registrarAudiencia(serie1);
-		cliente.adicionarNaLista(serie2);
+		cliente.adicionarNaListaParaVer(serie2);
 		List<Serie> listaFiltrada = cliente.filtrarPorIdioma("Idioma1");
 		assertEquals(1, listaFiltrada.size());
 		assertTrue(listaFiltrada.contains(serie1));
@@ -67,7 +67,7 @@ public class ClienteTest {
 	@Test
 	public void testFiltrarPorQtdEpisodios() {
 		cliente.registrarAudiencia(serie1);
-		cliente.adicionarNaLista(serie2);
+		cliente.adicionarNaListaParaVer(serie2);
 		List<Serie> listaFiltrada = cliente.filtrarPorQtdEpisodios(10);
 		assertEquals(1, listaFiltrada.size());
 		assertTrue(listaFiltrada.contains(serie1));
