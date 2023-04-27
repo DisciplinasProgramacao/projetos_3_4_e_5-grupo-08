@@ -9,8 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.example.Cliente;
-import org.example.Serie;
+import app.*;
 
 
 public class ClienteTest {
