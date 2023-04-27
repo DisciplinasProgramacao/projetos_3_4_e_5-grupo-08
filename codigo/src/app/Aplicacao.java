@@ -7,7 +7,7 @@ public class Aplicacao {
 
 		String dadosS = file.ler();
 
-		String dadosSeparadosS[] = dadosS.split(";");
+		String[] dadosSeparadosS = dadosS.split(";");
 		//ID;Nome;Data
 
 		int cont = 0;
@@ -19,7 +19,6 @@ public class Aplicacao {
 			dadosS = file.ler();
 		}
 
-
 		file.fecharArquivo();
 	}
 
@@ -29,7 +28,7 @@ public class Aplicacao {
 		String dadosF = file.ler();
 		dadosF = file.ler(); //pula linha
 
-		String dadosSeparadosF[] = dadosF.split(";");
+		String[] dadosSeparadosF = dadosF.split(";");
 		//IdFilme;Nome;DataDeLançamento;Duração(min)
 
 		int cont = 0;
@@ -41,7 +40,6 @@ public class Aplicacao {
 			dadosF = file.ler();
 		}
 
-
 		file.fecharArquivo();
 	}
 
@@ -50,25 +48,21 @@ public class Aplicacao {
 
 		String dadosA = file.ler();
 
-		String dadosSeparadosA[] = dadosA.split(";");
+		String[] dadosSeparadosA = dadosA.split(";");
 		//Login;F/A;IdSerie
 
 		while (dadosA != null) {
-			for (int cont = 0; cont < vetorDeEspectadores.length; cont++) {
-				if (dadosSeparadosA[0] == vetorDeEspectadores[cont].getLogin()) {
-					for ( int cont2 = 0; cont < vetorDeSerie.length; cont2++){
-						if (vetorDeSerie[cont2].getIdSerie == dadosSeparadosA[2]){
-							if (dadosSeparadosA[1] == "F"){
-								vetorDeEspectadores[cont].adicionarNaListaParaVer(vetorDeSerie[cont2]);
-							} else /* dadosSeparadosA[1] == "A" */{
-								vetorDeEspectadores[cont].adicionarNaListaJaVisto(vetorDeSerie[cont2]);
+			for (Cliente cliente : vetorDeEspectadores) {
+				if (dadosSeparadosA[0].equals(cliente.getLogin())) {
+					for (Serie serie : vetorDeSerie) {
+						if (serie.getIdSerie == dadosSeparadosA[2]) {
+							if (dadosSeparadosA[1].equals("F")) {
+								cliente.adicionarNaListaParaVer(serie);
+							} else /* dadosSeparadosA[1] == "A" */ {
+								cliente.adicionarNaListaJaVisto(serie);
 							}
-
-							//adicionar serie à F/A de cliente
 						}
 					}
-
-
 				}
 				dadosA = file.ler();
 			}
@@ -81,7 +75,7 @@ public class Aplicacao {
 		ArquivoTextoLeitura file = new ArquivoTextoLeitura("POO_Espectadores.csv");
 
 		String dadosE = file.ler();
-		String dadosSeparadosE[] = dadosE.split(";");
+		String[] dadosSeparadosE = dadosE.split(";");
 
 		int cont = 0;
 
@@ -92,7 +86,6 @@ public class Aplicacao {
 			dadosE = file.ler();
 		}
 
-
 		file.fecharArquivo();
 	}
 
@@ -101,7 +94,7 @@ public class Aplicacao {
 		//ESPECTADORES
 		//Criando vetor de clientes
 		Cliente[] vetorClientes = new Cliente[51893];
-		//arregando dados do arquivo "POO_Espectadores.csv" para o vetor de Series
+		//Carregando dados do arquivo "POO_Espectadores.csv" para o vetor de Series
 		carregarDadosE(vetorClientes);
 
 		//SERIE
@@ -121,26 +114,29 @@ public class Aplicacao {
 		//Criando plataforma de streaming "Amaze"
 		PlataformaStreaming Amaze = new PlataformaStreaming("Amaze");
 		//Adicionando *series* à Amaze
-		for(int i = 0; i < vetorSeries.length; i++){
-			Amaze.adicionarSerie(vetorSeries[i]);
+		for (Serie serie : vetorSeries) {
+			Amaze.adicionarSerie(serie);
 		}
 		//Adicionando *filmes* à Amaze
-		for(int i = 0; i < vetorSeries.length; i++){
-			Amaze.adicionarFilme(vetorFilmes[i]);
+		for (Filme filme : vetorFilmes) {
+			Amaze.adicionarFilme(filme);
 		}
 		//Adicionando *clientes* à Amaze
-		for(int i = 0; i < vetorSeries.length; i++){
-			Amaze.adicionarCliente(vetorClientes[i]);
+		for (Cliente cliente : vetorClientes) {
+			Amaze.adicionarCliente(cliente);
 		}
 
 		//AUDIENCIA
-
+		//Carregando dados do arquivo "POO_Audiencia.csv"
 		carregarDadosA(vetorClientes,vetorSeries);
+
+		//REALIZAR LOGIN
+		Amaze.login("Ada10","ABro14415");
 
 		int op;
 		do {
-			System.out.println("=-=-=-=-=-=-=-=-"+Amaze.getNome()+"=-=-=-=-=-=-=-=");
-			System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+			System.out.println("=-"+ Amaze.getNome() +"-=");
+			System.out.println("Olá " + Amaze.getNomeClienteAtual() + "!");
 			System.out.println("Digite uma das opções abaixo:");
 			System.out.println("[1]Adicionar série à sua Lista"); //Adicionar series "para assistir"
 			System.out.println("[2]Marcar série como *já assistida*"); //Marcar series "já assistidas" e retornar "lista de series ja assistidas"
@@ -199,11 +195,6 @@ public class Aplicacao {
 			}
 
 		}while (op != 3);
-
-		//Menu Cliente
-
-
 	}
-
 }
 
