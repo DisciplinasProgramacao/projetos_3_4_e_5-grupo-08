@@ -208,7 +208,29 @@ public class Aplicacao {
 							}
 							break;
 						case 2:
-
+							System.out.println("Filtrar por:");
+							System.out.println("[1]Nome");
+							System.out.println("[2]Gênero");
+							System.out.println("[3]Idioma");
+							System.out.print(">> ");
+							op1 = MyIO.readInt();
+							
+							Filme filmeEncontrado;
+							
+							switch (op1){
+								case 1:
+									
+									break;
+								case 2:
+									
+									break;
+								case 3:
+									
+									break;
+								default:
+									System.out.println("Opção inválida.");
+							}
+							
 							break;
 						default:
 							System.out.println("Opção inválida.");
