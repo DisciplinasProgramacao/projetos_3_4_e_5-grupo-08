@@ -133,59 +133,108 @@ public class Aplicacao {
 		//REALIZAR LOGIN
 		Amaze.login("Ada10","ABro14415");
 
+
 		int op;
 		do {
 			System.out.println("=-"+ Amaze.getNome() +"-=");
 			System.out.println("Olá " + Amaze.getNomeClienteAtual() + "!");
 			System.out.println("Digite uma das opções abaixo:");
-			System.out.println("[1]Adicionar série à sua Lista"); //Adicionar series "para assistir"
-			System.out.println("[2]Marcar série como *já assistida*"); //Marcar series "já assistidas" e retornar "lista de series ja assistidas"
-			System.out.println("[3]Filtar séries"); //Buscar por filtros (nome,genero ou idioma) series em suas listas ("ja assistidas" ou "para assistir")
+			System.out.println("[1]Catálogo"); //Adicionar series "para assistir"
+			System.out.println("[2]Perfil"); //Marcar series "já assistidas" e retornar "lista de series ja assistidas"
 			System.out.println("[0]Finalizar programa");
 			System.out.print(">> ");
 			op = MyIO.readInt();
 
 			switch (op) {
 				case 1:
+					System.out.println("[1]Pesquisar série");
+					System.out.println("[2]Pesquisar filme");
+					int op1 = MyIO.readInt();
 
-					break;
-				case 2:
-
-					break;
-				case 3:
-					System.out.println("Filtrar por:");
-					System.out.println("[1]Nome");
-					System.out.println("[2]Gênero");
-					System.out.println("[3]Idioma");
-					System.out.println("[4]Quantidade de Episódios");
-					System.out.print(">> ");
-					int op3 = MyIO.readInt();
-
-					switch (op3){
+					switch (op1){
 						case 1:
-							System.out.print("Digite o nome da série: ");
-							String nome = MyIO.readString();
-							Amaze.filtrarSeriesPorNome(nome);
-							break;
+							System.out.println("Filtrar por:");
+							System.out.println("[1]Nome");
+							System.out.println("[2]Gênero");
+							System.out.println("[3]Idioma");
+							System.out.println("[4]Quantidade de Episódios");
+							System.out.print(">> ");
+							op1 = MyIO.readInt();
 
+							Serie serieEncontrada;
+
+							switch (op1) {
+								case 1:
+									System.out.print("Digite o nome da série: ");
+									String nome = MyIO.readString();
+									serieEncontrada = Amaze.filtrarSeriesPorNome(nome);
+									break;
+
+								case 2:
+									System.out.print("Digite o gênero: ");
+									String genero = MyIO.readString();
+									serieEncontrada = Amaze.filtrarSeriesPorGenero(genero);
+									break;
+								case 3:
+									System.out.print("Digite o idioma: ");
+									String idioma = MyIO.readString();
+									serieEncontrada = Amaze.filtrarSeriesPorIdioma(idioma);
+									break;
+								case 4:
+									System.out.print("Digite a quantidade de episódios: ");
+									int qntEp = MyIO.readInt();
+									serieEncontrada = Amaze.filtrarSeriesPorQtdEpisodios(qntEp);
+									break;
+								default:
+									System.out.println("Opção inválida.");
+							}
+							System.out.println("[1]Marcar como série já vista");
+							System.out.println("[2]Adicionar a série à lista para assistir futuramente");
+							System.out.println("[0]Sair");
+							op1 = MyIO.readInt();
+
+							switch (op1){
+								case 1:
+									Amaze.getClienteAtual().adicionarNaListaJaVisto(serieEncontrada);
+									break;
+								case 2:
+									Amaze.getClienteAtual().adicionarNaListaParaVer(serieEncontrada);
+									break;
+								case 0:
+									System.out.println("Finalizando programa.");
+									break;
+								default:
+									System.out.println("Opção inválida.");
+							}
+							break;
 						case 2:
-							System.out.print("Digite o gênero: ");
-							String genero = MyIO.readString();
-							Amaze.filtrarSeriesPorGenero(genero);
-							break;
-						case 3:
-							System.out.print("Digite o idioma: ");
-							String idioma = MyIO.readString();
-							Amaze.filtrarSeriesPorIdioma(idioma);
-							break;
-						case 4:
-							System.out.print("Digite a quantidade de episódios: ");
-							int qntEp = MyIO.readInt();
-							Amaze.filtrarSeriesPorQtdEpisodios(qntEp);
+
 							break;
 						default:
 							System.out.println("Opção inválida.");
 					}
+					break;
+				case 2:
+					System.out.println("Selecione uma das opções abaixo: ");
+					System.out.println("[1]Mostrar lista \"PARA ASSISTIR\" de séries e filmes");
+					System.out.println("[2]Mostrar lista \"JÁ ASSISTIDO\" de séries e filmes");
+					System.out.print(">> ");
+					int op2 = MyIO.readInt();
+
+					switch (op2){
+						case 1:
+							Amaze.getClienteAtual().mostrarListaParaAssistir();
+							break;
+						case 2:
+							Amaze.getClienteAtual().mostrarListaJaVista();
+							break;
+						default:
+							System.out.println("Opção inválida.");
+					}
+					break;
+				case 3:
+
+
 					break;
 				case 0:
 					System.out.println("Finalizando programa.");
