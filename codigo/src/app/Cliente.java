@@ -106,4 +106,12 @@ public class Cliente {
     public void registrarAudiencia(Serie serie) {
         this.listaJaVistas.add(serie);
     }
+
+    public List<Serie> mostrarListaJaVista(){
+        return listaJaVistas;
+    }
+
+    public List<Serie> mostrarListaParaAssistir(){
+        return listaParaVer;
+    }
 }
