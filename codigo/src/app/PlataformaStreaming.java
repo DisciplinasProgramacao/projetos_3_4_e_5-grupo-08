@@ -54,6 +54,10 @@ public class PlataformaStreaming {
         clientes.add(cliente);
     }
 
+    public Cliente getClienteAtual(){
+        return this.clienteAtual;
+    }
+
     public String getNomeClienteAtual(){
         return clienteAtual.getNomeDeUsuario();
     }
@@ -98,6 +102,8 @@ public class PlataformaStreaming {
                 result.add(i);
             }
         }
+
+
 
         return result;
     }
