@@ -43,8 +43,12 @@ public class Cliente {
         this.login = login;
     }
 
-    public void adicionarNaLista(Serie serie) {
+    public void adicionarNaListaParaVer(Serie serie) {
         this.listaParaVer.add(serie);
+    }
+
+    public void adicionarNaListaJaVisto(Serie serie) {
+        this.listaJaVistas.add(serie);
     }
 
     public void retirarDaLista(String nome) {
@@ -101,5 +105,13 @@ public class Cliente {
 
     public void registrarAudiencia(Serie serie) {
         this.listaJaVistas.add(serie);
+    }
+
+    public List<Stream> mostrarListaJaVista(){
+        return listaJaVistas;
+    }
+
+    public List<Stream> mostrarListaParaAssistir(){
+        return listaParaVer;
     }
 }

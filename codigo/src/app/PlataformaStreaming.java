@@ -22,7 +22,7 @@ public class PlataformaStreaming {
         return nome;
     }
 
-    public HashSet<Stream> getSeries() {
+    public HashSet<Stream> getColecao() {
         return colecao;
     }
 
@@ -40,12 +40,31 @@ public class PlataformaStreaming {
         return clienteAtual;
     }
 
-    public void adicionarSerie(Serie serie){
-        colecao.add(serie);
+    public void adicionarColecao(Stream novo){
+        colecao.add(novo);
     }
 
     public void adicionarCliente(Cliente cliente){
         clientes.add(cliente);
+    }
+
+    public Cliente getClienteAtual(){
+        return this.clienteAtual;
+    }
+
+    public String getNomeClienteAtual(){
+        return clienteAtual.getNomeDeUsuario();
+    }
+
+    public List<Stream> filtrarPorNome(String nome){
+        List<Stream> result = new ArrayList<Stream>();
+        for(Stream i : colecao) {
+            if(i.getNome() == nome) {
+                result.add(i);
+            }
+        }
+
+        return result;
     }
 
     public List<Stream> filtrarPorGenero(String genero){

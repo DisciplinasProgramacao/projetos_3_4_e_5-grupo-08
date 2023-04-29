@@ -48,7 +48,7 @@ public class ClienteTest {
 	@Test
 	public void testFiltrarPorGenero() {
 		cliente.registrarAudiencia(serie1);
-		cliente.adicionarNaLista(serie2);
+		cliente.adicionarNaListaParaVer(serie2);
 		List<Stream> listaFiltrada = cliente.filtrarPorGenero("Genero1");
 		assertEquals(1, listaFiltrada.size());
 		assertTrue(listaFiltrada.contains(serie1));
@@ -58,7 +58,7 @@ public class ClienteTest {
 	@Test
 	public void testFiltrarPorIdioma() {
 		cliente.registrarAudiencia(serie1);
-		cliente.adicionarNaLista(serie2);
+		cliente.adicionarNaListaParaVer(serie2);
 		List<Stream> listaFiltrada = cliente.filtrarPorIdioma("Idioma1");
 		assertEquals(1, listaFiltrada.size());
 		assertTrue(listaFiltrada.contains(serie1));
