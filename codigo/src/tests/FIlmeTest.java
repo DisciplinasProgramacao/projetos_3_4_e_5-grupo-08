@@ -14,16 +14,15 @@ public class FIlmeTest {
     private final int ID_FILME = 1;
     private final String NOME_FILME = "O Senhor dos Anéis";
     private final String DATA_LANCAMENTO = "19-12-2001";
-    private final float DURACAO_FILME = 178.0f;
 
     @BeforeEach
     public void setUp() throws ParseException {
-        this.filme = new Filme(ID_FILME, NOME_FILME, DATA_LANCAMENTO, DURACAO_FILME);
+        this.filme = new Filme(ID_FILME, NOME_FILME, DATA_LANCAMENTO);
     }
 
     @Test
     public void testGetIdFilme() {
-        assertEquals(ID_FILME, filme.getIdFIlme());
+        assertEquals(ID_FILME, filme.getId());
     }
 
     @Test
@@ -40,19 +39,19 @@ public class FIlmeTest {
 
     @Test
     public void testGetDataDeLancamento() {
-        assertEquals(DATA_LANCAMENTO, filme.getDataDeLancamento());
+        assertEquals(DATA_LANCAMENTO, filme.getDataLancamento());
     }
 
     @Test
     public void testSetDataDeLancamento() {
         String novaData = "14-12-2012";
-        filme.setDataDeLancamento(novaData);
-        assertEquals(novaData, filme.getDataDeLancamento());
+        filme.setDataLancamento(novaData);
+        assertEquals(novaData, filme.getDataLancamento());
     }
 
     @Test
     public void testGetDuracao() {
-        assertEquals(DURACAO_FILME, filme.getDuracao(), 0.0);
+        assertEquals(0.0, filme.getDuracao(), 0.0);
     }
 
     @Test

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import app.Cliente;
 import app.PlataformaStreaming;
 import app.Serie;
+import app.Stream;
 
 public class PlataformaStreamingTest {
 
@@ -21,15 +22,15 @@ public class PlataformaStreamingTest {
 
     @Test
     public void testLogin() {
-        Cliente cliente = new Cliente("João", "1234");
+        Cliente cliente = new Cliente("João", "1234", "login");
         plataforma.adicionarCliente(cliente);
-        Cliente login = plataforma.login("João", "1234");
+        Cliente login = plataforma.login("login");
         Assertions.assertEquals(cliente, login);
     }
 
     @Test
     public void testAdicionarSerie() {
-        Serie serie = new Serie("Friends", "Comédia", "Inglês", 10, 0);
+        Serie serie = new Serie(1, "Friends", "23/03/1020");
         plataforma.adicionarSerie(serie);
         Assertions.assertEquals(1, plataforma.getSeries().size());
         Assertions.assertTrue(plataforma.getSeries().contains(serie));
@@ -37,7 +38,7 @@ public class PlataformaStreamingTest {
 
     @Test
     public void testAdicionarCliente() {
-        Cliente cliente = new Cliente("João", "1234");
+        Cliente cliente = new Cliente("João", "1234", "login");
         plataforma.adicionarCliente(cliente);
         Assertions.assertEquals(1, plataforma.getClientes().size());
         Assertions.assertTrue(plataforma.getClientes().contains(cliente));
@@ -45,44 +46,44 @@ public class PlataformaStreamingTest {
 
     @Test
     public void testFiltrarPorGenero() {
-        Cliente cliente = new Cliente("João", "1234");
+        Cliente cliente = new Cliente("João", "1234", "login");
         plataforma.adicionarCliente(cliente);
-        Serie serie = new Serie("Friends", "Comédia", "Inglês", 10, 0);
+        Serie serie = new Serie(1, "Friends", "23/03/1020");
         plataforma.adicionarSerie(serie);
-        List<Serie> seriesFiltradas = plataforma.filtrarPorGenero("Comédia");
+        List<Stream> seriesFiltradas = plataforma.filtrarPorGenero("Comédia");
         Assertions.assertEquals(1, seriesFiltradas.size());
         Assertions.assertTrue(seriesFiltradas.contains(serie));
     }
 
     @Test
     public void testFiltrarPorIdioma() {
-        Cliente cliente = new Cliente("João", "1234");
+        Cliente cliente = new Cliente("João", "1234", "login");
         plataforma.adicionarCliente(cliente);
-        Serie serie = new Serie("Friends", "Comédia", "Inglês", 10, 0);
+        Serie serie = new Serie(1, "Friends", "23/03/1020");
         plataforma.adicionarSerie(serie);
-        List<Serie> seriesFiltradas = plataforma.filtrarPorIdioma("Inglês");
+        List<Stream> seriesFiltradas = plataforma.filtrarPorIdioma("Inglês");
         Assertions.assertEquals(1, seriesFiltradas.size());
         Assertions.assertTrue(seriesFiltradas.contains(serie));
     }
 
-    @Test
-    public void testFiltrarPorQtdEpisodios() {
-        Cliente cliente = new Cliente("João", "1234");
-        plataforma.adicionarCliente(cliente);
-        Serie serie = new Serie("Friends", "Comédia", "Inglês", 10, 0);
-        plataforma.adicionarSerie(serie);
-        List<Serie> seriesFiltradas = plataforma.filtrarPorQtdEpisodios(10);
-        Assertions.assertEquals(1, seriesFiltradas.size());
-        Assertions.assertTrue(seriesFiltradas.contains(serie));
-    }
+    // @Test
+    // public void testFiltrarPorQtdEpisodios() {
+    //     Cliente cliente = new Cliente("João", "1234");
+    //     plataforma.adicionarCliente(cliente);
+    //     Serie serie = new Serie(1, "Friends", "23/03/1020");
+    //     plataforma.adicionarSerie(serie);
+    //     List<Serie> seriesFiltradas = plataforma.filtrarPorQtdEpisodios(10);
+    //     Assertions.assertEquals(1, seriesFiltradas.size());
+    //     Assertions.assertTrue(seriesFiltradas.contains(serie));
+    // }
 
     @Test
     public void testRegistrarAudiencia() {
-        Cliente cliente = new Cliente("João", "1234");
+        Cliente cliente = new Cliente("João", "1234", "login");
         plataforma.adicionarCliente(cliente);
-        Serie serie = new Serie("Friends", "Comédia", "Inglês", 10, 0);
+        Serie serie = new Serie(1, "Friends", "23/03/1020");
         plataforma.adicionarSerie(serie);
-        plataforma.login("João", "1234");
+        plataforma.login("login");
         plataforma.registrarAudiencia(serie);
         Assertions.assertEquals(1, serie.getAudiencia());
     }

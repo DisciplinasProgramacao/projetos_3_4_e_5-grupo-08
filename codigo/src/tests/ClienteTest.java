@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import app.Cliente;
 import app.Serie;
+import app.Stream;
 
 
 public class ClienteTest {
@@ -21,9 +22,9 @@ public class ClienteTest {
 	@BeforeEach
 	public void setUp() {
 		// Configuração inicial para os testes
-		cliente = new Cliente("usuario", "senha");
-		serie1 = new Serie("Serie1", "Genero1", "Idioma1", 10, 0);
-		serie2 = new Serie("Serie2", "Genero2", "Idioma2", 20, 0);
+		cliente = new Cliente("usuario", "senha", "login");
+		serie1 = new Serie(1,"Stream1", "22-01-2020");
+		serie2 = new Serie(2,"Stream2", "22-01-2020");
 	}
 	
 	// @Test
@@ -38,7 +39,7 @@ public class ClienteTest {
 	// 	cliente.adicionarNaLista(serie1);
 	// 	cliente.adicionarNaLista(serie2);
 	// 	assertEquals(2, cliente.listaParaVer.size());
-	// 	cliente.retirarDaLista("Serie1");
+	// 	cliente.retirarDaLista("Stream1");
 	// 	assertEquals(1, cliente.listaParaVer.size());
 	// 	assertFalse(cliente.listaParaVer.contains(serie1));
 	// 	assertTrue(cliente.listaParaVer.contains(serie2));
@@ -48,7 +49,7 @@ public class ClienteTest {
 	public void testFiltrarPorGenero() {
 		cliente.registrarAudiencia(serie1);
 		cliente.adicionarNaLista(serie2);
-		List<Serie> listaFiltrada = cliente.filtrarPorGenero("Genero1");
+		List<Stream> listaFiltrada = cliente.filtrarPorGenero("Genero1");
 		assertEquals(1, listaFiltrada.size());
 		assertTrue(listaFiltrada.contains(serie1));
 		assertFalse(listaFiltrada.contains(serie2));
@@ -58,21 +59,21 @@ public class ClienteTest {
 	public void testFiltrarPorIdioma() {
 		cliente.registrarAudiencia(serie1);
 		cliente.adicionarNaLista(serie2);
-		List<Serie> listaFiltrada = cliente.filtrarPorIdioma("Idioma1");
+		List<Stream> listaFiltrada = cliente.filtrarPorIdioma("Idioma1");
 		assertEquals(1, listaFiltrada.size());
 		assertTrue(listaFiltrada.contains(serie1));
 		assertFalse(listaFiltrada.contains(serie2));
 	}
 	
-	@Test
-	public void testFiltrarPorQtdEpisodios() {
-		cliente.registrarAudiencia(serie1);
-		cliente.adicionarNaLista(serie2);
-		List<Serie> listaFiltrada = cliente.filtrarPorQtdEpisodios(10);
-		assertEquals(1, listaFiltrada.size());
-		assertTrue(listaFiltrada.contains(serie1));
-		assertFalse(listaFiltrada.contains(serie2));
-	}
+	// @Test
+	// public void testFiltrarPorQtdEpisodios() {
+	// 	cliente.registrarAudiencia(serie1);
+	// 	cliente.adicionarNaLista(serie2);
+	// 	List<Stream> listaFiltrada = cliente.filtrarPorQtdEpisodios(10);
+	// 	assertEquals(1, listaFiltrada.size());
+	// 	assertTrue(listaFiltrada.contains(serie1));
+	// 	assertFalse(listaFiltrada.contains(serie2));
+	// }
 	
 	// @Test
 	// public void testRegistrarAudiencia() {

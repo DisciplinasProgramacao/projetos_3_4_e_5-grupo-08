@@ -1,13 +1,48 @@
 package app;
 
+import java.util.Random;
+
 public abstract class Stream {
+    private int id;
     private String nome;
     private String genero;
     private String idioma;
     private int audiencia;
+    private String dataLancamento;
+
+    public static final String TERROR = "Terror";
+    public static final String COMEDIA = "Comedia";
+    public static final String ROMANCE = "Romance";
+    public static final String FICCAO = "Ficcao";
+
+    public static final String INGLES = "Ingles";
+    public static final String PORTUGUES = "Portugues";
+
+    public Stream(int id, String nome, String dataLancamento) {
+        this.id = id;
+        this.nome = nome;
+        this.dataLancamento = dataLancamento;
+        this.audiencia = 0;
+
+        String[] generos = {TERROR, COMEDIA, FICCAO, ROMANCE};
+        Random random = new java.util.Random();
+        int generoAleatorio = random.nextInt(generos.length);
+
+        this.genero = generos[generoAleatorio];
+
+        String[] idiomas = {PORTUGUES, INGLES};
+        Random random1 = new java.util.Random();
+        int idiomaAleatorio = random1.nextInt(idiomas.length);
+
+        this.idioma = idiomas[idiomaAleatorio];
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public void registrarAudiencia(int qnt){
-        setAudiencia(qnt);
+        setAudiencia((this.audiencia + qnt));
     }
 
     public String getNome() {
@@ -41,5 +76,12 @@ public abstract class Stream {
     public void setAudiencia(int audiencia) {
         this.audiencia = audiencia;
     }
-    
+
+    public String getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public void setDataLancamento(String dataLancamento) {
+        this.dataLancamento = dataLancamento;
+    }
 }
