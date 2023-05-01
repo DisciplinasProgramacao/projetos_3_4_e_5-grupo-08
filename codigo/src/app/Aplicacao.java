@@ -272,7 +272,7 @@ public class Aplicacao {
                             dataLancamentoColecao = MyIO.readString();
 
 							System.out.print("Digite o numero de episódios do filme: ");
-                            float duracao = MyIO.readInt();
+                            float duracao = MyIO.readFloat();
 
 							Filme novoFilme = new Filme(idMaior++, nomeColecao, generoColecao, idiomaColecao, dataLancamentoColecao, duracao);
                             Amaze.adicionarColecao(novoFilme);
