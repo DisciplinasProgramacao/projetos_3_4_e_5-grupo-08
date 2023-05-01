@@ -9,7 +9,6 @@ public class Aplicacao {
 
 		String[] dadosSeparadosS = dadosS.split(";");
 		//ID;Nome;Data
-
 		int cont = 0;
 
 		while (dadosS != null) {
@@ -106,6 +105,8 @@ public class Aplicacao {
 			Amaze.adicionarCliente(cliente);
 		}
 
+		int idMaior = -1;
+
 		//SERIE
 		//Criando vetor colecao de series
 		Stream[] vetorSeries = new Stream[131];
@@ -114,6 +115,9 @@ public class Aplicacao {
 		//Adicionando *series* à Amaze
 		for (Stream serie : vetorSeries) {
 			Amaze.adicionarColecao(serie);
+			if (serie.getId() > idMaior) {
+                idMaior = serie.getId();
+            }
 		}
 
 		//AUDIENCIA (SERIES)
@@ -129,6 +133,9 @@ public class Aplicacao {
 		//Adicionando *filmes* à Amaze
 		for (Stream filme : vetorFilmes) {
 			Amaze.adicionarColecao(filme);
+			if (filme.getId() > idMaior) {
+                idMaior = filme.getId();
+            }
 		}
 
 		//REALIZAR LOGIN
@@ -156,7 +163,7 @@ public class Aplicacao {
 					System.out.print(">> ");
 					int op1 = MyIO.readInt();
 
-					Stream opcaoEncontrada;
+					Stream opcaoEncontrada = null;
 
 					switch (op1) {
 						case 1:
@@ -220,7 +227,59 @@ public class Aplicacao {
 					}
 					break;
 				case 3:
+					System.out.println("Selecione uma das opções abaixo: ");
+					System.out.println("[1]Cadastrar Série");
+					System.out.println("[2]Cadastrar Filme");
+					System.out.print(">> ");
+					int op3 = MyIO.readInt();
 
+					String nomeColecao;
+					String generoColecao;
+					String idiomaColecao;
+					String dataLancamentoColecao;
+
+					switch(op3) {
+						case 1:
+                            System.out.print("Digite o nome da série: ");
+                            nomeColecao = MyIO.readString();
+
+                            System.out.print("Digite o gênero da série: ");
+                            generoColecao = MyIO.readString();
+
+                            System.out.print("Digite o idioma da série: ");
+                            idiomaColecao = MyIO.readString();
+
+							System.out.print("Digite a data de lançamento da série: ");
+                            dataLancamentoColecao = MyIO.readString();
+
+							System.out.print("Digite o numero de episódios da série: ");
+                            int numEpisodios = MyIO.readInt();
+
+							Serie novaSerie = new Serie(idMaior++, nomeColecao, generoColecao, idiomaColecao, dataLancamentoColecao, numEpisodios);
+                            Amaze.adicionarColecao(novaSerie);
+                            break;
+                        case 2:
+                            System.out.print("Digite o nome do filme: ");
+                            nomeColecao = MyIO.readString();
+
+                            System.out.print("Digite o gênero do filme: ");
+                            generoColecao = MyIO.readString();
+
+                            System.out.print("Digite o idioma do filme: ");
+                            idiomaColecao = MyIO.readString();
+
+							System.out.print("Digite a data de lançamento do filme: ");
+                            dataLancamentoColecao = MyIO.readString();
+
+							System.out.print("Digite o numero de episódios do filme: ");
+                            float duracao = MyIO.readInt();
+
+							Filme novoFilme = new Filme(idMaior++, nomeColecao, generoColecao, idiomaColecao, dataLancamentoColecao, duracao);
+                            Amaze.adicionarColecao(novoFilme);
+                            break;
+                        default:
+                            System.out.println("Opção inválida. Tente novamente.");
+					}
 
 					break;
 				case 0:

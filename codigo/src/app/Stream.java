@@ -20,6 +20,15 @@ public abstract class Stream {
     public static final String INGLES = "Ingles";
     public static final String PORTUGUES = "Portugues";
 
+    public Stream(int id, String nome, String genero, String idioma, String dataLancamento) {
+        this.id = id;
+        this.nome = nome;
+        this.genero = genero;
+        this.idioma = idioma;
+        this.dataLancamento = dataLancamento;
+        this.audiencia = 0;
+    }
+
     public Stream(int id, String nome, String dataLancamento){
         this.id = id;
         this.nome = nome;
