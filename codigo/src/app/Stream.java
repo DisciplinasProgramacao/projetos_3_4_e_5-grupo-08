@@ -10,15 +10,17 @@ public abstract class Stream {
     private int audiencia;
     private String dataLancamento;
 
+    //GENEROS
     public static final String TERROR = "Terror";
     public static final String COMEDIA = "Comedia";
     public static final String ROMANCE = "Romance";
     public static final String FICCAO = "Ficcao";
 
+    //IDIOMAS
     public static final String INGLES = "Ingles";
     public static final String PORTUGUES = "Portugues";
 
-    public Stream(int id, String nome, String dataLancamento) {
+    public Stream(int id, String nome, String dataLancamento){
         this.id = id;
         this.nome = nome;
         this.dataLancamento = dataLancamento;
@@ -84,4 +86,5 @@ public abstract class Stream {
     public void setDataLancamento(String dataLancamento) {
         this.dataLancamento = dataLancamento;
     }
+
 }
