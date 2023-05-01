@@ -5,16 +5,16 @@ import java.util.List;
 
 public class Cliente {
     private String nomeDeUsuario;
-    private String senha;
     private String login;
+    private String senha;
     List<Stream> listaParaVer;
     List<Stream> listaJaVistas;
 
 
-    public Cliente(String nomeDeUsuario, String senha, String login) {
-        this.nomeDeUsuario = nomeDeUsuario;
-        this.senha = senha;
-        this.login = login;
+    public Cliente(String nomeDeUsuario,String login, String senha) {
+        setNomeDeUsuario(nomeDeUsuario);
+        setLogin(login);
+        setSenha(senha);
         this.listaParaVer = new ArrayList<Stream>();
         this.listaJaVistas =  new ArrayList<Stream>();
     }
@@ -27,6 +27,14 @@ public class Cliente {
         this.nomeDeUsuario = nomeDeUsuario;
     }
 
+    public String getLogin(){
+        return this.login;
+    }
+
+    public void setLogin(String login){
+        this.login = login;
+    }
+
     public String getSenha() {
         return this.senha;
     }
@@ -35,27 +43,19 @@ public class Cliente {
         this.senha = senha;
     }
 
-    public String getLogin() {
-        return this.login;
+    public void adicionarNaListaParaVer(Stream serieOuFilme) {
+        this.listaParaVer.add(serieOuFilme);
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void adicionarNaListaJaVisto(Stream serieOuFilme) {
+        this.listaJaVistas.add(serieOuFilme);
     }
 
-    public void adicionarNaListaParaVer(Serie serie) {
-        this.listaParaVer.add(serie);
-    }
-
-    public void adicionarNaListaJaVisto(Serie serie) {
-        this.listaJaVistas.add(serie);
-    }
-
-    public void retirarDaLista(String nome) {
+    public void retirarDaLista(String nomeSerie) {
         int index = 0;
 
         for(int i = 0; i < this.listaJaVistas.size(); i++) {
-            if(this.listaJaVistas.get(i).getNome() == nome) index = i;
+            if(this.listaJaVistas.get(i).getNome() == nomeSerie) index = i;
         }
 
         this.listaParaVer.remove(index);
@@ -87,24 +87,6 @@ public class Cliente {
         }
 
         return lista;
-    }
-
-    // public List<Serie> filtrarPorQtdEpisodios(int quantEpisodios) {
-    //     List<Serie> lista = new ArrayList<Serie>();
-
-    //     for(int i = 0; i < this.listaJaVistas.size(); i++) {
-    //         if(this.listaJaVistas.get(i).getQuantidadeEpisodios() == quantEpisodios) lista.add(this.listaJaVistas.get(i));
-    //     }
-
-    //     for(int i = 0; i < this.listaParaVer.size(); i++) {
-    //         if(this.listaParaVer.get(i).getQuantidadeEpisodios() == quantEpisodios) lista.add(this.listaParaVer.get(i));
-    //     }
-
-    //     return lista;
-    // }
-
-    public void registrarAudiencia(Serie serie) {
-        this.listaJaVistas.add(serie);
     }
 
     public List<Stream> mostrarListaJaVista(){
