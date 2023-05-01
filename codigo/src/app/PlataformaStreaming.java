@@ -30,9 +30,9 @@ public class PlataformaStreaming {
         return clientes;
     }
 
-    public Cliente login (String login){
+    public Cliente login (String nomeUsuario, String senha){
         for(Cliente i : clientes) {
-            if(i.getLogin() == login) {
+            if(i.getNomeDeUsuario() == nomeUsuario && i.getSenha() == senha) {
                 clienteAtual = i;
                 return clienteAtual;
             }
@@ -56,6 +56,28 @@ public class PlataformaStreaming {
         return clienteAtual.getNomeDeUsuario();
     }
 
+    public List<Stream> filtrarPorGenero(String genero){
+        List<Stream> result = new ArrayList<Stream>();
+        for(Stream i : colecao) {
+            if(i.getGenero() == genero) {
+                result.add(i);
+            }
+        }
+
+        return result;
+    }
+
+    public List<Stream> filtrarPorIdioma(String idioma){
+        List<Stream> result = new ArrayList<Stream>();
+        for(Stream i : colecao) {
+            if(i.getIdioma() == idioma) {
+                result.add(i);
+            }
+        }
+
+        return result;
+    }
+
     public List<Stream> filtrarPorNome(String nome){
         List<Stream> result = new ArrayList<Stream>();
         for(Stream i : colecao) {
@@ -67,41 +89,7 @@ public class PlataformaStreaming {
         return result;
     }
 
-    public List<Stream> filtrarPorGenero(String genero){
-    	List<Stream> result = new ArrayList<Stream>();
-        for(Stream i : colecao) {
-            if(i.getGenero() == genero) {
-                result.add(i);
-            }
-        }
-
-        return result;
-    }
-
-    public List<Stream> filtrarPorIdioma(String idioma){
-    	List<Stream> result = new ArrayList<Stream>();
-        for(Stream i : colecao) {
-            if(i.getIdioma() == idioma) {
-                result.add(i);
-            }
-        }
-
-        return result;
-    }
-
-    // public List<Serie> filtrarPorQtdEpisodios(int quantEpisodios){
-    //     List<Serie> result = new ArrayList<Serie>();
-    //     for(Stream i : colecao) {
-    //         if(i.getQuantidadeEpisodios() == quantEpisodios) {
-    //             result.add(i);
-    //         }
-    //     }
-
-    //     return result;
-    // }
-
-    public void registrarAudiencia(Serie serie){
-    	clienteAtual.registrarAudiencia(serie);
-        serie.registrarAudiencia(1);
+    public void registrarAudiencia(Stream serieOuFilme){
+        serieOuFilme.setAudiencia(1);
     }
 }
