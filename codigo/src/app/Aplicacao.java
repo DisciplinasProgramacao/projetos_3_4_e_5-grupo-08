@@ -201,7 +201,6 @@ public class Aplicacao {
 					}
 					break;
 
-					break;
 				case 2:
 					System.out.println("Selecione uma das opções abaixo: ");
 					System.out.println("[1]Mostrar lista \"PARA ASSISTIR\" de séries e filmes");
