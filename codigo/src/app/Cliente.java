@@ -8,7 +8,7 @@ public class Cliente {
     private String login;
     private String senha;
     List<Stream> listaParaVer;
-    List<Stream> listaJaVistas;
+    List<AvaliacaoColecao> listaJaVistas;
 
 
     public Cliente(String nomeDeUsuario,String login, String senha) {
@@ -16,7 +16,7 @@ public class Cliente {
         setLogin(login);
         setSenha(senha);
         this.listaParaVer = new ArrayList<Stream>();
-        this.listaJaVistas =  new ArrayList<Stream>();
+        this.listaJaVistas =  new ArrayList<AvaliacaoColecao>();
     }
 
     public String getNomeDeUsuario() {
@@ -48,14 +48,15 @@ public class Cliente {
     }
 
     public void adicionarNaListaJaVisto(Stream serieOuFilme) {
-        this.listaJaVistas.add(serieOuFilme);
+        AvaliacaoColecao novo = new AvaliacaoColecao(serieOuFilme);
+        this.listaJaVistas.add(novo);
     }
 
     public void retirarDaLista(String nomeSerie) {
         int index = 0;
 
         for(int i = 0; i < this.listaJaVistas.size(); i++) {
-            if(this.listaJaVistas.get(i).getNome() == nomeSerie) index = i;
+            if(this.listaJaVistas.get(i).getColecao().getNome() == nomeSerie) index = i;
         }
 
         this.listaParaVer.remove(index);
@@ -65,7 +66,7 @@ public class Cliente {
         List<Stream> lista = new ArrayList<Stream>();
 
         for(int i = 0; i < this.listaJaVistas.size(); i++) {
-            if(this.listaJaVistas.get(i).getGenero() == genero) lista.add(this.listaJaVistas.get(i));
+            if(this.listaJaVistas.get(i).getColecao().getGenero() == genero) lista.add(this.listaJaVistas.get(i).getColecao());
         }
 
         for(int i = 0; i < this.listaParaVer.size(); i++) {
@@ -79,7 +80,7 @@ public class Cliente {
         List<Stream> lista = new ArrayList<Stream>();
 
         for(int i = 0; i < this.listaJaVistas.size(); i++) {
-            if(this.listaJaVistas.get(i).getIdioma() == idioma) lista.add(this.listaJaVistas.get(i));
+            if(this.listaJaVistas.get(i).getColecao().getIdioma() == idioma) lista.add(this.listaJaVistas.get(i).getColecao());
         }
 
         for(int i = 0; i < this.listaParaVer.size(); i++) {
@@ -89,11 +90,17 @@ public class Cliente {
         return lista;
     }
 
-    public List<Stream> mostrarListaJaVista(){
+    public List<AvaliacaoColecao> mostrarListaJaVista(){
         return listaJaVistas;
     }
 
     public List<Stream> mostrarListaParaAssistir(){
         return listaParaVer;
+    }
+
+    public void avaliar(int id, float nota) {
+        for(int i = 0; i < this.listaJaVistas.size(); i++) {
+            if(this.listaJaVistas.get(i).getColecao().getId() == id) this.listaJaVistas.get(i).setAvaliacao(nota);
+        }
     }
 }
