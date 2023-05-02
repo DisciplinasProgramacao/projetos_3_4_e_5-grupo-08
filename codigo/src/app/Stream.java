@@ -2,6 +2,7 @@ package app;
 
 import java.util.Random;
 
+//Classe Stream (pai de series filmes)
 public abstract class Stream {
     private int id;
     private String nome;
@@ -20,6 +21,7 @@ public abstract class Stream {
     public static final String INGLES = "Ingles";
     public static final String PORTUGUES = "Portugues";
 
+    //Construtor
     public Stream(int id, String nome, String genero, String idioma, String dataLancamento) {
         this.id = id;
         this.nome = nome;
@@ -29,6 +31,7 @@ public abstract class Stream {
         this.audiencia = 0;
     }
 
+    //Construtor
     public Stream(int id, String nome, String dataLancamento){
         this.id = id;
         this.nome = nome;
@@ -48,12 +51,16 @@ public abstract class Stream {
         this.idioma = idiomas[idiomaAleatorio];
     }
 
-    public int getId() {
-        return id;
-    }
-
+    
+    
     public void registrarAudiencia(int qnt){
         setAudiencia((this.audiencia + qnt));
+    }
+
+    //GETTERS E SETTERS
+
+    public int getId() {
+        return id;
     }
 
     public String getNome() {
@@ -85,7 +92,7 @@ public abstract class Stream {
     }
 
     public void setAudiencia(int audiencia) {
-        this.audiencia += audiencia;
+        this.audiencia = audiencia;
     }
 
     public String getDataLancamento() {
