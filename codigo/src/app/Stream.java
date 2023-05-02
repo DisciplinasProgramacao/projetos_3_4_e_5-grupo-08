@@ -85,7 +85,7 @@ public abstract class Stream {
     }
 
     public void setAudiencia(int audiencia) {
-        this.audiencia = audiencia;
+        this.audiencia += audiencia;
     }
 
     public String getDataLancamento() {
