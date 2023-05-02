@@ -1,60 +1,81 @@
 package app;
 
+/*
+Projetos 3, 4 e 5 (PARTE 3)
+
+Grupo 08 do laboratório da disciplina LPM 1/2023 PUC Minas - Praça da Liberdade
+
+Alunos integrantes da equipe:
+- Bernardo Cavanellas Biondini
+- João Vitor Bessa Lacerda
+- Nathan Gonçalves de Oliveira
+
+Professores responsáveis:
+- João Caram Santos de Oliveira
+*/
+
 public class Aplicacao {
 
+    //Método para carregar séries à plataforma
     public static void carregarDadosS(Stream[] vetorDeSeries) {
         ArquivoTextoLeitura file = new ArquivoTextoLeitura("codigo/src/POO_Series.csv");
 
         String dadosS = file.ler();
+        dadosS = file.ler(); //pula linha
 
-        String[] dadosSeparadosS = dadosS.split(";");
+        String[] dadosSeparadosS;
         //ID;Nome;Data
 
         int cont = 0;
 
-        while (dadosS != null) {
-
+         do{
+            dadosSeparadosS = dadosS.split(";");
             Stream novaSerie = new Serie(Integer.parseInt(dadosSeparadosS[0]), dadosSeparadosS[1], dadosSeparadosS[2]);
             vetorDeSeries[cont++] = novaSerie;
             dadosS = file.ler();
-        }
+            
+        }while (dadosS != null);
 
         file.fecharArquivo();
     }
 
+    //Método para carregar filmes à plataforma
     public static void carregarDadosF(Stream[] vetorDeFilmes) {
         ArquivoTextoLeitura file = new ArquivoTextoLeitura("codigo/src/POO_Filmes.csv");
 
         String dadosF = file.ler();
         dadosF = file.ler(); //pula linha
 
-        String[] dadosSeparadosF = dadosF.split(";");
+        String[] dadosSeparadosF;
         //IdFilme;Nome;DataDeLançamento;Duração(min)
 
         int cont = 0;
 
-        while (dadosF != null) {
-
+        do{
+            dadosSeparadosF = dadosF.split(";");
             Stream novoFilme = new Filme(Integer.parseInt(dadosSeparadosF[0]), dadosSeparadosF[1], dadosSeparadosF[2], Float.parseFloat(dadosSeparadosF[3]));
             vetorDeFilmes[cont++] = novoFilme;
             dadosF = file.ler();
-        }
+            
+        }while (dadosF != null);
 
         file.fecharArquivo();
     }
 
-    public static void carregarDadosA(Cliente[] vetorDeEspectadores, Stream[] vetorDeSerie, PlataformaStreaming plataforma) {
+    //Método para carregar dados de audiência de série a clientes cadastrados na plataforma
+    public static void carregarDadosA(PlataformaStreaming plataforma) {
         ArquivoTextoLeitura file = new ArquivoTextoLeitura("codigo/src/POO_Audiencia.csv");
 
         String dadosA = file.ler();
 
-        String[] dadosSeparadosA = dadosA.split(";");
+        String[] dadosSeparadosA;
         //Login;F/A;IdSerie
 
-        while (dadosA != null) {
-            for (Cliente cliente : vetorDeEspectadores) {
+         do{
+            dadosSeparadosA = dadosA.split(";");
+            for (Cliente cliente : plataforma.getClientes()) {
                 if (dadosSeparadosA[0].equals(cliente.getLogin())) {
-                    for (Stream serie : vetorDeSerie) {
+                    for (Stream serie : plataforma.getColecao()) {
                         if (serie.getId() == Integer.parseInt(dadosSeparadosA[2])) {
                             if (dadosSeparadosA[1].equals("F")) {
                                 cliente.adicionarNaListaParaVer(serie);
@@ -69,23 +90,27 @@ public class Aplicacao {
             }
 
             file.fecharArquivo();
-        }
+        }while (dadosA != null);
     }
 
+    //Método para criar perfis de cliente na plataforma
     public static void carregarDadosE(Cliente[] vetorDeEspectadores) {
         ArquivoTextoLeitura file = new ArquivoTextoLeitura("codigo/src/POO_Espectadores.csv");
 
         String dadosE = file.ler();
-        String[] dadosSeparadosE = dadosE.split(";");
+
+        String[] dadosSeparadosE;
 
         int cont = 0;
 
-        while (dadosE != null) {
+        do {
             //Nome;Login;Senha
+            dadosSeparadosE = dadosE.split(";");
             Cliente novoCliente = new Cliente(dadosSeparadosE[0], dadosSeparadosE[1], dadosSeparadosE[2]);
             vetorDeEspectadores[cont++] = novoCliente;
             dadosE = file.ler();
-        }
+            
+        }while (dadosE != null);
 
         file.fecharArquivo();
     }
@@ -95,6 +120,7 @@ public class Aplicacao {
         //PLATAFORMA
         //Criando plataforma de streaming "Amaze"
         PlataformaStreaming Amaze = new PlataformaStreaming("Amaze");
+
 
         //ESPECTADORES
         //Criando vetor de clientes
@@ -106,42 +132,47 @@ public class Aplicacao {
             Amaze.adicionarCliente(cliente);
         }
 
+
         int idMaior = -1;
 
         //SERIE
         //Criando vetor colecao de series
-        Stream[] vetorSeries = new Stream[131];
+        Serie[] vetorSeries = new Serie[129];
         //Carregando dados do arquivo "POO_Series.csv" para o vetor de colecao
         carregarDadosS(vetorSeries);
         //Adicionando *series* à Amaze
-        for (Stream serie : vetorSeries) {
+        for (Serie serie : vetorSeries) {
             Amaze.adicionarColecao(serie);
             if (serie.getId() > idMaior) {
                 idMaior = serie.getId();
             }
         }
 
+
         //AUDIENCIA (SERIES)
         //Carregando dados do arquivo "POO_Audiencia.csv"
-        carregarDadosA(vetorClientes, vetorSeries, Amaze);
+        carregarDadosA(Amaze);
 
 
         //FILME
         //Criando vetor de filmes
-        Stream[] vetorFilmes = new Filme[203];
+        Filme[] vetorFilmes = new Filme[203];
         //Carregando dados do arquivo "POO_Filmes.csv" para o vetor de Series
         carregarDadosF(vetorFilmes);
         //Adicionando *filmes* à Amaze
-        for (Stream filme : vetorFilmes) {
+        for (Filme filme : vetorFilmes) {
             Amaze.adicionarColecao(filme);
             if (filme.getId() > idMaior) {
                 idMaior = filme.getId();
             }
         }
 
+
         //REALIZAR LOGIN
         Amaze.login("Ada10", "ABro14415");
 
+
+        //MENU
         int op;
         do {
             System.out.println("=-" + Amaze.getNome() + "-=");
@@ -168,24 +199,32 @@ public class Aplicacao {
 
                     switch (op1) {
                         case 1:
-                            System.out.print("Digite o nome: ");
+                            /* System.out.print("Digite o nome: ");
                             String nome = MyIO.readString();
                             Amaze.filtrarPorNome(nome);
+                            System.out.println("Selecione a película inserindo seu id: ");
+                            op1 = MyIO.readInt();
 
-                            break;
+                            do{
+                                
+                                if(op1 == Amaze.filtrarPorNome){
+                                    opcaoEncontrada = ;
+                                }
+                            }while (op1 != null);
+                            break;*/
 
                         case 2:
-                            System.out.print("Digite o gênero: ");
+                            /*System.out.print("Digite o gênero: ");
                             String genero = MyIO.readString();
                             Amaze.filtrarPorGenero(genero);
 
-                            break;
+                            break;*/
                         case 3:
-                            System.out.print("Digite o idioma: ");
+                            /*System.out.print("Digite o idioma: ");
                             String idioma = MyIO.readString();
                             Amaze.filtrarPorIdioma(idioma);
 
-                            break;
+                            break;*/
                         default:
                             System.out.println("Opção inválida. Tente novamente.");
                     }
@@ -257,6 +296,8 @@ public class Aplicacao {
 
                             Serie novaSerie = new Serie(idMaior++, nomeColecao, generoColecao, idiomaColecao, dataLancamentoColecao, numEpisodios);
                             Amaze.adicionarColecao(novaSerie);
+
+
                             break;
                         case 2:
                             System.out.print("Digite o nome do filme: ");
@@ -277,8 +318,6 @@ public class Aplicacao {
                             Filme novoFilme = new Filme(idMaior++, nomeColecao, generoColecao, idiomaColecao, dataLancamentoColecao, duracao);
                             Amaze.adicionarColecao(novoFilme);
                             break;
-
-                        break;
                         case 0:
                             System.out.println("Finalizando programa.");
                             break;
