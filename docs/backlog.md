@@ -6,6 +6,6 @@ Backlog:
 - ~~Atualização do diagrama para abrigar o novo tipo de mídia: Filme;~~ FEITO ✔
 - ~~Implementação da lógica de carga de dados do catálogo de filmes;~~
 - ~~Implementação do cadastro de clientes, filmes e séries;~~ FEITO ✔
-- ~~Salvar dados de clientes, filmes e séries;~~ FEITO ✔
+- Salvar dados de clientes, filmes e séries;
 - ~~Implementação do protótipo de sistema cobrindo os requisitos atuais (documento anterior);~~ FEITO ✔
 - ~~Garantir a robustez do sistema principal.~~ FEITO ✔
