@@ -67,16 +67,21 @@ public class Aplicacao {
         ArquivoTextoLeitura file = new ArquivoTextoLeitura("codigo/src/POO_Audiencia.csv");
 
         String dadosA = file.ler();
+        dadosA = file.ler(); //pula linha
 
         String[] dadosSeparadosA;
         //Login;F/A;IdSerie
 
+        int contador = 0;
+        int indexMinimo = 1;
+
          do{
             dadosSeparadosA = dadosA.split(";");
             for (Cliente cliente : plataforma.getClientes()) {
-                if (dadosSeparadosA[0].equals(cliente.getLogin())) {
+                if (contador == indexMinimo){
+                 if (dadosSeparadosA[0].equals(cliente.getLogin())) {
                     for (Stream serie : plataforma.getColecao()) {
-                        if (serie.getId() == Integer.parseInt(dadosSeparadosA[2])) {
+                        if (Integer.parseInt(dadosSeparadosA[2]) == serie.getId()) {
                             if (dadosSeparadosA[1].equals("F")) {
                                 cliente.adicionarNaListaParaVer(serie);
                             } else /* dadosSeparadosA[1] == "A" */ {
@@ -86,7 +91,10 @@ public class Aplicacao {
                         }
                     }
                 }
-                dadosA = file.ler();
+                    dadosA = file.ler();
+                
+                }
+                contador++;
             }
 
             file.fecharArquivo();
@@ -98,6 +106,7 @@ public class Aplicacao {
         ArquivoTextoLeitura file = new ArquivoTextoLeitura("codigo/src/POO_Espectadores.csv");
 
         String dadosE = file.ler();
+        dadosE = file.ler(); //pula linha
 
         String[] dadosSeparadosE;
 
@@ -124,7 +133,7 @@ public class Aplicacao {
 
         //ESPECTADORES
         //Criando vetor de clientes
-        Cliente[] vetorClientes = new Cliente[51893];
+        Cliente[] vetorClientes = new Cliente[51891];
         //Carregando dados do arquivo "POO_Espectadores.csv" para o vetor de Series
         carregarDadosE(vetorClientes);
         //Adicionando *clientes* à Amaze
@@ -151,12 +160,12 @@ public class Aplicacao {
 
         //AUDIENCIA (SERIES)
         //Carregando dados do arquivo "POO_Audiencia.csv"
-        carregarDadosA(Amaze);
+        //carregarDadosA(Amaze);
 
 
         //FILME
         //Criando vetor de filmes
-        Filme[] vetorFilmes = new Filme[203];
+        Filme[] vetorFilmes = new Filme[201];
         //Carregando dados do arquivo "POO_Filmes.csv" para o vetor de Series
         carregarDadosF(vetorFilmes);
         //Adicionando *filmes* à Amaze
@@ -175,8 +184,8 @@ public class Aplicacao {
         //MENU
         int op;
         do {
-            System.out.println("=-" + Amaze.getNome() + "-=");
-            System.out.println("Olá " + Amaze.getNomeClienteAtual() + "!");
+            System.out.printf("=-" + Amaze.getNome() + "-=");
+            System.out.printf("Olá " + Amaze.getNomeClienteAtual() + "!");
             System.out.println("Digite uma das opções abaixo:");
             System.out.println("[1]Catálogo"); //Pesquisar series e filmes -> Aicionar "para assistir" ou "já assistido"
             System.out.println("[2]Perfil"); //Marcar series "já assistidas" e retornar "lista de series ja assistidas"
@@ -234,11 +243,11 @@ public class Aplicacao {
                     op1 = MyIO.readInt();
 
                     switch (op1) {
-								/*case 1:
-								Amaze.getClienteAtual().adicionarNaListaJaVisto(opcaoEncontrada);
-								break;
+								case 1:
+								/*Amaze.getClienteAtual().adicionarNaListaJaVisto(opcaoEncontrada);
+								break;*/
 								case 2:
-								Amaze.getClienteAtual().adicionarNaListaParaVer(opcaoEncontrada);
+								/*Amaze.getClienteAtual().adicionarNaListaParaVer(opcaoEncontrada);
 								break;*/
                         case 0:
                             System.out.println("Finalizando programa.");
@@ -277,6 +286,8 @@ public class Aplicacao {
                     String idiomaColecao;
                     String dataLancamentoColecao;
 
+                    ArquivoTextoEscrita escrita = null;
+
                     switch (op3) {
                         case 1:
                             System.out.print("Digite o nome da série: ");
@@ -296,6 +307,11 @@ public class Aplicacao {
 
                             Serie novaSerie = new Serie(idMaior++, nomeColecao, generoColecao, idiomaColecao, dataLancamentoColecao, numEpisodios);
                             Amaze.adicionarColecao(novaSerie);
+
+                            String escreverSerie = Integer.toString(idMaior) + ";" + nomeColecao + ";" + dataLancamentoColecao;
+                            escrita = new ArquivoTextoEscrita("POO_Filmes.csv");
+                            escrita.escrever(escreverSerie);
+                            escrita.fecharArquivo();
 
 
                             break;
@@ -317,6 +333,12 @@ public class Aplicacao {
 
                             Filme novoFilme = new Filme(idMaior++, nomeColecao, generoColecao, idiomaColecao, dataLancamentoColecao, duracao);
                             Amaze.adicionarColecao(novoFilme);
+
+                            String escreverFilme = Integer.toString(idMaior) + ";" + nomeColecao + ";" + dataLancamentoColecao + ";" + Float.toString(duracao);
+                            escrita = new ArquivoTextoEscrita("POO_Filmes.csv");
+                            escrita.escrever(escreverFilme);
+                            escrita.fecharArquivo();
+
                             break;
                         case 0:
                             System.out.println("Finalizando programa.");

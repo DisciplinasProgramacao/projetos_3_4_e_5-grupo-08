@@ -19,4 +19,5 @@ public class Serie extends Stream {
     public void setQuantidadeEpisodios(int quantidadeEpisodios) {
         this.quantidadeEpisodios = quantidadeEpisodios;
     }
+
 }

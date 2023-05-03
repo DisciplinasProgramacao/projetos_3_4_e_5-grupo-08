@@ -30,15 +30,15 @@ public class PlataformaStreaming {
         return clientes;
     }
 
-    public Cliente login (String nomeUsuario, String senha){
+    public void login (String login, String senha){
         for(Cliente i : clientes) {
-            if(i.getNomeDeUsuario() == nomeUsuario && i.getSenha() == senha) {
-                clienteAtual = i;
-                return clienteAtual;
-            }
+            if(i.getLogin() == login){
+                if (i.getSenha() == senha){
+                    this.clienteAtual = i;
+                }
+            }        
         }
-        return clienteAtual;
-    }
+    }  
 
     public void adicionarColecao(Stream novo){
         colecao.add(novo);
