@@ -1,19 +1,16 @@
 package app;
 
-/*
-Projetos 3, 4 e 5 (PARTE 3)
-
-Grupo 08 do laboratório da disciplina LPM 1/2023 PUC Minas - Praça da Liberdade
-
-Alunos integrantes da equipe:
-- Bernardo Cavanellas Biondini
-- João Vitor Bessa Lacerda
-- Nathan Gonçalves de Oliveira
-
-Professores responsáveis:
-- João Caram Santos de Oliveira
-*/
-
+/**
+ * Projetos 3, 4 e 5 (PARTE 3)
+ * 
+ * Grupo 08 do laboratório da disciplina LPM 1/2023 PUC Minas - Praça da Liberdade
+ * 
+ * @author Bernardo Cavanellas Biondini
+ * @author João Vitor Bessa Lacerda
+ * @author Nathan Gonçalves de Oliveira
+ * 
+ * Professor: João Caram Santos de Oliveira
+ */
 public class Aplicacao {
 
     //Método para carregar séries à plataforma

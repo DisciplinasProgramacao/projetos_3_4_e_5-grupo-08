@@ -21,7 +21,14 @@ public abstract class Stream {
     public static final String INGLES = "Ingles";
     public static final String PORTUGUES = "Portugues";
 
-    //Construtor
+    /**
+     * Construtor da classe Stream
+     * @param id
+     * @param nome
+     * @param genero
+     * @param idioma
+     * @param dataLancamento
+     */
     public Stream(int id, String nome, String genero, String idioma, String dataLancamento) {
         this.id = id;
         this.nome = nome;
@@ -31,7 +38,13 @@ public abstract class Stream {
         this.audiencia = 0;
     }
 
-    //Construtor
+    /**
+     * Construtor classe Stream
+     * 
+     * @param id
+     * @param nome
+     * @param dataLancamento
+     */
     public Stream(int id, String nome, String dataLancamento){
         this.id = id;
         this.nome = nome;
@@ -51,54 +64,107 @@ public abstract class Stream {
         this.idioma = idiomas[idiomaAleatorio];
     }
 
-    
-    
-    public void registrarAudiencia(int qnt){
-        setAudiencia((this.audiencia + qnt));
+    /**
+     * Registra audiência, funciona como visualizações
+     */
+    public void registrarAudiencia(){
+        setAudiencia((this.audiencia + 1));
     }
 
-    //GETTERS E SETTERS
-
+    /**
+     * Retorna o Id do Stream
+     * 
+     * @return int - id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Retorna o nome do Stream
+     * 
+     * @return String - nome
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Atribui um nome ao Stream
+     * 
+     * @param nome
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    /**
+     * Retorna o genero do Stream
+     * 
+     * @return String - genero
+     */
     public String getGenero() {
         return genero;
     }
 
+    /**
+     * Atribui genero ao Stream
+     * 
+     * @param genero
+     */
     public void setGenero(String genero) {
         this.genero = genero;
     }
 
+    /**
+     * Retorna o idioma do Stream
+     * 
+     * @return String - idioma
+     */
     public String getIdioma() {
         return idioma;
     }
 
+    /**
+     * Atribui idioma ao Stream
+     * 
+     * @param idioma
+     */
     public void setIdioma(String idioma) {
         this.idioma = idioma;
     }
 
+    /**
+     * Retorna a audiência do Stream
+     * 
+     * @return int - audiencia
+     */
     public int getAudiencia() {
         return audiencia;
     }
 
+    /**
+     * Atribui um valor a audiência do Stream
+     * @param audiencia
+     */
     public void setAudiencia(int audiencia) {
-        this.audiencia += audiencia;
+        this.audiencia = audiencia;
     }
 
+    /**
+     * Retorna a data de lançamento do Stream
+     * 
+     * @return String - dataLancamento
+     */
     public String getDataLancamento() {
         return dataLancamento;
     }
 
+    /**
+     * Atribui uma data de lancamento ao Stream
+     * 
+     * @param dataLancamento
+     */
     public void setDataLancamento(String dataLancamento) {
         this.dataLancamento = dataLancamento;
     }

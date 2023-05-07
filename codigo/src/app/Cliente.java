@@ -132,7 +132,7 @@ public class Cliente {
     }
 
     /**
-     * FIltra filmes e séries por idioma
+     * Filtra filmes e séries por idioma
      * 
      * @param idioma
      * @return List<Stream>
@@ -177,5 +177,15 @@ public class Cliente {
         for(int i = 0; i < this.listaJaVistas.size(); i++) {
             if(this.listaJaVistas.get(i).getColecao().getId() == id) this.listaJaVistas.get(i).setAvaliacao(nota);
         }
+    }
+
+    /**
+     * Registra a audiência do cliente
+     * 
+     * Adiciona filme ou série na lista de assistidos
+     * @param serieOuFilme
+     */
+    public void registrarAudiencia(Stream serieOuFilme) {
+        this.adicionarNaListaJaVisto(serieOuFilme);
     }
 }
