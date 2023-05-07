@@ -40,7 +40,7 @@ public class PlataformaStreaming {
     public HashSet<Stream> getColecao() {
         return colecao;
     }
-    
+
     /**
      * Retorna o Hash de Clientes
      * 
@@ -54,16 +54,17 @@ public class PlataformaStreaming {
      * Atribui o cliente atual referente ao login e senha enviados
      * 
      * Faz o login na plataforma
+     * 
      * @param login
      * @param senha
      */
-    public void login (String login, String senha){
-        for(Cliente i : clientes) {
-            if(i.getLogin() == login){
-                if (i.getSenha() == senha){
+    public void login(String login, String senha) {
+        for (Cliente i : clientes) {
+            if (i.getLogin() == login) {
+                if (i.getSenha() == senha) {
                     this.clienteAtual = i;
                 }
-            }        
+            }
         }
     }
 
@@ -71,21 +72,23 @@ public class PlataformaStreaming {
      * Atribui o cliente atual referente ao login enviado
      * 
      * Faz o login na plataforma
+     * 
      * @param login
      */
-    public void login (String login){
-        for(Cliente i : clientes) {
-            if(i.getLogin() == login){
+    public void login(String login) {
+        for (Cliente i : clientes) {
+            if (i.getLogin() == login) {
                 this.clienteAtual = i;
-            }        
+            }
         }
     }
-    
+
     /**
      * Adiciona filme ou série no hash da coleção da plataforma
+     * 
      * @param novo
      */
-    public void adicionarColecao(Stream novo){
+    public void adicionarColecao(Stream novo) {
         colecao.add(novo);
     }
 
@@ -94,7 +97,7 @@ public class PlataformaStreaming {
      * 
      * @param cliente
      */
-    public void adicionarCliente(Cliente cliente){
+    public void adicionarCliente(Cliente cliente) {
         clientes.add(cliente);
     }
 
@@ -103,7 +106,7 @@ public class PlataformaStreaming {
      * 
      * @return Cliente -clienteAtual
      */
-    public Cliente getClienteAtual(){
+    public Cliente getClienteAtual() {
         return this.clienteAtual;
     }
 
@@ -112,7 +115,7 @@ public class PlataformaStreaming {
      * 
      * @return String - clienteAtual.nome
      */
-    public String getNomeClienteAtual(){
+    public String getNomeClienteAtual() {
         return clienteAtual.getNomeDeUsuario();
     }
 
@@ -122,10 +125,10 @@ public class PlataformaStreaming {
      * @param genero
      * @return List<Stream> - result
      */
-    public List<Stream> filtrarPorGenero(String genero){
+    public List<Stream> filtrarPorGenero(String genero) {
         List<Stream> result = new ArrayList<Stream>();
-        for(Stream i : colecao) {
-            if(i.getGenero() == genero) {
+        for (Stream i : colecao) {
+            if (i.getGenero() == genero) {
                 result.add(i);
             }
         }
@@ -139,10 +142,10 @@ public class PlataformaStreaming {
      * @param idioma
      * @return List<Stream> - result
      */
-    public List<Stream> filtrarPorIdioma(String idioma){
+    public List<Stream> filtrarPorIdioma(String idioma) {
         List<Stream> result = new ArrayList<Stream>();
-        for(Stream i : colecao) {
-            if(i.getIdioma() == idioma) {
+        for (Stream i : colecao) {
+            if (i.getIdioma() == idioma) {
                 result.add(i);
             }
         }
@@ -156,10 +159,10 @@ public class PlataformaStreaming {
      * @param nome
      * @return List<Stream> - result
      */
-    public List<Stream> filtrarPorNome(String nome){
+    public List<Stream> filtrarPorNome(String nome) {
         List<Stream> result = new ArrayList<Stream>();
-        for(Stream i : colecao) {
-            if(i.getNome() == nome) {
+        for (Stream i : colecao) {
+            if (i.getNome() == nome) {
                 result.add(i);
             }
         }
@@ -172,8 +175,18 @@ public class PlataformaStreaming {
      * 
      * @param serieOuFilme
      */
-    public void registrarAudiencia(Stream serieOuFilme){
+    public void registrarAudiencia(Stream serieOuFilme) {
         this.clienteAtual.registrarAudiencia(serieOuFilme);
         serieOuFilme.registrarAudiencia();
+    }
+
+    public Stream encontraStreamPorId(int id) {
+        for (Stream i : this.colecao) {
+            if (i.getId() == id) {
+                return i;
+            }
+        }
+
+        return null;
     }
 }

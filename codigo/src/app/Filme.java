@@ -46,4 +46,14 @@ public class Filme extends Stream{
         this.duracao = duracao;
     }
 
+    /**
+     * Retorna uma String com os valores dos atributos
+     * 
+     * @return String
+     */
+    @Override
+    public String toString() {
+        String apresentacao = "Sobre o Filme: \n----------------------------------------------------------------\n";
+        return apresentacao + super.toString() + "\nDuração: " + this.duracao + "";
+    }
 }

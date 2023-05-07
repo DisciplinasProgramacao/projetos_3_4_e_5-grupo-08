@@ -4,6 +4,8 @@ import java.util.Random;
 
 //Classe Stream (pai de series filmes)
 public abstract class Stream {
+    public static int contId = 0;
+
     private int id;
     private String nome;
     private String genero;
@@ -30,6 +32,9 @@ public abstract class Stream {
      * @param dataLancamento
      */
     public Stream(int id, String nome, String genero, String idioma, String dataLancamento) {
+        if(id > contId) {
+            contId = id;
+        }
         this.id = id;
         this.nome = nome;
         this.genero = genero;
@@ -46,6 +51,9 @@ public abstract class Stream {
      * @param dataLancamento
      */
     public Stream(int id, String nome, String dataLancamento){
+        if(id > contId) {
+            contId = id;
+        }
         this.id = id;
         this.nome = nome;
         this.dataLancamento = dataLancamento;
@@ -168,5 +176,15 @@ public abstract class Stream {
     public void setDataLancamento(String dataLancamento) {
         this.dataLancamento = dataLancamento;
     }
-
+    
+    /**
+     * Retorna uma String com os valores dos atributos
+     * 
+     * @return String
+     */
+    @Override
+    public String toString() {
+        String result = "Id: " + this.id + "\n" + "Nome: " + this.nome + "\n" + "Gênero: " + this.genero + "\n" + "Idioma: " + this.idioma + "\n" + "Audiência: " + this.audiencia + "\n" + "Data: " + this.dataLancamento + "\n";
+        return result;
+    }
 }
