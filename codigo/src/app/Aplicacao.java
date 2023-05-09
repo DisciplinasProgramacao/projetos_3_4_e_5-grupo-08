@@ -1,7 +1,7 @@
 package app;
 
 /**
- * Projetos 3, 4 e 5 (PARTE 3)
+ * Projetos 3, 4 e 5 (PARTE 4)
  * 
  * Grupo 08 do laboratório da disciplina LPM 1/2023 PUC Minas - Praça da
  * Liberdade
@@ -14,7 +14,11 @@ package app;
  */
 public class Aplicacao {
 
-    // Método para carregar séries à plataforma
+    /**
+     * Método para carregar séries à plataforma
+     * 
+     * @param plataforma
+     */
     public static void carregarDadosS(PlataformaStreaming plataforma) {
         ArquivoTextoLeitura file = new ArquivoTextoLeitura("codigo/src/POO_Series.csv");
 
@@ -35,7 +39,11 @@ public class Aplicacao {
         file.fecharArquivo();
     }
 
-    // Método para carregar filmes à plataforma
+    /**
+     * Método para carregar filmes à plataforma
+     * 
+     * @param plataforma
+     */
     public static void carregarDadosF(PlataformaStreaming plataforma) {
         ArquivoTextoLeitura file = new ArquivoTextoLeitura("codigo/src/POO_Filmes.csv");
 
@@ -57,8 +65,11 @@ public class Aplicacao {
         file.fecharArquivo();
     }
 
-    // Método para carregar dados de audiência de série a clientes cadastrados na
-    // plataforma
+    /**
+     * Método para carregar dados de audiência de série a clientes cadastrados na plataforma
+     * 
+     * @param plataforma
+     */
     public static void carregarDadosA(PlataformaStreaming plataforma) {
         ArquivoTextoLeitura file = new ArquivoTextoLeitura("codigo/src/POO_Audiencia.csv");
 
@@ -86,7 +97,11 @@ public class Aplicacao {
         file.fecharArquivo();
     }
 
-    // Método para criar perfis de cliente na plataforma
+    /**
+     * Método para criar perfis de cliente na plataforma
+     * 
+     * @param plataforma
+     */
     public static void carregarDadosE(PlataformaStreaming plataforma) {
         ArquivoTextoLeitura file = new ArquivoTextoLeitura("codigo/src/POO_Espectadores.csv");
 
@@ -130,19 +145,31 @@ public class Aplicacao {
         carregarDadosF(Amaze);
 
         // REALIZAR LOGIN
-        Amaze.login("Ada10", "ABro14415");
+        /*boolean acesso = false;
+        while (acesso != true){*/
+            System.out.println("=-Realizar Login-=");
+            System.out.print("Login>> ");
+            String login = MyIO.readString(); //"Sha176581"
+            System.out.print("Senha>> ");
+            String senha = MyIO.readString(); //"SOrg05341"
+            Amaze.login(login, senha);
+        /*if ( true == Amaze.login(login, senha)){
+             acesso = true;
+        }*/
+        
 
         // MENU
         int op;
         do {
-            System.out.printf("=-" + Amaze.getNome() + "-=");
-            System.out.printf("Olá " + Amaze.getNomeClienteAtual() + "!");
+            System.out.printf("=-=-=-" + Amaze.getNome() + "-=-=-=\n");
+            System.out.printf("Olá " + Amaze.getNomeClienteAtual() + "!\n");
+            System.out.println("=-=-=-=-=-=-=-=-=");
             System.out.println("Digite uma das opções abaixo:");
-            System.out.println("[1]Catálogo"); // Pesquisar series e filmes -> Aicionar "para assistir" ou "já
-                                               // assistido"
+            System.out.println("[1]Catálogo"); // Pesquisar series e filmes -> Aicionar "para assistir" ou "já assistido"
             System.out.println("[2]Perfil"); // Marcar series "já assistidas" e retornar "lista de series ja assistidas"
             System.out.println("[3]Adicionar série ou filme ao catálogo");
             System.out.println("[0]Finalizar programa");
+            System.out.println("=-=-=-=-=-=-=-=-=");
             System.out.print(">> ");
             op = MyIO.readInt();
 
@@ -160,61 +187,53 @@ public class Aplicacao {
 
                     switch (op1) {
                         case 1:
-                            /*
-                             * System.out.print("Digite o nome: ");
-                             * String nome = MyIO.readString();
-                             * Amaze.filtrarPorNome(nome);
-                             * System.out.println("Selecione a película inserindo seu id: ");
-                             * op1 = MyIO.readInt();
-                             * 
-                             * do{
-                             * 
-                             * if(op1 == Amaze.filtrarPorNome){
-                             * opcaoEncontrada = ;
-                             * }
-                             * }while (op1 != null);
-                             * break;
-                             */
+                            //Ainda não entrega uma lista
+                            System.out.print("Digite o nome: ");
+                            String nome = MyIO.readLine();
+                            opcaoEncontrada = Amaze.filtrarPorNome(nome);   
+                            break;  
 
                         case 2:
-                            /*
-                             * System.out.print("Digite o gênero: ");
-                             * String genero = MyIO.readString();
-                             * Amaze.filtrarPorGenero(genero);
-                             * 
-                             * break;
-                             */
+                            //Ainda não entrega uma lista
+                            System.out.print("Digite o gênero: ");
+                            String genero = MyIO.readLine();
+                            opcaoEncontrada = Amaze.filtrarPorGenero(genero);
+                            break;
+                             
                         case 3:
-                            /*
-                             * System.out.print("Digite o idioma: ");
-                             * String idioma = MyIO.readString();
-                             * Amaze.filtrarPorIdioma(idioma);
-                             * 
-                             * break;
-                             */
+                            //Ainda não entrega uma lista
+                            System.out.print("Digite o idioma: ");
+                            String idioma = MyIO.readLine();
+                            opcaoEncontrada = Amaze.filtrarPorIdioma(idioma);
+                            break;
+                            
                         default:
                             System.out.println("Opção inválida. Tente novamente.");
                     }
+                    System.out.println("Película encontrada: \n" + opcaoEncontrada);  
                     System.out.println("[1]Marcar como opção como: já visto(a)");
                     System.out.println("[2]Adicionar opção à lista: assistir futuramente");
                     System.out.println("[0]Sair");
-                    op1 = MyIO.readInt();
+                    System.out.println(">> ");
+                    int op1p1 = MyIO.readInt();
 
-                    switch (op1) {
+                    switch (op1p1) {
                         case 1:
-                            /*
-                             * Amaze.getClienteAtual().adicionarNaListaJaVisto(opcaoEncontrada);
-                             * break;
-                             */
+                            
+                            Amaze.getClienteAtual().adicionarNaListaJaVisto(opcaoEncontrada);
+                            System.out.println("Película adicionada com sucesso à lista *Já Visto*!");
+                            break;
                         case 2:
-                            /*
-                             * Amaze.getClienteAtual().adicionarNaListaParaVer(opcaoEncontrada);
-                             * break;
-                             */
+  
+                            Amaze.getClienteAtual().adicionarNaListaParaVer(opcaoEncontrada);
+                            System.out.println("Película adicionada com sucesso à lista *Ver Futuramente*!");
+                            break;
                         case 0:
+
                             System.out.println("Finalizando programa.");
                             break;
                         default:
+
                             System.out.println("Opção inválida. Tente novamente.");
                     }
                     break;
@@ -227,10 +246,10 @@ public class Aplicacao {
 
                     switch (op2) {
                         case 1:
-                            Amaze.getClienteAtual().mostrarListaParaAssistir();
+                            System.out.println(Amaze.getClienteAtual().mostrarListaParaAssistir());
                             break;
                         case 2:
-                            Amaze.getClienteAtual().mostrarListaJaVista();
+                            System.out.println(Amaze.getClienteAtual().mostrarListaJaVista());
                             break;
                         default:
                             System.out.println("Opção inválida. Tente novamente.");
