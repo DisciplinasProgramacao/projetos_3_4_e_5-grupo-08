@@ -1,5 +1,10 @@
 package app;
-
+/**
+ * Classe AvaliacaoColecao
+ * 
+ * Permite armazenar um filme ou serie junto com uma avaliação
+ * a avaliação é realizada pelo usuário
+ */
 public class AvaliacaoColecao {
     private Stream colecao;
     private double avaliacao;

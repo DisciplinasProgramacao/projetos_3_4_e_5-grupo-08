@@ -11,6 +11,11 @@ public class PlataformaStreaming {
     private HashSet<Cliente> clientes;
     private Cliente clienteAtual;
 
+    /**
+     * Construtor da Plataforma
+     * 
+     * @param nome
+     */
     public PlataformaStreaming(String nome) {
         this.nome = nome;
         this.colecao = new HashSet<Stream>();
@@ -18,78 +23,175 @@ public class PlataformaStreaming {
         this.clienteAtual = null;
     }
 
+    /**
+     * Retorna o nome da Plataforma de Straming
+     * 
+     * @return String - nome
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Retorna o Hash de Series e Filmes
+     * 
+     * @return HashSet<Stream> - colecao
+     */
     public HashSet<Stream> getColecao() {
         return colecao;
     }
 
+    /**
+     * Retorna o Hash de Clientes
+     * 
+     * @return HashSet<Cliente> - clientes
+     */
     public HashSet<Cliente> getClientes() {
         return clientes;
     }
 
-    public Cliente login (String nomeUsuario, String senha){
-        for(Cliente i : clientes) {
-            if(i.getNomeDeUsuario() == nomeUsuario && i.getSenha() == senha) {
-                clienteAtual = i;
-                return clienteAtual;
+    /**
+     * Atribui o cliente atual referente ao login e senha enviados
+     * 
+     * Faz o login na plataforma
+     * 
+     * @param login
+     * @param senha
+     */
+    public void login(String login, String senha) {
+        for (Cliente i : clientes) {
+            if (i.getLogin().equals(login)) {
+                if (i.getSenha().equals(senha)) {
+                    this.clienteAtual = i;
+                    break;
+                }
             }
         }
-        return clienteAtual;
     }
 
-    public void adicionarColecao(Stream novo){
+    /**
+     * Atribui o cliente atual referente ao login enviado
+     * 
+     * Faz o login na plataforma
+     * 
+     * @param login
+     */
+    public void login(String login) {
+        for (Cliente i : clientes) {
+            if (i.getLogin() == login) {
+                this.clienteAtual = i;
+            }
+        }
+    }
+
+    /**
+     * Adiciona filme ou série no hash da coleção da plataforma
+     * 
+     * @param novo
+     */
+    public void adicionarColecao(Stream novo) {
         colecao.add(novo);
     }
 
-    public void adicionarCliente(Cliente cliente){
+    /**
+     * Adiciona um cliente na plataforma
+     * 
+     * @param cliente
+     */
+    public void adicionarCliente(Cliente cliente) {
         clientes.add(cliente);
     }
 
-    public Cliente getClienteAtual(){
+    /**
+     * Retorna o cliente logado no momento
+     * 
+     * @return Cliente -clienteAtual
+     */
+    public Cliente getClienteAtual() {
         return this.clienteAtual;
     }
 
-    public String getNomeClienteAtual(){
+    /**
+     * Retorna o nome do cliente atual
+     * 
+     * @return String - clienteAtual.nome
+     */
+    public String getNomeClienteAtual() {
         return clienteAtual.getNomeDeUsuario();
     }
 
-    public List<Stream> filtrarPorGenero(String genero){
-        List<Stream> result = new ArrayList<Stream>();
-        for(Stream i : colecao) {
-            if(i.getGenero() == genero) {
-                result.add(i);
+    /**
+     * Filtra filmes e séries por gênero
+     * 
+     * @param genero
+     * @return Stream - result
+     */
+    public Stream filtrarPorGenero(String genero) {
+        Stream result = null;
+        for (Stream i : colecao) {
+            if (i.getGenero() == genero) {
+                result = i;
+                break;
             }
         }
 
         return result;
     }
 
-    public List<Stream> filtrarPorIdioma(String idioma){
-        List<Stream> result = new ArrayList<Stream>();
-        for(Stream i : colecao) {
-            if(i.getIdioma() == idioma) {
-                result.add(i);
+    /**
+     * Filtra filmes e séries por idioma
+     * 
+     * @param idioma
+     * @return Stream - result
+     */
+    public Stream filtrarPorIdioma(String idioma) {
+        Stream result = null;
+        for (Stream i : colecao) {
+            if (i.getIdioma() == idioma) {
+                result = i;
+                break;
             }
         }
 
         return result;
     }
 
-    public List<Stream> filtrarPorNome(String nome){
-        List<Stream> result = new ArrayList<Stream>();
-        for(Stream i : colecao) {
-            if(i.getNome() == nome) {
-                result.add(i);
+    /**
+     * Filtra filmes e séries por nome
+     * 
+     * @param nome
+     * @return Stream - result
+     */
+    public Stream filtrarPorNome(String nome) {
+        Stream result = null;
+        for (Stream i : colecao) {
+            String n = i.getNome();
+            if (n.equals(nome)) {
+                result = i;
+                break;
             }
         }
 
         return result;
     }
 
-    public void registrarAudiencia(Stream serieOuFilme){
-        serieOuFilme.setAudiencia(1);
+    /**
+     * Registra audiência caso o cliente atual assista uma série
+     * 
+     * @param serieOuFilme
+     */
+    public void registrarAudiencia(Stream serieOuFilme) {
+        this.clienteAtual.registrarAudiencia(serieOuFilme);
+        serieOuFilme.registrarAudiencia();
+    }
+
+    public Stream encontraStreamPorId(int id) {
+        for (Stream i : this.colecao) {
+            if (i.getId() == id) {
+                return i;
+            }
+        }
+
+        return null;
     }
 }
