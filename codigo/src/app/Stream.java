@@ -12,6 +12,8 @@ public abstract class Stream {
     private String idioma;
     private int audiencia;
     private String dataLancamento;
+    private double avaliacao;
+    private int contAvaliacao;
 
     //GENEROS
     public static final String TERROR = "Terror";
@@ -41,6 +43,8 @@ public abstract class Stream {
         this.idioma = idioma;
         this.dataLancamento = dataLancamento;
         this.audiencia = 0;
+        this.avaliacao = 0;
+        this.contAvaliacao = 0;
     }
 
     /**
@@ -176,7 +180,23 @@ public abstract class Stream {
     public void setDataLancamento(String dataLancamento) {
         this.dataLancamento = dataLancamento;
     }
-    
+
+    /**
+     * Retorna a avaliacao media da midia
+     * 
+     * @return double - avaliacao
+     */
+    public double getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void avaliar(double nota) {
+        double total = this.avaliacao * this.contAvaliacao;
+        contAvaliacao++;
+        double media = (nota + total)/this.contAvaliacao;
+        this.avaliacao = media;
+    }
+
     /**
      * Retorna uma String com os valores dos atributos
      * 

@@ -7,7 +7,7 @@ package app;
  */
 public class AvaliacaoStream {
     private Stream stream;
-    private float avaliacao;
+    private double avaliacao;
 
     /**
      * Construtor da classe Avaliacao
@@ -41,7 +41,7 @@ public class AvaliacaoStream {
      * 
      * @return float - avaliacao
      */
-    public float getAvaliacao() {
+    public double getAvaliacao() {
         return avaliacao;
     }
 
@@ -52,6 +52,7 @@ public class AvaliacaoStream {
      */
     public void setAvaliacao(float avaliacao) {
         this.avaliacao = avaliacao;
+        this.stream.avaliar(avaliacao);
     }
 
     /**
