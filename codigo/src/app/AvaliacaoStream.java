@@ -72,4 +72,12 @@ public class AvaliacaoStream {
     public boolean isAvaliado() {
         return this.avaliacao != -1;
     }
+
+    /**
+     * Retorna o nome da midia
+     * @return String - nome
+     */
+    public String getNomeStream() {
+        return this.stream.getNome();
+    }
 }

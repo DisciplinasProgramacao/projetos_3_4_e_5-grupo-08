@@ -164,8 +164,12 @@ public class Cliente {
      * 
      * @return List<AvaliacaoStream>
      */
-    public List<AvaliacaoStream> mostrarListaJaVista() {
-        return listaJaVistas;
+    public void mostrarListaJaVista() {
+        for (AvaliacaoStream i : this.listaJaVistas) {
+            System.out.println("--------------------------------");
+            System.out.println("Nome: " + i.getNomeStream());
+            System.out.println("Id: " + i.getIdStream());
+        }
     }
 
     /**
@@ -173,8 +177,12 @@ public class Cliente {
      * 
      * @return
      */
-    public List<Stream> mostrarListaParaAssistir() {
-        return listaParaVer;
+    public void mostrarListaParaAssistir() {
+        for (Stream i : this.listaParaVer) {
+            System.out.println("--------------------------------");
+            System.out.println("Nome: " + i.getNome());
+            System.out.println("Id: " + i.getId());
+        }
     }
 
     /**
