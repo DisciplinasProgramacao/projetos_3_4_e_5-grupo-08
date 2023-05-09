@@ -11,17 +11,19 @@ public class Cliente {
     List<AvaliacaoColecao> listaJaVistas;
 
     /**
-     * Construtor com nome de usuario, login e senha. As listas são inicializadas nesse método
+     * Construtor com nome de usuario, login e senha. As listas são inicializadas
+     * nesse método
+     * 
      * @param nomeDeUsuario
      * @param login
      * @param senha
      */
-    public Cliente(String nomeDeUsuario,String login, String senha) {
+    public Cliente(String nomeDeUsuario, String login, String senha) {
         setNomeDeUsuario(nomeDeUsuario);
         setLogin(login);
         setSenha(senha);
         this.listaParaVer = new ArrayList<Stream>();
-        this.listaJaVistas =  new ArrayList<AvaliacaoColecao>();
+        this.listaJaVistas = new ArrayList<AvaliacaoColecao>();
     }
 
     /**
@@ -47,7 +49,7 @@ public class Cliente {
      * 
      * @return String - login
      */
-    public String getLogin(){
+    public String getLogin() {
         return this.login;
     }
 
@@ -56,7 +58,7 @@ public class Cliente {
      * 
      * @param login
      */
-    public void setLogin(String login){
+    public void setLogin(String login) {
         this.login = login;
     }
 
@@ -99,13 +101,15 @@ public class Cliente {
 
     /**
      * Retira serie ou filme da lista para assistir
+     * 
      * @param nomeSerie
      */
     public void retirarDaLista(String nomeSerie) {
         int index = 0;
 
-        for(int i = 0; i < this.listaParaVer.size(); i++) {
-            if(this.listaParaVer.get(i).getNome() == nomeSerie) index = i;
+        for (int i = 0; i < this.listaParaVer.size(); i++) {
+            if (this.listaParaVer.get(i).getNome() == nomeSerie)
+                index = i;
         }
 
         this.listaParaVer.remove(index);
@@ -120,12 +124,14 @@ public class Cliente {
     public List<Stream> filtrarPorGenero(String genero) {
         List<Stream> lista = new ArrayList<Stream>();
 
-        for(int i = 0; i < this.listaJaVistas.size(); i++) {
-            if(this.listaJaVistas.get(i).getColecao().getGenero() == genero) lista.add(this.listaJaVistas.get(i).getColecao());
+        for (int i = 0; i < this.listaJaVistas.size(); i++) {
+            if (this.listaJaVistas.get(i).getColecao().getGenero() == genero)
+                lista.add(this.listaJaVistas.get(i).getColecao());
         }
 
-        for(int i = 0; i < this.listaParaVer.size(); i++) {
-            if(this.listaParaVer.get(i).getGenero() == genero) lista.add(this.listaParaVer.get(i));
+        for (int i = 0; i < this.listaParaVer.size(); i++) {
+            if (this.listaParaVer.get(i).getGenero() == genero)
+                lista.add(this.listaParaVer.get(i));
         }
 
         return lista;
@@ -140,12 +146,14 @@ public class Cliente {
     public List<Stream> filtrarPorIdioma(String idioma) {
         List<Stream> lista = new ArrayList<Stream>();
 
-        for(int i = 0; i < this.listaJaVistas.size(); i++) {
-            if(this.listaJaVistas.get(i).getColecao().getIdioma() == idioma) lista.add(this.listaJaVistas.get(i).getColecao());
+        for (int i = 0; i < this.listaJaVistas.size(); i++) {
+            if (this.listaJaVistas.get(i).getColecao().getIdioma() == idioma)
+                lista.add(this.listaJaVistas.get(i).getColecao());
         }
 
-        for(int i = 0; i < this.listaParaVer.size(); i++) {
-            if(this.listaParaVer.get(i).getIdioma() == idioma) lista.add(this.listaParaVer.get(i));
+        for (int i = 0; i < this.listaParaVer.size(); i++) {
+            if (this.listaParaVer.get(i).getIdioma() == idioma)
+                lista.add(this.listaParaVer.get(i));
         }
 
         return lista;
@@ -153,17 +161,19 @@ public class Cliente {
 
     /**
      * Retorna a lista de filmes e séries já vistas
+     * 
      * @return List<AvaliacaoColecao>
      */
-    public List<AvaliacaoColecao> mostrarListaJaVista(){
+    public List<AvaliacaoColecao> mostrarListaJaVista() {
         return listaJaVistas;
     }
 
     /**
      * Retorna a lista de filmes e série para assistir
+     * 
      * @return
      */
-    public List<Stream> mostrarListaParaAssistir(){
+    public List<Stream> mostrarListaParaAssistir() {
         return listaParaVer;
     }
 
@@ -174,8 +184,14 @@ public class Cliente {
      * @param nota
      */
     public void avaliar(int id, float nota) {
-        for(int i = 0; i < this.listaJaVistas.size(); i++) {
-            if(this.listaJaVistas.get(i).getColecao().getId() == id) this.listaJaVistas.get(i).setAvaliacao(nota);
+        if (nota < 0) return;
+        
+        for (int i = 0; i < this.listaJaVistas.size(); i++) {
+            if (this.listaJaVistas.get(i).getColecao().getId() == id) {
+                if (this.listaJaVistas.get(i).getAvaliacao() != -1) {
+                    this.listaJaVistas.get(i).setAvaliacao(nota);
+                }
+            }
         }
     }
 
@@ -183,6 +199,7 @@ public class Cliente {
      * Registra a audiência do cliente
      * 
      * Adiciona filme ou série na lista de assistidos
+     * 
      * @param serieOuFilme
      */
     public void registrarAudiencia(Stream serieOuFilme) {
