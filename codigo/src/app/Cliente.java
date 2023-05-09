@@ -8,7 +8,7 @@ public class Cliente {
     private String login;
     private String senha;
     List<Stream> listaParaVer;
-    List<AvaliacaoColecao> listaJaVistas;
+    List<AvaliacaoStream> listaJaVistas;
 
     /**
      * Construtor com nome de usuario, login e senha. As listas são inicializadas
@@ -23,7 +23,7 @@ public class Cliente {
         setLogin(login);
         setSenha(senha);
         this.listaParaVer = new ArrayList<Stream>();
-        this.listaJaVistas = new ArrayList<AvaliacaoColecao>();
+        this.listaJaVistas = new ArrayList<AvaliacaoStream>();
     }
 
     /**
@@ -95,7 +95,7 @@ public class Cliente {
      * @param serieOuFilme
      */
     public void adicionarNaListaJaVisto(Stream serieOuFilme) {
-        AvaliacaoColecao novo = new AvaliacaoColecao(serieOuFilme);
+        AvaliacaoStream novo = new AvaliacaoStream(serieOuFilme);
         this.listaJaVistas.add(novo);
     }
 
@@ -125,8 +125,8 @@ public class Cliente {
         List<Stream> lista = new ArrayList<Stream>();
 
         for (int i = 0; i < this.listaJaVistas.size(); i++) {
-            if (this.listaJaVistas.get(i).getColecao().getGenero() == genero)
-                lista.add(this.listaJaVistas.get(i).getColecao());
+            if (this.listaJaVistas.get(i).getStream().getGenero() == genero)
+                lista.add(this.listaJaVistas.get(i).getStream());
         }
 
         for (int i = 0; i < this.listaParaVer.size(); i++) {
@@ -147,8 +147,8 @@ public class Cliente {
         List<Stream> lista = new ArrayList<Stream>();
 
         for (int i = 0; i < this.listaJaVistas.size(); i++) {
-            if (this.listaJaVistas.get(i).getColecao().getIdioma() == idioma)
-                lista.add(this.listaJaVistas.get(i).getColecao());
+            if (this.listaJaVistas.get(i).getStream().getIdioma() == idioma)
+                lista.add(this.listaJaVistas.get(i).getStream());
         }
 
         for (int i = 0; i < this.listaParaVer.size(); i++) {
@@ -162,9 +162,9 @@ public class Cliente {
     /**
      * Retorna a lista de filmes e séries já vistas
      * 
-     * @return List<AvaliacaoColecao>
+     * @return List<AvaliacaoStream>
      */
-    public List<AvaliacaoColecao> mostrarListaJaVista() {
+    public List<AvaliacaoStream> mostrarListaJaVista() {
         return listaJaVistas;
     }
 
@@ -187,8 +187,8 @@ public class Cliente {
         if (nota < 0) return;
 
         for (int i = 0; i < this.listaJaVistas.size(); i++) {
-            if (this.listaJaVistas.get(i).getColecao().getId() == id) {
-                if (this.listaJaVistas.get(i).getAvaliacao() != -1) {
+            if (this.listaJaVistas.get(i).getIdStream() == id) {
+                if (!this.listaJaVistas.get(i).isAvaliado()) {
                     this.listaJaVistas.get(i).setAvaliacao(nota);
                 }
             }
@@ -214,8 +214,8 @@ public class Cliente {
     public List<Stream> avaliados() {
         List<Stream> lista = new ArrayList<Stream>();
 
-        for(AvaliacaoColecao i : this.listaJaVistas) {
-            if(i.getAvaliacao() != -1) lista.add(i.getColecao());
+        for(AvaliacaoStream i : this.listaJaVistas) {
+            if(i.getAvaliacao() != -1) lista.add(i.getStream());
         }
 
         return lista;
