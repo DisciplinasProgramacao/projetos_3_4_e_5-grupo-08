@@ -60,9 +60,10 @@ public class PlataformaStreaming {
      */
     public void login(String login, String senha) {
         for (Cliente i : clientes) {
-            if (i.getLogin() == login) {
-                if (i.getSenha() == senha) {
+            if (i.getLogin().equals(login)) {
+                if (i.getSenha().equals(senha)) {
                     this.clienteAtual = i;
+                    break;
                 }
             }
         }
@@ -123,13 +124,14 @@ public class PlataformaStreaming {
      * Filtra filmes e séries por gênero
      * 
      * @param genero
-     * @return List<Stream> - result
+     * @return Stream - result
      */
-    public List<Stream> filtrarPorGenero(String genero) {
-        List<Stream> result = new ArrayList<Stream>();
+    public Stream filtrarPorGenero(String genero) {
+        Stream result = null;
         for (Stream i : colecao) {
             if (i.getGenero() == genero) {
-                result.add(i);
+                result = i;
+                break;
             }
         }
 
@@ -140,13 +142,14 @@ public class PlataformaStreaming {
      * Filtra filmes e séries por idioma
      * 
      * @param idioma
-     * @return List<Stream> - result
+     * @return Stream - result
      */
-    public List<Stream> filtrarPorIdioma(String idioma) {
-        List<Stream> result = new ArrayList<Stream>();
+    public Stream filtrarPorIdioma(String idioma) {
+        Stream result = null;
         for (Stream i : colecao) {
             if (i.getIdioma() == idioma) {
-                result.add(i);
+                result = i;
+                break;
             }
         }
 
@@ -157,13 +160,15 @@ public class PlataformaStreaming {
      * Filtra filmes e séries por nome
      * 
      * @param nome
-     * @return List<Stream> - result
+     * @return Stream - result
      */
-    public List<Stream> filtrarPorNome(String nome) {
-        List<Stream> result = new ArrayList<Stream>();
+    public Stream filtrarPorNome(String nome) {
+        Stream result = null;
         for (Stream i : colecao) {
-            if (i.getNome() == nome) {
-                result.add(i);
+            String n = i.getNome();
+            if (n.equals(nome)) {
+                result = i;
+                break;
             }
         }
 
