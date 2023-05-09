@@ -189,7 +189,7 @@ public class Aplicacao {
                         case 1:
                             //Ainda não entrega uma lista
                             System.out.print("Digite o nome: ");
-                            String nome = MyIO.readLine();
+                            String nome = MyIO.readLine();//Pink is the new White
                             opcaoEncontrada = Amaze.filtrarPorNome(nome);   
                             break;  
 
@@ -214,7 +214,7 @@ public class Aplicacao {
                     System.out.println("[1]Marcar como opção como: já visto(a)");
                     System.out.println("[2]Adicionar opção à lista: assistir futuramente");
                     System.out.println("[0]Sair");
-                    System.out.println(">> ");
+                    System.out.print(">> ");
                     int op1p1 = MyIO.readInt();
 
                     switch (op1p1) {
@@ -250,6 +250,25 @@ public class Aplicacao {
                             break;
                         case 2:
                             System.out.println(Amaze.getClienteAtual().mostrarListaJaVista());
+
+                            System.out.println("[1]Avaliar mídia");
+                            System.out.println("[0]Sair");
+                            int op2p2 = MyIO.readInt();
+
+                            switch(op2p2){
+                                case 1:
+                                    System.out.println("Digite o ID da mídia:");
+                                    int inserirId = MyIO.readInt();
+                                    System.out.println("Digite a nota");
+                                    float inserirNota = MyIO.readFloat();
+                                    Amaze.getClienteAtual().avaliar(inserirId, inserirNota);
+                                    break;
+                                case 0:
+                                    System.out.println("Finalizando programa.");
+                                    break;
+                                default:
+                                    System.out.println("Opção inválida. Tente novamente.");
+                            }
                             break;
                         default:
                             System.out.println("Opção inválida. Tente novamente.");
@@ -274,16 +293,16 @@ public class Aplicacao {
                     switch (op3) {
                         case 1:
                             System.out.print("Digite o nome da série: ");
-                            nomeColecao = MyIO.readString();
+                             nomeColecao = MyIO.readLine();
 
                             System.out.print("Digite o gênero da série: ");
-                            generoColecao = MyIO.readString();
+                             generoColecao = MyIO.readLine();
 
                             System.out.print("Digite o idioma da série: ");
-                            idiomaColecao = MyIO.readString();
+                             idiomaColecao = MyIO.readLine();
 
                             System.out.print("Digite a data de lançamento da série: ");
-                            dataLancamentoColecao = MyIO.readString();
+                             dataLancamentoColecao = MyIO.readLine();
 
                             System.out.print("Digite o numero de episódios da série: ");
                             int numEpisodios = MyIO.readInt();
@@ -303,16 +322,16 @@ public class Aplicacao {
                             break;
                         case 2:
                             System.out.print("Digite o nome do filme: ");
-                            nomeColecao = MyIO.readString();
+                            nomeColecao = MyIO.readLine();
 
                             System.out.print("Digite o gênero do filme: ");
-                            generoColecao = MyIO.readString();
+                            generoColecao = MyIO.readLine();
 
                             System.out.print("Digite o idioma do filme: ");
-                            idiomaColecao = MyIO.readString();
+                            idiomaColecao = MyIO.readLine();
 
                             System.out.print("Digite a data de lançamento do filme: ");
-                            dataLancamentoColecao = MyIO.readString();
+                            dataLancamentoColecao = MyIO.readLine();
 
                             System.out.print("Digite o numero de episódios do filme: ");
                             float duracao = MyIO.readFloat();
