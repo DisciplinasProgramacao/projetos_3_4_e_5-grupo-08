@@ -185,7 +185,7 @@ public class Cliente {
      */
     public void avaliar(int id, float nota) {
         if (nota < 0) return;
-        
+
         for (int i = 0; i < this.listaJaVistas.size(); i++) {
             if (this.listaJaVistas.get(i).getColecao().getId() == id) {
                 if (this.listaJaVistas.get(i).getAvaliacao() != -1) {
@@ -204,5 +204,20 @@ public class Cliente {
      */
     public void registrarAudiencia(Stream serieOuFilme) {
         this.adicionarNaListaJaVisto(serieOuFilme);
+    }
+
+    /**
+     * Retorna uma lista com todas as séries ou filmes já avaliados
+     * 
+     * @return List<Stream> - lista
+     */
+    public List<Stream> avaliados() {
+        List<Stream> lista = new ArrayList<Stream>();
+
+        for(AvaliacaoColecao i : this.listaJaVistas) {
+            if(i.getAvaliacao() != -1) lista.add(i.getColecao());
+        }
+
+        return lista;
     }
 }
