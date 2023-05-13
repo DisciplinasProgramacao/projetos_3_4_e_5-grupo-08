@@ -1,103 +1,66 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class StreamTest {
+import java.util.HashSet;
+
+public class PlataformaStreamingTest {
 
     @Test
-    public void testarStreamComDadosCompletosSerie() {
-        Stream stream = new Serie(1, "Netflix", "Ação", "Inglês", "2022-01-01", 0);
-        Assertions.assertEquals(1, stream.getId());
-        Assertions.assertEquals("Netflix", stream.getNome());
-        Assertions.assertEquals("Ação", stream.getGenero());
-        Assertions.assertEquals("Inglês", stream.getIdioma());
-        Assertions.assertEquals("2022-01-01", stream.getDataLancamento());
-        Assertions.assertEquals(0, stream.getAudiencia());
-        Assertions.assertEquals(0.0, stream.getAvaliacao());
-    }
-    
-    @Test
-    public void testarStreamComDadosCompletosFilme() {
-        Stream stream = new Filme(1, "Netflix", "Ação", "Inglês", "2022-01-01", 0);
-        Assertions.assertEquals(1, stream.getId());
-        Assertions.assertEquals("Netflix", stream.getNome());
-        Assertions.assertEquals("Ação", stream.getGenero());
-        Assertions.assertEquals("Inglês", stream.getIdioma());
-        Assertions.assertEquals("2022-01-01", stream.getDataLancamento());
-        Assertions.assertEquals(0, stream.getAudiencia());
-        Assertions.assertEquals(0.0, stream.getAvaliacao());
-    }
+    public void testarPlataformaStreaming() {
+        // Criação da plataforma de streaming
+        PlataformaStreaming plataforma = new PlataformaStreaming("Streaming 1");
 
-    @Test
-    public void testarStreamComDadosAleatoriosSerie() {
-        Stream stream = new Serie(1, "Netflix", "2022-01-01");
-        Assertions.assertEquals(1, stream.getId());
-        Assertions.assertEquals("Netflix", stream.getNome());
-        Assertions.assertNotNull(stream.getGenero());
-        Assertions.assertNotNull(stream.getIdioma());
-        Assertions.assertEquals("2022-01-01", stream.getDataLancamento());
-        Assertions.assertEquals(0, stream.getAudiencia());
-        Assertions.assertEquals(0.0, stream.getAvaliacao());
-    }
-    
-    @Test
-    public void testarStreamComDadosAleatoriosFilme() {
-        Stream stream = new Filme(1, "Netflix", "2022-01-01", 0);
-        Assertions.assertEquals(1, stream.getId());
-        Assertions.assertEquals("Netflix", stream.getNome());
-        Assertions.assertNotNull(stream.getGenero());
-        Assertions.assertNotNull(stream.getIdioma());
-        Assertions.assertEquals("2022-01-01", stream.getDataLancamento());
-        Assertions.assertEquals(0, stream.getAudiencia());
-        Assertions.assertEquals(0.0, stream.getAvaliacao());
-    }
+        // Verifica o nome da plataforma
+        Assertions.assertEquals("Streaming 1", plataforma.getNome());
 
-    @Test
-    public void testarRegistrarAudienciaSerie() {
-        Stream stream = new Serie(1, "Netflix", "Ação", "Inglês", "2022-01-01", 0);
-        stream.registrarAudiencia();
-        stream.registrarAudiencia();
-        Assertions.assertEquals(2, stream.getAudiencia());
-    }
-    
-    @Test
-    public void testarRegistrarAudienciaFilme() {
-        Stream stream = new Filme(1, "Netflix", "Ação", "Inglês", "2022-01-01", 0);
-        stream.registrarAudiencia();
-        stream.registrarAudiencia();
-        Assertions.assertEquals(2, stream.getAudiencia());
-    }
+        // Verifica a coleção de streams vazia
+        Assertions.assertTrue(plataforma.getColecao().isEmpty());
 
-    @Test
-    public void testarAvaliarSerie() {
-        Stream stream = new Serie(1, "Netflix", "Ação", "Inglês", "2022-01-01", 0);
-        stream.avaliar(4);
-        Assertions.assertEquals(4, stream.getAvaliacao());
+        // Verifica a lista de clientes vazia
+        Assertions.assertTrue(plataforma.getClientes().isEmpty());
 
-        stream.avaliar(3.0);
-        Assertions.assertEquals(3.75, stream.getAvaliacao());
-    }
-    
-    @Test
-    public void testarAvaliarFilme() {
-        Stream stream = new Filme(1, "Netflix", "Ação", "Inglês", "2022-01-01", 0);
-        stream.avaliar(4.5);
-        Assertions.assertEquals(4.5, stream.getAvaliacao());
+        // Adiciona um cliente à plataforma
+        Cliente cliente1 = new Cliente("cliente1", "senha1", "Cliente 1");
+        plataforma.adicionarCliente(cliente1);
 
-        stream.avaliar(3.0);
-        Assertions.assertEquals(3.75, stream.getAvaliacao());
-    }
+        // Verifica se o cliente foi adicionado corretamente
+        Assertions.assertEquals(1, plataforma.getClientes().size());
+        Assertions.assertTrue(plataforma.getClientes().contains(cliente1));
 
-    @Test
-    public void testarToStringSerie() {
-        Stream stream = new Serie(1, "Netflix", "Ação", "Inglês", "2022-01-01", 0);
-        String expected = "Id: 1\nNome: Netflix\nGênero: Ação\nIdioma: Inglês\nAudiência: 0\nData: 2022-01-01\n";
-        Assertions.assertEquals(expected, stream.toString());
-    }
-    
-    @Test
-    public void testarToStringFilme() {
-        Stream stream = new Filme(1, "Netflix", "Ação", "Inglês", "2022-01-01", 0);
-        String expected = "Id: 1\nNome: Netflix\nGênero: Ação\nIdioma: Inglês\nAudiência: 0\nData: 2022-01-01\n";
-        Assertions.assertEquals(expected, stream.toString());
+        // Faz login do cliente na plataforma
+        plataforma.login("cliente1", "senha1");
+
+        // Verifica o cliente atual na plataforma
+        Assertions.assertEquals(cliente1, plataforma.getClienteAtual());
+
+        // Adiciona uma série à coleção da plataforma
+        Serie serie = new Serie(1, "Friends", "Comédia", "Inglês", "1994-09-22", 236);
+        plataforma.adicionarColecao(serie);
+
+        // Verifica se a série foi adicionada corretamente à coleção da plataforma
+        Assertions.assertEquals(1, plataforma.getColecao().size());
+        Assertions.assertTrue(plataforma.getColecao().contains(serie));
+
+        // Filtra séries por gênero
+        Stream resultadoGenero = plataforma.filtrarPorGenero("Comédia");
+        Assertions.assertEquals(serie, resultadoGenero);
+
+        // Filtra séries por idioma
+        Stream resultadoIdioma = plataforma.filtrarPorIdioma("Inglês");
+        Assertions.assertEquals(serie, resultadoIdioma);
+
+        // Filtra séries por nome
+        Stream resultadoNome = plataforma.filtrarPorNome("Friends");
+        Assertions.assertEquals(serie, resultadoNome);
+
+        // Registra audiência de uma série pelo cliente atual
+        plataforma.registrarAudiencia(serie);
+
+        // Verifica se a audiência foi registrada corretamente na série e no cliente
+        Assertions.assertEquals(1, serie.getAudiencia());
+
+        // Encontra uma stream por ID
+        Stream streamEncontrada = plataforma.encontraStreamPorId(1);
+        Assertions.assertEquals(serie, streamEncontrada);
     }
 }
