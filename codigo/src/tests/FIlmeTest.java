@@ -1,64 +1,47 @@
-package tests;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.text.ParseException;
-
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import app.Filme;
+public class FilmeTest {
 
-public class FIlmeTest {
-    private Filme filme;
-    private final int ID_FILME = 1;
-    private final String NOME_FILME = "O Senhor dos Anéis";
-    private final String DATA_LANCAMENTO = "19-12-2001";
-
-    @BeforeEach
-    public void setUp() throws ParseException {
-        this.filme = new Filme(ID_FILME, NOME_FILME, DATA_LANCAMENTO);
+    @Test
+    public void testarFilmeComDadosCompletos() {
+        Filme filme = new Filme(1, "Titanic", "Drama", "Inglês", "1997-12-19", 194.5f);
+        Assertions.assertEquals(1, filme.getId());
+        Assertions.assertEquals("Titanic", filme.getNome());
+        Assertions.assertEquals("Drama", filme.getGenero());
+        Assertions.assertEquals("Inglês", filme.getIdioma());
+        Assertions.assertEquals("1997-12-19", filme.getDataLancamento());
+        Assertions.assertEquals(0, filme.getAudiencia());
+        Assertions.assertEquals(0.0, filme.getAvaliacao());
+        Assertions.assertEquals(194.5f, filme.getDuracao());
     }
 
     @Test
-    public void testGetIdFilme() {
-        assertEquals(ID_FILME, filme.getId());
+    public void testarFilmeComDadosAleatorios() {
+        Filme filme = new Filme(1, "Titanic", "1997-12-19", 194.5f);
+        Assertions.assertEquals(1, filme.getId());
+        Assertions.assertEquals("Titanic", filme.getNome());
+        Assertions.assertNotNull(filme.getGenero());
+        Assertions.assertNotNull(filme.getIdioma());
+        Assertions.assertEquals("1997-12-19", filme.getDataLancamento());
+        Assertions.assertEquals(0, filme.getAudiencia());
+        Assertions.assertEquals(0.0, filme.getAvaliacao());
+        Assertions.assertEquals(194.5f, filme.getDuracao());
     }
 
     @Test
-    public void testGetNome() {
-        assertEquals(NOME_FILME, filme.getNome());
+    public void testarSetDuracao() {
+        Filme filme = new Filme(1, "Titanic", "Drama", "Inglês", "1997-12-19", 194.5f);
+        filme.setDuracao(210.75f);
+        Assertions.assertEquals(210.75f, filme.getDuracao());
     }
 
     @Test
-    public void testSetNome() {
-        String novoNome = "O Hobbit";
-        filme.setNome(novoNome);
-        assertEquals(novoNome, filme.getNome());
+    public void testarToString() {
+        Filme filme = new Filme(1, "Titanic", "Drama", "Inglês", "1997-12-19", 194.5f);
+        String expected = "Sobre o Filme: \n----------------------------------------------------------------\n" +
+                "Id: 1\nNome: Titanic\nGênero: Drama\nIdioma: Inglês\nAudiência: 0\nData: 1997-12-19\n" +
+                "Duração: 194.5";
+        Assertions.assertEquals(expected, filme.toString());
     }
-
-    @Test
-    public void testGetDataDeLancamento() {
-        assertEquals(DATA_LANCAMENTO, filme.getDataLancamento());
-    }
-
-    @Test
-    public void testSetDataDeLancamento() {
-        String novaData = "14-12-2012";
-        filme.setDataLancamento(novaData);
-        assertEquals(novaData, filme.getDataLancamento());
-    }
-
-    @Test
-    public void testGetDuracao() {
-        assertEquals(0.0, filme.getDuracao(), 0.0);
-    }
-
-    @Test
-    public void testSetDuracao() {
-        float novaDuracao = 120.0f;
-        filme.setDuracao(novaDuracao);
-        assertEquals(novaDuracao, filme.getDuracao(), 0.0);
-    }
-
 }
