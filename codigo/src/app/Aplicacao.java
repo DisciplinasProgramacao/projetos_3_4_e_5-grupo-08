@@ -148,18 +148,18 @@ public class Aplicacao {
         carregarDadosF(Amaze);
 
         // REALIZAR LOGIN
-        /*boolean acesso = false;
-        while (acesso != true){*/
+        boolean acesso = false;
+        while (acesso != true){
             System.out.println("=-Realizar Login-=");
             System.out.print("Login>> ");
             String login = MyIO.readString(); //"Sha176581"
             System.out.print("Senha>> ");
             String senha = MyIO.readString(); //"SOrg05341"
-            Amaze.login(login, senha);
-        /*if ( true == Amaze.login(login, senha)){
-             acesso = true;
-        }*/
-        
+            Amaze.loginPlataforma(login, senha);
+            if ( Amaze.loginPlataforma(login, senha) == true){
+                acesso = true;
+            }
+        }        
 
         // MENU
         int op;
