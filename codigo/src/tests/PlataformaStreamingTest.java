@@ -27,7 +27,7 @@ public class PlataformaStreamingTest {
 
         // Verifica se o cliente foi adicionado corretamente
         Assertions.assertEquals(1, plataforma.getClientes().size());
-        Assertions.assertTrue(plataforma.getClientes().contains(cliente1));
+        Assertions.assertNotNull(plataforma.getClientes().get(cliente1.getLogin()));
 
         // Faz login do cliente na plataforma
         plataforma.login("cliente1", "senha1");
@@ -41,7 +41,7 @@ public class PlataformaStreamingTest {
 
         // Verifica se a série foi adicionada corretamente à coleção da plataforma
         Assertions.assertEquals(1, plataforma.getColecao().size());
-        Assertions.assertTrue(plataforma.getColecao().contains(serie));
+        Assertions.assertNotNull(plataforma.getColecao().get(serie.getId()));
 
         // Filtra séries por gênero
         Stream resultadoGenero = plataforma.filtrarPorGenero("Comédia");

@@ -90,7 +90,6 @@ public class Aplicacao {
                     plataforma.getClienteAtual().adicionarNaListaParaVer(stream);
                 } else /* dadosSeparadosA[1] == "A" */ {
                     plataforma.registrarAudiencia(stream);
-                    plataforma.getClienteAtual().mostrarListaJaVista();
                 }
             }
 
