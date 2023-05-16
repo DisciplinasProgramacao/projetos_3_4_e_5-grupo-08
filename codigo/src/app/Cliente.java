@@ -164,8 +164,14 @@ public class Cliente {
      * 
      * @return List<AvaliacaoStream>
      */
-    public List<AvaliacaoStream> mostrarListaJaVista() {
-        return listaJaVistas;
+    public List<Stream> mostrarListaJaVista() {
+        List<Stream> lista = new ArrayList<Stream>();
+
+        for(AvaliacaoStream a : this.listaJaVistas) {
+            lista.add(a.getStream());
+        }
+        
+        return lista;
     }
 
     /**

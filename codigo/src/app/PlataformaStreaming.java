@@ -78,7 +78,7 @@ public class PlataformaStreaming {
      */
     public void login(String login) {
         for (Cliente i : clientes) {
-            if (i.getLogin() == login) {
+            if (i.getLogin().equals(login)) {
                 this.clienteAtual = i;
             }
         }

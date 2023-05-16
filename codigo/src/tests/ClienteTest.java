@@ -1,4 +1,4 @@
-package app
+import app.*;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -32,9 +32,9 @@ public class ClienteTest {
         Cliente cliente = new Cliente("joao123", "joao@example.com", "senha123");
         Filme filme = new Filme(1, "Titanic", "Drama", "Inglês", "1997-12-19", 194.5f);
         cliente.adicionarNaListaJaVisto(filme);
-        List<AvaliacaoStream> listaJaVistas = cliente.mostrarListaJaVista();
+        List<Stream> listaJaVistas = cliente.mostrarListaJaVista();
         Assertions.assertEquals(1, listaJaVistas.size());
-        Assertions.assertEquals(filme, listaJaVistas.get(0).getStream());
+        Assertions.assertEquals(filme, listaJaVistas.get(0));
     }
 
     @Test
@@ -81,7 +81,7 @@ public class ClienteTest {
         Filme filme = new Filme(1, "Titanic", "Drama", "Inglês", "1997-12-19", 194.5f);
         cliente.adicionarNaListaJaVisto(filme);
         cliente.avaliar(1, 4.5f);
-        List<AvaliacaoStream> listaJaVistas = cliente.mostrarListaJaVista();
+        List<Stream> listaJaVistas = cliente.mostrarListaJaVista();
         Assertions.assertEquals(1, listaJaVistas.size());
         Assertions.assertEquals(4.5f, listaJaVistas.get(0).getAvaliacao());
     }
@@ -91,9 +91,9 @@ public class ClienteTest {
         Cliente cliente = new Cliente("joao123", "joao@example.com", "senha123");
         Filme filme = new Filme(1, "Titanic", "Drama", "Inglês", "1997-12-19", 194.5f);
         cliente.registrarAudiencia(filme);
-        List<AvaliacaoStream> listaJaVistas = cliente.mostrarListaJaVista();
+        List<Stream> listaJaVistas = cliente.mostrarListaJaVista();
         Assertions.assertEquals(1, listaJaVistas.size());
-        Assertions.assertEquals(filme, listaJaVistas.get(0).getStream());
+        Assertions.assertEquals(filme, listaJaVistas.get(0));
     }
 
     @Test

@@ -80,15 +80,18 @@ public class Aplicacao {
         // Login;F/A;IdSerie
 
         do {
+            if (dadosA == null) break;
             dadosSeparadosA = dadosA.split(";");
 
             plataforma.login(dadosSeparadosA[0]);
             Stream stream = plataforma.encontraStreamPorId(Integer.parseInt(dadosSeparadosA[2]));
-
-            if (dadosSeparadosA[1].equals("F")) {
-                plataforma.getClienteAtual().adicionarNaListaParaVer(stream);
-            } else /* dadosSeparadosA[1] == "A" */ {
-                plataforma.registrarAudiencia(stream);
+            if(plataforma.getClienteAtual() != null && stream != null) {
+                if (dadosSeparadosA[1].equals("F")) {
+                    plataforma.getClienteAtual().adicionarNaListaParaVer(stream);
+                } else /* dadosSeparadosA[1] == "A" */ {
+                    plataforma.registrarAudiencia(stream);
+                    plataforma.getClienteAtual().mostrarListaJaVista();
+                }
             }
 
             dadosA = file.ler();
@@ -138,7 +141,7 @@ public class Aplicacao {
 
         // AUDIENCIA (SERIES)
         // Carregando dados do arquivo "POO_Audiencia.csv"
-        // carregarDadosA(Amaze);
+        carregarDadosA(Amaze);
 
         // FILME
         // Carregando dados do arquivo "POO_Filmes.csv" para o vetor de Series
