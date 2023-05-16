@@ -1,14 +1,14 @@
 package app;
 
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlataformaStreaming {
 
     private String nome;
-    private HashSet<Stream> colecao;
-    private HashSet<Cliente> clientes;
+    private HashMap<Integer, Stream> colecao;
+    private HashMap<String, Cliente> clientes;
     private Cliente clienteAtual;
 
     /**
@@ -18,8 +18,8 @@ public class PlataformaStreaming {
      */
     public PlataformaStreaming(String nome) {
         this.nome = nome;
-        this.colecao = new HashSet<Stream>();
-        this.clientes = new HashSet<Cliente>();
+        this.colecao = new HashMap<Integer, Stream>();
+        this.clientes = new HashMap<String, Cliente>();
         this.clienteAtual = null;
     }
 
@@ -35,18 +35,18 @@ public class PlataformaStreaming {
     /**
      * Retorna o Hash de Series e Filmes
      * 
-     * @return HashSet<Stream> - colecao
+     * @return HashMap<Integer, Stream> - colecao
      */
-    public HashSet<Stream> getColecao() {
+    public HashMap<Integer, Stream> getColecao() {
         return colecao;
     }
 
     /**
      * Retorna o Hash de Clientes
      * 
-     * @return HashSet<Cliente> - clientes
+     * @return HashMap<String, Cliente> - clientes
      */
-    public HashSet<Cliente> getClientes() {
+    public HashMap<String, Cliente> getClientes() {
         return clientes;
     }
 
@@ -59,13 +59,9 @@ public class PlataformaStreaming {
      * @param senha
      */
     public void login(String login, String senha) {
-        for (Cliente i : clientes) {
-            if (i.getLogin().equals(login)) {
-                if (i.getSenha().equals(senha)) {
-                    this.clienteAtual = i;
-                    break;
-                }
-            }
+        Cliente c = clientes.get(login);
+        if (c.getSenha().equals(senha)) {
+            this.clienteAtual = c;
         }
     }
 
@@ -77,11 +73,7 @@ public class PlataformaStreaming {
      * @param login
      */
     public void login(String login) {
-        for (Cliente i : clientes) {
-            if (i.getLogin().equals(login)) {
-                this.clienteAtual = i;
-            }
-        }
+        this.clienteAtual = clientes.get(login);
     }
 
     /**
@@ -90,7 +82,7 @@ public class PlataformaStreaming {
      * @param novo
      */
     public void adicionarColecao(Stream novo) {
-        colecao.add(novo);
+        colecao.put(novo.getId(), novo);
     }
 
     /**
@@ -99,7 +91,7 @@ public class PlataformaStreaming {
      * @param cliente
      */
     public void adicionarCliente(Cliente cliente) {
-        clientes.add(cliente);
+        clientes.put(cliente.getLogin(), cliente);
     }
 
     /**
@@ -128,7 +120,7 @@ public class PlataformaStreaming {
      */
     public Stream filtrarPorGenero(String genero) {
         Stream result = null;
-        for (Stream i : colecao) {
+        for (Stream i : colecao.values()) {
             if (i.getGenero() == genero) {
                 result = i;
                 break;
@@ -146,7 +138,7 @@ public class PlataformaStreaming {
      */
     public Stream filtrarPorIdioma(String idioma) {
         Stream result = null;
-        for (Stream i : colecao) {
+        for (Stream i : colecao.values()) {
             if (i.getIdioma() == idioma) {
                 result = i;
                 break;
@@ -164,7 +156,7 @@ public class PlataformaStreaming {
      */
     public Stream filtrarPorNome(String nome) {
         Stream result = null;
-        for (Stream i : colecao) {
+        for (Stream i : colecao.values()) {
             String n = i.getNome();
             if (n.equals(nome)) {
                 result = i;
@@ -186,12 +178,6 @@ public class PlataformaStreaming {
     }
 
     public Stream encontraStreamPorId(int id) {
-        for (Stream i : this.colecao) {
-            if (i.getId() == id) {
-                return i;
-            }
-        }
-
-        return null;
+        return colecao.get(id);
     }
 }
