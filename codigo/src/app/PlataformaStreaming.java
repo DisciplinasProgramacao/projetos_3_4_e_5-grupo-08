@@ -1,8 +1,7 @@
 package app;
 
 import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 public class PlataformaStreaming {
 
@@ -58,11 +57,14 @@ public class PlataformaStreaming {
      * @param login
      * @param senha
      */
-    public void login(String login, String senha) {
-        Cliente c = clientes.get(login);
-        if (c.getSenha().equals(senha)) {
-            this.clienteAtual = c;
-        }
+    public boolean loginPlataforma(String login, String senha) {
+                if (clientes.get(login).getLogin().equals(login)){
+                    if(clientes.get(login).getSenha().equals(senha)){
+                       this.clienteAtual = clientes.get(login);
+                        return true;
+                    }
+                }
+        return false;
     }
 
     /**
