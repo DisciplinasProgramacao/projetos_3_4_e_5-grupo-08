@@ -149,15 +149,17 @@ public class Aplicacao {
         // REALIZAR LOGIN
         boolean acesso = false;
         while (acesso != true){
-            System.out.println("=-Realizar Login-=");
+            try{
+               System.out.println("=-Realizar Login-=");
             System.out.print("Login>> ");
             String login = MyIO.readString(); //"Sha176581"
             System.out.print("Senha>> ");
             String senha = MyIO.readString(); //"SOrg05341"
             Amaze.loginPlataforma(login, senha);
-            if ( Amaze.loginPlataforma(login, senha) == true){
-                acesso = true;
-            }
+            acesso = ( Amaze.loginPlataforma(login, senha) == true ? true : false); 
+            } catch (IllegalArgumentException e) {
+                System.out.println("Caracter inválido inserido.");
+            } 
         }        
 
         // MENU
@@ -189,26 +191,40 @@ public class Aplicacao {
 
                     switch (op1) {
                         case 1:
-                            //Ainda não entrega uma lista
+                            try{
+                               //Ainda não entrega uma lista
                             System.out.print("Digite o nome: ");
                             String nome = MyIO.readLine();//Pink is the new White
                             opcaoEncontrada = Amaze.filtrarPorNome(nome);   
-                            break;  
+                            break; 
+                            } catch (IllegalArgumentException e) {
+                                System.out.println("Caracter inválido inserido.");
+                            }
+                              
 
                         case 2:
+                        try{
                             //Ainda não entrega uma lista
                             System.out.print("Digite o gênero: ");
                             String genero = MyIO.readLine();
                             opcaoEncontrada = Amaze.filtrarPorGenero(genero);
                             break;
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Caracter inválido inserido.");
+                        }
+                        
                              
                         case 3:
+                        try{
                             //Ainda não entrega uma lista
                             System.out.print("Digite o idioma: ");
                             String idioma = MyIO.readLine();
                             opcaoEncontrada = Amaze.filtrarPorIdioma(idioma);
                             break;
-                            
+                        }catch (IllegalArgumentException e) {
+                            System.out.println("Caracter inválido inserido.");
+                        }
+                                                       
                         default:
                             System.out.println("Opção inválida. Tente novamente.");
                     }
@@ -221,7 +237,7 @@ public class Aplicacao {
 
                     switch (op1p1) {
                         case 1:
-                            
+                                                    
                             Amaze.getClienteAtual().adicionarNaListaJaVisto(opcaoEncontrada);
                             System.out.println("Película adicionada com sucesso à lista *Já Visto*!");
                             break;

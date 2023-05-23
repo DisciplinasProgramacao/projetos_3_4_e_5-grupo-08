@@ -30,7 +30,7 @@ public class PlataformaStreamingTest {
         Assertions.assertNotNull(plataforma.getClientes().get(cliente1.getLogin()));
 
         // Faz login do cliente na plataforma
-        plataforma.login("cliente1", "senha1");
+        plataforma.loginPlataforma("cliente1", "senha1");
 
         // Verifica o cliente atual na plataforma
         Assertions.assertEquals(cliente1, plataforma.getClienteAtual());
