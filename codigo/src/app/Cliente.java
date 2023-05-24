@@ -85,8 +85,13 @@ public class Cliente {
      * 
      * @param serieOuFilme
      */
-    public void adicionarNaListaParaVer(Stream serieOuFilme) {
-        this.listaParaVer.add(serieOuFilme);
+    public void adicionarNaListaParaVer(Stream serieOuFilme) throws PeliculaJaExistenteException{
+        if(!this.listaParaVer.contains(serieOuFilme)){
+           this.listaParaVer.add(serieOuFilme); 
+        } else {
+            throw new PeliculaJaExistenteException("Para ver.");
+        }
+        
     }
 
     /**
@@ -94,21 +99,26 @@ public class Cliente {
      * 
      * @param serieOuFilme
      */
-    public void adicionarNaListaJaVisto(Stream serieOuFilme) {
+    public void adicionarNaListaJaVisto(Stream serieOuFilme) throws PeliculaJaExistenteException {
         AvaliacaoStream novo = new AvaliacaoStream(serieOuFilme);
-        this.listaJaVistas.add(novo);
+        if (!this.listaJaVistas.contains(novo)){
+            this.listaJaVistas.add(novo);  
+        } else {
+            throw new PeliculaJaExistenteException("Já visto.");
+        }
+        
     }
 
     /**
      * Retira serie ou filme da lista para assistir
      * 
-     * @param nomeSerie
+     * @param nomeSerieOuFilme
      */
-    public void retirarDaLista(String nomeSerie) {
+    public void retirarDaLista(String nomeSerieOuFilme) {
         int index = 0;
 
         for (int i = 0; i < this.listaParaVer.size(); i++) {
-            if (this.listaParaVer.get(i).getNome() == nomeSerie)
+            if (this.listaParaVer.get(i).getNome() == nomeSerieOuFilme)
                 index = i;
         }
 
@@ -164,14 +174,19 @@ public class Cliente {
      * 
      * @return List<AvaliacaoStream>
      */
-    public List<Stream> mostrarListaJaVista() {
+    public List<Stream> mostrarListaJaVista() throws ListaVaziaException{
         List<Stream> lista = new ArrayList<Stream>();
 
         for(AvaliacaoStream a : this.listaJaVistas) {
             lista.add(a.getStream());
         }
+        if(lista.size()==0){
+           throw new ListaVaziaException("Lista vazia."); 
+        } else {
+           return lista; 
+        }
         
-        return lista;
+        
     }
 
     /**
@@ -179,8 +194,14 @@ public class Cliente {
      * 
      * @return
      */
-    public List<Stream> mostrarListaParaAssistir() {
-        return listaParaVer;
+    public List<Stream> mostrarListaParaAssistir() throws ListaVaziaException{
+        if (listaParaVer.size()==0){
+            throw new ListaVaziaException("Lista vazia.");
+        } else {
+         return listaParaVer;   
+        }
+        
+        
     }
 
     /**
@@ -189,13 +210,15 @@ public class Cliente {
      * @param id
      * @param nota
      */
-    public void avaliar(int id, float nota) {
+    public void avaliar(int id, float nota) throws PeliculaJaAvaliadaException{
         if (nota < 0) return;
 
         for (int i = 0; i < this.listaJaVistas.size(); i++) {
             if (this.listaJaVistas.get(i).getIdStream() == id) {
                 if (!this.listaJaVistas.get(i).isAvaliado()) {
                     this.listaJaVistas.get(i).setAvaliacao(nota);
+                } else {
+                    throw new PeliculaJaAvaliadaException("Essa película já foi avaliada.");
                 }
             }
         }
@@ -209,7 +232,14 @@ public class Cliente {
      * @param serieOuFilme
      */
     public void registrarAudiencia(Stream serieOuFilme) {
-        this.adicionarNaListaJaVisto(serieOuFilme);
+        
+            try {
+                this.adicionarNaListaJaVisto(serieOuFilme);
+            } catch (PeliculaJaExistenteException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        
     }
 
     /**
@@ -218,12 +248,12 @@ public class Cliente {
      * @return List<Stream> - lista
      */
     public List<Stream> avaliados() {
-        List<Stream> lista = new ArrayList<Stream>();
+        List<Stream> listaAvaliados = new ArrayList<Stream>();
 
         for(AvaliacaoStream i : this.listaJaVistas) {
-            if(i.getAvaliacao() != -1) lista.add(i.getStream());
+            if(i.getAvaliacao() != -1) listaAvaliados.add(i.getStream());
         }
 
-        return lista;
+        return listaAvaliados;
     }
 }

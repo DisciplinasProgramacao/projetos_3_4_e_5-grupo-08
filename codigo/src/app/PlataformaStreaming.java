@@ -1,7 +1,6 @@
 package app;
 
 import java.util.HashMap;
-import java.util.Set;
 
 public class PlataformaStreaming {
 
@@ -58,12 +57,18 @@ public class PlataformaStreaming {
      * @param senha
      */
     public boolean loginPlataforma(String login, String senha) {
-                if (clientes.get(login).getLogin().equals(login)){
-                    if(clientes.get(login).getSenha().equals(senha)){
-                       this.clienteAtual = clientes.get(login);
-                        return true;
-                    }
+        try{
+         if (clientes.get(login).getLogin().equals(login)){
+            if(clientes.get(login).getSenha().equals(senha)){
+                this.clienteAtual = clientes.get(login);
+                return true;
                 }
+            }   
+        } catch (NullPointerException e) {
+            // Trata a exceção NullPointerException (login não encontrado no mapa)
+            System.out.println("Login não encontrado.");
+        }
+        
         return false;
     }
 
@@ -120,13 +125,16 @@ public class PlataformaStreaming {
      * @param genero
      * @return Stream - result
      */
-    public Stream filtrarPorGenero(String genero) {
+    public Stream filtrarPorGenero(String genero) throws StreamNaoEncontradoException{
         Stream result = null;
         for (Stream i : colecao.values()) {
             if (i.getGenero() == genero) {
                 result = i;
                 break;
             }
+        }
+        if (result == null){
+            throw new StreamNaoEncontradoException("Gênero inexistente.");
         }
 
         return result;
@@ -138,13 +146,16 @@ public class PlataformaStreaming {
      * @param idioma
      * @return Stream - result
      */
-    public Stream filtrarPorIdioma(String idioma) {
+    public Stream filtrarPorIdioma(String idioma) throws StreamNaoEncontradoException {
         Stream result = null;
         for (Stream i : colecao.values()) {
             if (i.getIdioma() == idioma) {
                 result = i;
                 break;
             }
+        }
+        if (result == null){
+            throw new StreamNaoEncontradoException("Idioma inexistente.");
         }
 
         return result;
@@ -156,7 +167,7 @@ public class PlataformaStreaming {
      * @param nome
      * @return Stream - result
      */
-    public Stream filtrarPorNome(String nome) {
+    public Stream filtrarPorNome(String nome) throws StreamNaoEncontradoException{
         Stream result = null;
         for (Stream i : colecao.values()) {
             String n = i.getNome();
@@ -165,7 +176,9 @@ public class PlataformaStreaming {
                 break;
             }
         }
-
+        if (result == null){
+            throw new StreamNaoEncontradoException("Nome inexistente.");
+        }
         return result;
     }
 
