@@ -22,23 +22,22 @@ Grupo 08 do laboratório da disciplina LPM 1/2023 PUC Minas - Praça da Liberdad
 1. Aderência às classes do diagrama: 2/2 pontos
   
 2. Requisitos de corretamente implementados: 7,5/12 pontos
-  - Carga de dados					1,4/2 pontos
-  - Cadastro + salvar dados			1,4/2 pontos
-  - Robustez básica					0/1 ponto
-  - Clientes							1,2/2 pontos
-	Listas, audiência sem repet
-  - Séries							0/1 ponto
-	- audiência
-  - Filme/Herança de mídia			0,8/1 ponto
-  - Buscas 							2,7/3 pontos
-	- nome, gênero, idioma
+    - Carga de dados					1,4/2 pontos
+    - Cadastro + salvar dados			1,4/2 pontos
+    - Robustez básica					0/1 ponto
+    - Clientes							1,2/2 pontos
+	      - Listas, audiência sem repet
+    - Séries							0/1 ponto
+    - Filme/Herança de mídia			0,8/1 ponto
+    - Buscas 							2,7/3 pontos
+	      - nome, gênero, idioma
 
 3. Documentação de código: 1/4 pontos
 
 4. Implementação na aula inicial: 1,2/2 pontos (cliente e série testados)
-  - Muitos sets desnecessários em Série
-  - Sem teste de Série
-  - Registrar audiência do cliente precisa chamar a da série
+    - Muitos sets desnecessários em Série
+    - Sem teste de Série
+    - Registrar audiência do cliente precisa chamar a da série
 
 ----
 ## Alunos integrantes da equipe
