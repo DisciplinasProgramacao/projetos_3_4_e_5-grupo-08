@@ -1,6 +1,8 @@
 package app;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class PlataformaStreaming {
 
@@ -125,16 +127,16 @@ public class PlataformaStreaming {
      * @param genero
      * @return Stream - result
      */
-    public Stream filtrarPorGenero(String genero) throws StreamNaoEncontradoException{
-        Stream result = null;
+    public List<Stream> filtrarPorGenero(String genero) throws StreamNaoEncontradoException{
+        List<Stream> result = new ArrayList<Stream>();
+        
         for (Stream i : colecao.values()) {
             if (i.getGenero() == genero) {
-                result = i;
-                break;
+                result.add(i);
             }
         }
-        if (result == null){
-            throw new StreamNaoEncontradoException("Gênero inexistente.");
+        if (result.size() == 0){
+            throw new StreamNaoEncontradoException("Não foram encontradas midias desse gênero");
         }
 
         return result;
@@ -146,16 +148,15 @@ public class PlataformaStreaming {
      * @param idioma
      * @return Stream - result
      */
-    public Stream filtrarPorIdioma(String idioma) throws StreamNaoEncontradoException {
-        Stream result = null;
+    public List<Stream> filtrarPorIdioma(String idioma) throws StreamNaoEncontradoException {
+        List<Stream> result = new ArrayList<Stream>();
         for (Stream i : colecao.values()) {
-            if (i.getIdioma() == idioma) {
-                result = i;
-                break;
+            if (i.getIdioma().equals(idioma)) {
+                result.add(i);
             }
         }
-        if (result == null){
-            throw new StreamNaoEncontradoException("Idioma inexistente.");
+        if (result.size() == 0){
+            throw new StreamNaoEncontradoException("Não foram encontradas midias desse idioma");
         }
 
         return result;
@@ -177,7 +178,7 @@ public class PlataformaStreaming {
             }
         }
         if (result == null){
-            throw new StreamNaoEncontradoException("Nome inexistente.");
+            throw new StreamNaoEncontradoException("Não foi encontrada uma midia com o nome");
         }
         return result;
     }
@@ -194,5 +195,27 @@ public class PlataformaStreaming {
 
     public Stream encontraStreamPorId(int id) {
         return colecao.get(id);
+    }
+
+    public void adicionarNaListaParaVer(Stream stream) throws PeliculaJaExistenteException {
+        this.clienteAtual.adicionarNaListaParaVer(stream);
+    }
+
+    public void avaliar(int inserirId, float inserirNota) throws PeliculaJaAvaliadaException {
+        this.clienteAtual.avaliar(inserirId, inserirNota);
+    }
+
+    public void mostrarLista(List<Stream> lista) {
+        for(Stream s : lista) {
+            System.out.println(s);
+        }
+    }
+
+    public List<Stream> mostrarListaParaAssistir() throws ListaVaziaException {
+        return this.clienteAtual.mostrarListaParaAssistir();
+    }
+
+    public List<Stream> mostrarListaJaVista() throws ListaVaziaException{
+        return this.clienteAtual.mostrarListaJaVista();
     }
 }

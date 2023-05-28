@@ -1,5 +1,7 @@
 package app;
 
+import java.util.List;
+
 /**
  * Projetos 3, 4 e 5 (PARTE 4)
  * 
@@ -66,7 +68,8 @@ public class Aplicacao {
     }
 
     /**
-     * Método para carregar dados de audiência de série a clientes cadastrados na plataforma
+     * Método para carregar dados de audiência de série a clientes cadastrados na
+     * plataforma
      * 
      * @param plataforma
      */
@@ -80,18 +83,20 @@ public class Aplicacao {
         // Login;F/A;IdSerie
 
         do {
-            if (dadosA == null) break;
+            if (dadosA == null)
+                break;
             dadosSeparadosA = dadosA.split(";");
 
             plataforma.login(dadosSeparadosA[0]);
             Stream stream = plataforma.encontraStreamPorId(Integer.parseInt(dadosSeparadosA[2]));
-            if(plataforma.getClienteAtual() != null && stream != null) {
+            if (plataforma.getClienteAtual() != null && stream != null) {
                 if (dadosSeparadosA[1].equals("F")) {
                     try {
-                        plataforma.getClienteAtual().adicionarNaListaParaVer(stream);
+                        plataforma.adicionarNaListaParaVer(stream);
                     } catch (PeliculaJaExistenteException e) {
                         // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        // e.printStackTrace();
+                        System.out.println(e.getMessage());
                     }
                 } else /* dadosSeparadosA[1] == "A" */ {
                     plataforma.registrarAudiencia(stream);
@@ -145,7 +150,7 @@ public class Aplicacao {
 
         // AUDIENCIA (SERIES)
         // Carregando dados do arquivo "POO_Audiencia.csv"
-        //carregarDadosA(Amaze);
+        carregarDadosA(Amaze);
 
         // FILME
         // Carregando dados do arquivo "POO_Filmes.csv" para o vetor de Series
@@ -153,14 +158,14 @@ public class Aplicacao {
 
         // REALIZAR LOGIN
         boolean acesso = false;
-        while (acesso != true){
+        while (acesso != true) {
             System.out.println("=-Realizar Login-=");
             System.out.print("Login>> ");
-            String login = MyIO.readString(); //"Sha176581"
+            String login = MyIO.readString(); // "Sha176581"
             System.out.print("Senha>> ");
-            String senha = MyIO.readString(); //"SOrg05341"
-            acesso = ( Amaze.loginPlataforma(login, senha) == true ? true : false);             
-        }       
+            String senha = MyIO.readString(); // "SOrg05341"
+            acesso = (Amaze.loginPlataforma(login, senha) == true ? true : false);
+        }
 
         // MENU
         int op;
@@ -169,9 +174,11 @@ public class Aplicacao {
             System.out.printf("Olá " + Amaze.getNomeClienteAtual() + "!\n");
             System.out.println("=-=-=-=-=-=-=-=-=");
             System.out.println("Digite uma das opções abaixo:");
-            System.out.println("[1]Catálogo"); // Pesquisar series e filmes -> Aicionar "para assistir" ou "já assistido"
+            System.out.println("[1]Catálogo"); // Pesquisar series e filmes -> Aicionar "para assistir" ou "já
+                                               // assistido"
             System.out.println("[2]Perfil"); // Marcar series "já assistidas" e retornar "lista de series ja assistidas"
             System.out.println("[3]Adicionar série ou filme ao catálogo");
+            System.out.println("[4]Entrar em outra conta");
             System.out.println("[0]Finalizar programa");
             System.out.println("=-=-=-=-=-=-=-=-=");
             System.out.print(">> ");
@@ -191,44 +198,45 @@ public class Aplicacao {
 
                     switch (op1) {
                         case 1:
-                            
-                               //Ainda não entrega uma lista
+
+                            // Ainda não entrega uma lista
                             System.out.print("Digite o nome: ");
-                            String nome = MyIO.readLine();//Pink is the new White
+                            String nome = MyIO.readLine();// Pink is the new White
                             try {
                                 opcaoEncontrada = Amaze.filtrarPorNome(nome);
                             } catch (StreamNaoEncontradoException e) {
                                 System.out.println("Película não encontrada: " + e.getMessage());
-                            }   
-                            break; 
+                            }
+                            break;
                         case 2:
-                        
-                            //Ainda não entrega uma lista
+
+                            // Ainda não entrega uma lista
                             System.out.print("Digite o gênero: ");
                             String genero = MyIO.readLine();
                             try {
-                                opcaoEncontrada = Amaze.filtrarPorGenero(genero);
+                                List<Stream> midias = Amaze.filtrarPorGenero(genero);
+                                Amaze.mostrarLista(midias);
                             } catch (StreamNaoEncontradoException e) {
                                 System.out.println("Película não encontrada: " + e.getMessage());
                             }
-                            break;                             
+                            break;
                         case 3:
-                        
-                            //Ainda não entrega uma lista
+
+                            // Ainda não entrega uma lista
                             System.out.print("Digite o idioma: ");
                             String idioma = MyIO.readLine();
-                             try {
-                                opcaoEncontrada = Amaze.filtrarPorIdioma(idioma);
+                            try {
+                                List<Stream> midias = Amaze.filtrarPorIdioma(idioma);
+                                Amaze.mostrarLista(midias);
                             } catch (StreamNaoEncontradoException e) {
                                 System.out.println("Película não encontrada: " + e.getMessage());
-                            }   
-                            
-                            
-                            break;                                                   
+                            }
+
+                            break;
                         default:
                             System.out.println("Opção inválida. Tente novamente.");
                     }
-                    if (opcaoEncontrada != null){
+                    if (opcaoEncontrada != null) {
                         System.out.println("Película encontrada com sucesso!");
                         System.out.println("=-=-=-=-=-=-=-=-=");
                         System.out.println("[1]Marcar como opção como: já visto(a)");
@@ -239,24 +247,24 @@ public class Aplicacao {
 
                         switch (op1p1) {
                             case 1:
-                                                        
+
                                 try {
                                     Amaze.getClienteAtual().adicionarNaListaJaVisto(opcaoEncontrada);
                                     System.out.println("Película adicionada com sucesso à lista *Já Visto*!");
                                 } catch (PeliculaJaExistenteException e) {
                                     System.out.println("Película já existente na lista:" + e.getMessage());
                                 }
-                                
+
                                 break;
                             case 2:
-    
+
                                 try {
                                     Amaze.getClienteAtual().adicionarNaListaParaVer(opcaoEncontrada);
                                     System.out.println("Película adicionada com sucesso à lista *Ver Futuramente*!");
                                 } catch (PeliculaJaExistenteException e) {
                                     System.out.println("Película já existente na lista:" + e.getMessage());
                                 }
-                                
+
                                 break;
                             case 0:
 
@@ -265,10 +273,10 @@ public class Aplicacao {
                             default:
 
                                 System.out.println("Opção inválida. Tente novamente.");
+                        }
                     }
-                }
                     break;
-                    
+
                 case 2:
                     System.out.println("Selecione uma das opções abaixo: ");
                     System.out.println("[1]Mostrar lista \"PARA ASSISTIR\" de séries e filmes");
@@ -279,14 +287,16 @@ public class Aplicacao {
                     switch (op2) {
                         case 1:
                             try {
-                                System.out.println(Amaze.getClienteAtual().mostrarListaParaAssistir());
+                                List<Stream> lista = Amaze.mostrarListaParaAssistir();
+                                Amaze.mostrarLista(lista);
                             } catch (ListaVaziaException e) {
                                 System.out.println(e.getMessage());
                             }
                             break;
                         case 2:
-                            try {                              
-                                System.out.println(Amaze.getClienteAtual().mostrarListaJaVista());
+                            try {
+                                List<Stream> lista = Amaze.mostrarListaJaVista();
+                                Amaze.mostrarLista(lista);
                             } catch (ListaVaziaException e) {
                                 System.out.println(e.getMessage());
                                 break;
@@ -296,35 +306,32 @@ public class Aplicacao {
                             System.out.println("[0]Sair");
                             int op2p2 = MyIO.readInt();
 
-                            switch(op2p2){
+                            switch (op2p2) {
                                 case 1:
 
-                                while(true){
-                                  System.out.print("Digite o ID da mídia: ");
-                                    int inserirId = MyIO.readInt();
+                                    while (true) {
+                                        System.out.print("Digite o ID da mídia: ");
+                                        int inserirId = MyIO.readInt();
 
-                                    if (Amaze.getClienteAtual().avaliados().get(inserirId) != null){
-                                        
                                         System.out.print("Insira a nota (entre 1 e 5): ");
-                                        float inserirNota = 0;
-                                        
-                                        while(inserirNota < 1 && inserirNota > 5){
-                                            inserirNota = MyIO.readFloat();
-                                            if (inserirNota < 1 && inserirNota > 5){
-                                            System.out.println("Digite uma nota válida!");
-                                            }  
-                                        }                                                                   
-                                        
+                                        float inserirNota = MyIO.readFloat();
+
+                                        while (inserirNota < 1 && inserirNota > 5) {
+                                            if (inserirNota < 1 && inserirNota > 5) {
+                                                System.out.println("Digite uma nota válida!");
+                                                inserirNota = MyIO.readFloat();
+                                            }
+                                        }
+
                                         try {
-                                            Amaze.getClienteAtual().avaliar(inserirId, inserirNota);
+                                            Amaze.avaliar(inserirId, inserirNota);
                                         } catch (PeliculaJaAvaliadaException e) {
                                             System.out.println(e.getMessage());
                                         }
 
                                         break;
                                     }
-                                }                                       
-                                
+
                                 case 0:
 
                                     System.out.println("Finalizando programa.");
@@ -357,16 +364,16 @@ public class Aplicacao {
                     switch (op3) {
                         case 1:
                             System.out.print("Digite o nome da série: ");
-                             nomeColecao = MyIO.readLine();
+                            nomeColecao = MyIO.readLine();
 
                             System.out.print("Digite o gênero da série: ");
-                             generoColecao = MyIO.readLine();
+                            generoColecao = MyIO.readLine();
 
                             System.out.print("Digite o idioma da série: ");
-                             idiomaColecao = MyIO.readLine();
+                            idiomaColecao = MyIO.readLine();
 
                             System.out.print("Digite a data de lançamento da série: ");
-                             dataLancamentoColecao = MyIO.readLine();
+                            dataLancamentoColecao = MyIO.readLine();
 
                             System.out.print("Digite o numero de episódios da série: ");
                             int numEpisodios = MyIO.readInt();
@@ -414,12 +421,22 @@ public class Aplicacao {
 
                             break;
                         case 0:
-                            System.out.println("Finalizando programa.");
+                            System.out.println("\n\nFinalizando programa.\n\n");
                             break;
                         default:
                             System.out.println("Opção inválida. Tente novamente.");
                     }
                     break;
+                case 4:
+                    boolean novoAcesso = false;
+                    while (novoAcesso != true) {
+                        System.out.println("=-Realizar Login-=");
+                        System.out.print("Login>> ");
+                        String login = MyIO.readString(); // "Rog165837"
+                        System.out.print("Senha>> ");
+                        String senha = MyIO.readString(); // "RMor07441"
+                        novoAcesso = (Amaze.loginPlataforma(login, senha) == true ? true : false);
+                    }
             }
 
         } while (op != 0);

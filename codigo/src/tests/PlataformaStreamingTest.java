@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
+import java.util.List;
 
 public class PlataformaStreamingTest {
 
@@ -44,11 +45,11 @@ public class PlataformaStreamingTest {
         Assertions.assertNotNull(plataforma.getColecao().get(serie.getId()));
 
         // Filtra séries por gênero
-        Stream resultadoGenero = plataforma.filtrarPorGenero("Comédia");
+        List<Stream> resultadoGenero = plataforma.filtrarPorGenero("Comédia");
         Assertions.assertEquals(serie, resultadoGenero);
 
         // Filtra séries por idioma
-        Stream resultadoIdioma = plataforma.filtrarPorIdioma("Inglês");
+        List<Stream> resultadoIdioma = plataforma.filtrarPorIdioma("Inglês");
         Assertions.assertEquals(serie, resultadoIdioma);
 
         // Filtra séries por nome

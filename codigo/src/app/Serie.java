@@ -52,6 +52,6 @@ public class Serie extends Stream {
     @Override
     public String toString() {
         String apresentacao = "Sobre a Série: \n----------------------------------------------------------------\n";
-        return apresentacao + super.toString() + "\nQuantidade de Episódios: " + quantidadeEpisodios + "";
+        return apresentacao + super.toString() + "\nQuantidade de Episódios: " + quantidadeEpisodios + "\n\n";
     }
 }

@@ -70,6 +70,6 @@ public class AvaliacaoStream {
      * @return boolean
      */
     public boolean isAvaliado() {
-        return this.avaliacao != -1;
+        return (this.avaliacao != -1);
     }
 }

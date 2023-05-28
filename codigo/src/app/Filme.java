@@ -54,6 +54,6 @@ public class Filme extends Stream{
     @Override
     public String toString() {
         String apresentacao = "Sobre o Filme: \n----------------------------------------------------------------\n";
-        return apresentacao + super.toString() + "\nDuração: " + this.duracao + "";
+        return apresentacao + super.toString() + "\nDuração: " + this.duracao + "\n\n";
     }
 }

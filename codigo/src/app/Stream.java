@@ -204,7 +204,7 @@ public abstract class Stream {
      */
     @Override
     public String toString() {
-        String result = "Id: " + this.id + "\n" + "Nome: " + this.nome + "\n" + "Gênero: " + this.genero + "\n" + "Idioma: " + this.idioma + "\n" + "Audiência: " + this.audiencia + "\n" + "Data: " + this.dataLancamento + "\n";
+        String result = "Id: " + this.id + "\n" + "Nome: " + this.nome + "\n" + "Gênero: " + this.genero + "\n" + "Idioma: " + this.idioma + "\n" + "Audiência: " + this.audiencia + "\n" + "Data: " + this.dataLancamento + "\n" + "Avaliação: " + this.avaliacao + "\n";
         return result;
     }
 }

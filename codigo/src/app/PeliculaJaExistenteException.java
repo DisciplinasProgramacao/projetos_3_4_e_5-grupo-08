@@ -2,6 +2,6 @@ package app;
 
 public class PeliculaJaExistenteException extends Exception {
     public PeliculaJaExistenteException(String mensagem){
-        super(mensagem);
+        super("A mídia já existe na lista: " + mensagem);
     }
 }
