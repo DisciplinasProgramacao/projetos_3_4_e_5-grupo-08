@@ -193,28 +193,61 @@ public class PlataformaStreaming {
         serieOuFilme.registrarAudiencia();
     }
 
+    /**
+     * Retorna a midia a partir do ID
+     * 
+     * @param id
+     * @return Stream
+     */
     public Stream encontraStreamPorId(int id) {
         return colecao.get(id);
     }
 
+    /**
+     * Adiciona uma mídia na lista para assistir do cliente logado
+     * @param stream
+     * @throws PeliculaJaExistenteException
+     */
     public void adicionarNaListaParaVer(Stream stream) throws PeliculaJaExistenteException {
         this.clienteAtual.adicionarNaListaParaVer(stream);
     }
 
+    /**
+     * Avalia uma midia do cliente
+     * 
+     * @param inserirId
+     * @param inserirNota
+     * @throws PeliculaJaAvaliadaException
+     */
     public void avaliar(int inserirId, float inserirNota) throws PeliculaJaAvaliadaException {
         this.clienteAtual.avaliar(inserirId, inserirNota);
     }
 
+    /**
+     * Método genério que imprime uma lista de midias
+     * @param lista
+     */
     public void mostrarLista(List<Stream> lista) {
         for(Stream s : lista) {
             System.out.println(s);
         }
     }
-
+    
+    /**
+     * Metodo que retorna a lista de midias para assistir do cliente
+     * 
+     * @return
+     * @throws ListaVaziaException
+     */
     public List<Stream> mostrarListaParaAssistir() throws ListaVaziaException {
         return this.clienteAtual.mostrarListaParaAssistir();
     }
 
+    /**
+     * Metodo que retorna a lista de midias ja vistas do cliente
+     * @return
+     * @throws ListaVaziaException
+     */
     public List<Stream> mostrarListaJaVista() throws ListaVaziaException{
         return this.clienteAtual.mostrarListaJaVista();
     }
