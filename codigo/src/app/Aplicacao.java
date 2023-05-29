@@ -325,6 +325,7 @@ public class Aplicacao {
 
                                         try {
                                             Amaze.avaliar(inserirId, inserirNota);
+                                            System.out.println("Avaliação registrada com sucesso!");
                                         } catch (PeliculaJaAvaliadaException e) {
                                             System.out.println(e.getMessage());
                                         }
