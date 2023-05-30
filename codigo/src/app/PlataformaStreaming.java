@@ -131,7 +131,7 @@ public class PlataformaStreaming {
         List<Stream> result = new ArrayList<Stream>();
         
         for (Stream i : colecao.values()) {
-            if (i.getGenero() == genero) {
+            if (i.getGenero().equals(genero)) {
                 result.add(i);
             }
         }

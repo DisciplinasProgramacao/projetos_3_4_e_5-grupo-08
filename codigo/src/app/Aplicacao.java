@@ -174,8 +174,7 @@ public class Aplicacao {
             System.out.printf("Olá " + Amaze.getNomeClienteAtual() + "!\n");
             System.out.println("=-=-=-=-=-=-=-=-=");
             System.out.println("Digite uma das opções abaixo:");
-            System.out.println("[1]Catálogo"); // Pesquisar series e filmes -> Aicionar "para assistir" ou "já
-                                               // assistido"
+            System.out.println("[1]Catálogo"); // Pesquisar series e filmes -> Aicionar "para assistir" ou "já assistido"
             System.out.println("[2]Perfil"); // Marcar series "já assistidas" e retornar "lista de series ja assistidas"
             System.out.println("[3]Adicionar série ou filme ao catálogo");
             System.out.println("[4]Entrar em outra conta");
@@ -199,7 +198,6 @@ public class Aplicacao {
                     switch (op1) {
                         case 1:
 
-                            // Ainda não entrega uma lista
                             System.out.print("Digite o nome: ");
                             String nome = MyIO.readLine();// Pink is the new White
                             try {
@@ -209,8 +207,7 @@ public class Aplicacao {
                             }
                             break;
                         case 2:
-
-                            // Ainda não entrega uma lista
+                       
                             System.out.print("Digite o gênero: ");
                             String genero = MyIO.readLine();
                             try {
@@ -222,7 +219,6 @@ public class Aplicacao {
                             break;
                         case 3:
 
-                            // Ainda não entrega uma lista
                             System.out.print("Digite o idioma: ");
                             String idioma = MyIO.readLine();
                             try {
