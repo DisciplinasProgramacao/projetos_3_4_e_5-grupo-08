@@ -1,6 +1,6 @@
 package app;
 
-public class Filme extends Stream{
+public class Filme extends StreamAvaliavel{
     private float duracao;
 
     /**
@@ -12,7 +12,7 @@ public class Filme extends Stream{
      * @param dataLancamento
      * @param duracao
      */
-    public Filme(int id, String nome, String genero, String idioma, String dataLancamento, float duracao) {
+    public Filme(int id, String nome, int genero, int idioma, String dataLancamento, float duracao) {
         super(id, nome, genero, idioma, dataLancamento);
         this.duracao = duracao;
     }

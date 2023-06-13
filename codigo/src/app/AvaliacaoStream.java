@@ -6,14 +6,14 @@ package app;
  * a avaliação é realizada pelo usuário
  */
 public class AvaliacaoStream {
-    private Stream stream;
+    private StreamAvaliavel stream;
     private double avaliacao;
 
     /**
      * Construtor da classe Avaliacao
      * @param stream
      */
-    public AvaliacaoStream(Stream stream) {
+    public AvaliacaoStream(StreamAvaliavel stream) {
         this.stream = stream;
         this.avaliacao = -1;
     }
@@ -23,7 +23,7 @@ public class AvaliacaoStream {
      * 
      * @return Stream - stream
      */
-    public Stream getStream() {
+    public StreamAvaliavel getStream() {
         return stream;
     }
     
@@ -32,7 +32,7 @@ public class AvaliacaoStream {
      * 
      * @param stream
      */
-    public void setStream(Stream stream) {
+    public void setStream(StreamAvaliavel stream) {
         this.stream = stream;
     }
 

@@ -32,7 +32,7 @@ public class Aplicacao {
 
         do {
             dadosSeparadosS = dadosS.split(";");
-            Stream novaSerie = new Serie(Integer.parseInt(dadosSeparadosS[0]), dadosSeparadosS[1], dadosSeparadosS[2]);
+            StreamAvaliavel novaSerie = new Serie(Integer.parseInt(dadosSeparadosS[0]), dadosSeparadosS[1], dadosSeparadosS[2]);
             plataforma.adicionarColecao(novaSerie);
             dadosS = file.ler();
 
@@ -57,7 +57,7 @@ public class Aplicacao {
 
         do {
             dadosSeparadosF = dadosF.split(";");
-            Stream novoFilme = new Filme(Integer.parseInt(dadosSeparadosF[0]), dadosSeparadosF[1], dadosSeparadosF[2],
+            StreamAvaliavel novoFilme = new Filme(Integer.parseInt(dadosSeparadosF[0]), dadosSeparadosF[1], dadosSeparadosF[2],
                     Float.parseFloat(dadosSeparadosF[3]));
             plataforma.adicionarColecao(novoFilme);
             dadosF = file.ler();
@@ -89,17 +89,19 @@ public class Aplicacao {
 
             plataforma.login(dadosSeparadosA[0]);
             Stream stream = plataforma.encontraStreamPorId(Integer.parseInt(dadosSeparadosA[2]));
-            if (plataforma.getClienteAtual() != null && stream != null) {
-                if (dadosSeparadosA[1].equals("F")) {
-                    try {
-                        plataforma.adicionarNaListaParaVer(stream);
-                    } catch (PeliculaJaExistenteException e) {
-                        // TODO Auto-generated catch block
-                        // e.printStackTrace();
-                        System.out.println(e.getMessage());
+            if( stream instanceof StreamAvaliavel ) {
+                if (plataforma.getClienteAtual() != null && stream != null) {
+                    if (dadosSeparadosA[1].equals("F")) {
+                        try {
+                            plataforma.adicionarNaListaParaVer((StreamAvaliavel) stream);
+                        } catch (PeliculaJaExistenteException e) {
+                            // TODO Auto-generated catch block
+                            // e.printStackTrace();
+                            System.out.println(e.getMessage());
+                        }
+                    } else /* dadosSeparadosA[1] == "A" */ {
+                        plataforma.registrarAudiencia((StreamAvaliavel) stream);
                     }
-                } else /* dadosSeparadosA[1] == "A" */ {
-                    plataforma.registrarAudiencia(stream);
                 }
             }
 
@@ -212,7 +214,7 @@ public class Aplicacao {
                             String genero = MyIO.readLine();
                             try {
                                 List<Stream> midias = Amaze.filtrarPorGenero(genero);
-                                Amaze.mostrarLista(midias);
+                                Amaze.mostrarListaStream(midias);
                             } catch (StreamNaoEncontradoException e) {
                                 System.out.println("Película não encontrada: " + e.getMessage());
                             }
@@ -223,7 +225,7 @@ public class Aplicacao {
                             String idioma = MyIO.readLine();
                             try {
                                 List<Stream> midias = Amaze.filtrarPorIdioma(idioma);
-                                Amaze.mostrarLista(midias);
+                                Amaze.mostrarListaStream(midias);
                             } catch (StreamNaoEncontradoException e) {
                                 System.out.println("Película não encontrada: " + e.getMessage());
                             }
@@ -245,7 +247,7 @@ public class Aplicacao {
                             case 1:
 
                                 try {
-                                    Amaze.getClienteAtual().adicionarNaListaJaVisto(opcaoEncontrada);
+                                    Amaze.getClienteAtual().adicionarNaListaJaVisto((StreamAvaliavel) opcaoEncontrada);
                                     System.out.println("Película adicionada com sucesso à lista *Já Visto*!");
                                 } catch (PeliculaJaExistenteException e) {
                                     System.out.println("Película já existente na lista:" + e.getMessage());
@@ -255,7 +257,7 @@ public class Aplicacao {
                             case 2:
 
                                 try {
-                                    Amaze.getClienteAtual().adicionarNaListaParaVer(opcaoEncontrada);
+                                    Amaze.getClienteAtual().adicionarNaListaParaVer((StreamAvaliavel) opcaoEncontrada);
                                     System.out.println("Película adicionada com sucesso à lista *Ver Futuramente*!");
                                 } catch (PeliculaJaExistenteException e) {
                                     System.out.println("Película já existente na lista:" + e.getMessage());
@@ -283,7 +285,7 @@ public class Aplicacao {
                     switch (op2) {
                         case 1:
                             try {
-                                List<Stream> lista = Amaze.mostrarListaParaAssistir();
+                                List<StreamAvaliavel> lista = Amaze.mostrarListaParaAssistir();
                                 Amaze.mostrarLista(lista);
                             } catch (ListaVaziaException e) {
                                 System.out.println(e.getMessage());
@@ -291,7 +293,7 @@ public class Aplicacao {
                             break;
                         case 2:
                             try {
-                                List<Stream> lista = Amaze.mostrarListaJaVista();
+                                List<StreamAvaliavel> lista = Amaze.mostrarListaJaVista();
                                 Amaze.mostrarLista(lista);
                             } catch (ListaVaziaException e) {
                                 System.out.println(e.getMessage());
@@ -350,8 +352,8 @@ public class Aplicacao {
                     int op3 = MyIO.readInt();
 
                     String nomeColecao;
-                    String generoColecao;
-                    String idiomaColecao;
+                    int generoColecao;
+                    int idiomaColecao;
                     String dataLancamentoColecao;
 
                     int novoId = 0;
@@ -363,11 +365,21 @@ public class Aplicacao {
                             System.out.print("Digite o nome da série: ");
                             nomeColecao = MyIO.readLine();
 
-                            System.out.print("Digite o gênero da série: ");
-                            generoColecao = MyIO.readLine();
-
+                            System.out.println("Digite o gênero da série: ");
+                            int contador = 0;
+                            for(String genero : Stream.generos) {
+                                System.out.println(contador + " - para " + genero);
+                                contador++;
+                            }
+                            generoColecao = MyIO.readInt();
+                            
                             System.out.print("Digite o idioma da série: ");
-                            idiomaColecao = MyIO.readLine();
+                            contador = 0;
+                            for(String idioma : Stream.idiomas) {
+                                System.out.println(contador + " - para " + idioma);
+                                contador++;
+                            }
+                            idiomaColecao = MyIO.readInt();
 
                             System.out.print("Digite a data de lançamento da série: ");
                             dataLancamentoColecao = MyIO.readLine();
@@ -392,11 +404,21 @@ public class Aplicacao {
                             System.out.print("Digite o nome do filme: ");
                             nomeColecao = MyIO.readLine();
 
-                            System.out.print("Digite o gênero do filme: ");
-                            generoColecao = MyIO.readLine();
+                            System.out.println("Digite o gênero do filme: ");
+                            int contador1 = 0;
+                            for(String genero : Stream.generos) {
+                                System.out.println(contador1 + " - para " + genero);
+                                contador1++;
+                            }
+                            generoColecao = MyIO.readInt();
 
-                            System.out.print("Digite o idioma do filme: ");
-                            idiomaColecao = MyIO.readLine();
+                            System.out.print("Digite o idioma da série: ");
+                            contador1 = 0;
+                            for(String idioma : Stream.idiomas) {
+                                System.out.println(contador1 + " - para " + idioma);
+                                contador1++;
+                            }
+                            idiomaColecao = MyIO.readInt();
 
                             System.out.print("Digite a data de lançamento do filme: ");
                             dataLancamentoColecao = MyIO.readLine();

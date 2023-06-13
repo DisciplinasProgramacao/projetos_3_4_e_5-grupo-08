@@ -188,7 +188,7 @@ public class PlataformaStreaming {
      * 
      * @param serieOuFilme
      */
-    public void registrarAudiencia(Stream serieOuFilme) {
+    public void registrarAudiencia(StreamAvaliavel serieOuFilme) {
         this.clienteAtual.registrarAudiencia(serieOuFilme);
         serieOuFilme.registrarAudiencia();
     }
@@ -208,7 +208,7 @@ public class PlataformaStreaming {
      * @param stream
      * @throws PeliculaJaExistenteException
      */
-    public void adicionarNaListaParaVer(Stream stream) throws PeliculaJaExistenteException {
+    public void adicionarNaListaParaVer(StreamAvaliavel stream) throws PeliculaJaExistenteException {
         this.clienteAtual.adicionarNaListaParaVer(stream);
     }
 
@@ -227,8 +227,14 @@ public class PlataformaStreaming {
      * Método genério que imprime uma lista de midias
      * @param lista
      */
-    public void mostrarLista(List<Stream> lista) {
+    public void mostrarListaStream(List<Stream> lista) {
         for(Stream s : lista) {
+            System.out.println(s);
+        }
+    }
+
+    public void mostrarLista(List<StreamAvaliavel> lista) {
+        for(StreamAvaliavel s : lista) {
             System.out.println(s);
         }
     }
@@ -239,7 +245,7 @@ public class PlataformaStreaming {
      * @return
      * @throws ListaVaziaException
      */
-    public List<Stream> mostrarListaParaAssistir() throws ListaVaziaException {
+    public List<StreamAvaliavel> mostrarListaParaAssistir() throws ListaVaziaException {
         return this.clienteAtual.mostrarListaParaAssistir();
     }
 
@@ -248,7 +254,7 @@ public class PlataformaStreaming {
      * @return
      * @throws ListaVaziaException
      */
-    public List<Stream> mostrarListaJaVista() throws ListaVaziaException{
+    public List<StreamAvaliavel> mostrarListaJaVista() throws ListaVaziaException{
         return this.clienteAtual.mostrarListaJaVista();
     }
 }

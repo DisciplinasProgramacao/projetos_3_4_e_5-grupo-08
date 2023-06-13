@@ -1,6 +1,6 @@
 package app;
 
-public class Serie extends Stream {
+public class Serie extends StreamAvaliavel {
     private int quantidadeEpisodios;
 
     /**
@@ -12,7 +12,7 @@ public class Serie extends Stream {
      * @param dataLancamento
      * @param quantidadeEpisodios
      */
-    public Serie(int id, String nome, String genero, String idioma, String dataLancamento, int quantidadeEpisodios) {
+    public Serie(int id, String nome, int genero, int idioma, String dataLancamento, int quantidadeEpisodios) {
         super(id, nome, genero, idioma, dataLancamento);
         this.quantidadeEpisodios = quantidadeEpisodios;
     }

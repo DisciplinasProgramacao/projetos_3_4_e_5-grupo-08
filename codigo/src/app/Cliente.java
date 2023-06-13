@@ -7,7 +7,7 @@ public class Cliente {
     private String nomeDeUsuario;
     private String login;
     private String senha;
-    List<Stream> listaParaVer;
+    List<StreamAvaliavel> listaParaVer;
     List<AvaliacaoStream> listaJaVistas;
 
     /**
@@ -22,7 +22,7 @@ public class Cliente {
         setNomeDeUsuario(nomeDeUsuario);
         setLogin(login);
         setSenha(senha);
-        this.listaParaVer = new ArrayList<Stream>();
+        this.listaParaVer = new ArrayList<StreamAvaliavel>();
         this.listaJaVistas = new ArrayList<AvaliacaoStream>();
     }
 
@@ -85,7 +85,7 @@ public class Cliente {
      * 
      * @param serieOuFilme
      */
-    public void adicionarNaListaParaVer(Stream serieOuFilme) throws PeliculaJaExistenteException {
+    public void adicionarNaListaParaVer(StreamAvaliavel serieOuFilme) throws PeliculaJaExistenteException {
         if (!this.listaParaVer.contains(serieOuFilme)) {
             this.listaParaVer.add(serieOuFilme);
         } else {
@@ -99,7 +99,7 @@ public class Cliente {
      * 
      * @param serieOuFilme
      */
-    public void adicionarNaListaJaVisto(Stream serieOuFilme) throws PeliculaJaExistenteException {
+    public void adicionarNaListaJaVisto(StreamAvaliavel serieOuFilme) throws PeliculaJaExistenteException {
         AvaliacaoStream novo = new AvaliacaoStream(serieOuFilme);
         if (!this.listaJaVistas.contains(novo)) {
             this.listaJaVistas.add(novo);
@@ -174,8 +174,8 @@ public class Cliente {
      * 
      * @return List<AvaliacaoStream>
      */
-    public List<Stream> mostrarListaJaVista() throws ListaVaziaException {
-        List<Stream> lista = new ArrayList<Stream>();
+    public List<StreamAvaliavel> mostrarListaJaVista() throws ListaVaziaException {
+        List<StreamAvaliavel> lista = new ArrayList<StreamAvaliavel>();
 
         for (AvaliacaoStream a : this.listaJaVistas) {
             lista.add(a.getStream());
@@ -193,7 +193,7 @@ public class Cliente {
      * 
      * @return
      */
-    public List<Stream> mostrarListaParaAssistir() throws ListaVaziaException {
+    public List<StreamAvaliavel> mostrarListaParaAssistir() throws ListaVaziaException {
         if (listaParaVer.size() == 0) {
             throw new ListaVaziaException("Lista vazia.");
         } else {
@@ -230,7 +230,7 @@ public class Cliente {
      * 
      * @param serieOuFilme
      */
-    public void registrarAudiencia(Stream serieOuFilme) {
+    public void registrarAudiencia(StreamAvaliavel serieOuFilme) {
 
         try {
             this.adicionarNaListaJaVisto(serieOuFilme);
