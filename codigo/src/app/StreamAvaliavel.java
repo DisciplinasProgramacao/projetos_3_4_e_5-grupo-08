@@ -1,8 +1,8 @@
 package app;
 
-public abstract class StreamAvaliavel extends Stream {
+import java.util.Random;
 
-    private Stream stream;
+public abstract class StreamAvaliavel extends Stream {
     private int audiencia;
     private double avaliacao;
     private int contAvaliacao;
@@ -18,8 +18,9 @@ public abstract class StreamAvaliavel extends Stream {
     public StreamAvaliavel(int id, String nome, int genero, int idioma, String dataLancamento) {
         super(id, nome, genero, idioma, dataLancamento);
         this.audiencia = 0;
-        this.avaliacao = 0;
-        this.contAvaliacao = 0;
+        Random random1 = new java.util.Random();
+        this.avaliacao = random1.nextDouble() * 10 % 6;
+        this.contAvaliacao = 1;
     }
 
     /**
@@ -32,8 +33,9 @@ public abstract class StreamAvaliavel extends Stream {
     public StreamAvaliavel(int id, String nome, String dataLancamento){
         super(id, nome, dataLancamento);
         this.audiencia = 0;
-        this.avaliacao = 0;
-        this.contAvaliacao = 0;
+        Random random1 = new java.util.Random();
+        this.avaliacao = random1.nextDouble() * 10 % 6;
+        this.contAvaliacao = 1;
     }
 
     /**

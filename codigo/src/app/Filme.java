@@ -1,5 +1,7 @@
 package app;
 
+import java.util.Random;
+
 public class Filme extends StreamAvaliavel{
     private float duracao;
 
@@ -26,6 +28,8 @@ public class Filme extends StreamAvaliavel{
      */
     public Filme(int idFIlme, String nome, String dataDeLancamento, float duracao) {
         super(idFIlme, nome, dataDeLancamento);
+        Random random = new java.util.Random();
+        this.duracao = random.nextFloat() * 1000;
     }
 
     /**

@@ -1,5 +1,7 @@
 package app;
 
+import java.util.Random;
+
 public class Serie extends StreamAvaliavel {
     private int quantidadeEpisodios;
 
@@ -25,6 +27,8 @@ public class Serie extends StreamAvaliavel {
      */
     public Serie(int IdSerie, String nome, String dataDeLancamento){
         super(IdSerie, nome, dataDeLancamento);
+        Random random = new java.util.Random();
+        this.quantidadeEpisodios = random.nextInt(20);
     }
 
     /**

@@ -10,7 +10,6 @@ public abstract class Stream {
     private String genero;
     private String idioma;
     private String dataLancamento;
-    private int contAvaliacao;
 
     public static final String[] generos = {
         "Comedia",
@@ -46,7 +45,6 @@ public abstract class Stream {
         this.genero = generos[genero];
         this.idioma = idiomas[idioma];
         this.dataLancamento = dataLancamento;
-        this.contAvaliacao = 0;
     }
 
     /**
