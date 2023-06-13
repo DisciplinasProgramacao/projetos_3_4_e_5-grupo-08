@@ -76,6 +76,8 @@ public class Aplicacao {
     public static void carregarDadosA(PlataformaStreaming plataforma) {
         ArquivoTextoLeitura file = new ArquivoTextoLeitura("codigo/src/POO_Audiencia.csv");
 
+        int cont = 0;
+        
         String dadosA = file.ler();
         dadosA = file.ler(); // pula linha
 
@@ -97,7 +99,7 @@ public class Aplicacao {
                         } catch (PeliculaJaExistenteException e) {
                             // TODO Auto-generated catch block
                             // e.printStackTrace();
-                            System.out.println(e.getMessage());
+                            cont++;
                         }
                     } else /* dadosSeparadosA[1] == "A" */ {
                         plataforma.registrarAudiencia((StreamAvaliavel) stream);
@@ -109,6 +111,8 @@ public class Aplicacao {
         } while (dadosA != null);
 
         file.fecharArquivo();
+        
+        System.out.println(cont);
     }
 
     /**
@@ -180,6 +184,8 @@ public class Aplicacao {
             System.out.println("[2]Perfil"); // Marcar series "já assistidas" e retornar "lista de series ja assistidas"
             System.out.println("[3]Adicionar série ou filme ao catálogo");
             System.out.println("[4]Entrar em outra conta");
+            System.out.println("[5]Cadastrar cliente");
+            System.out.println("[6]Relatórios");
             System.out.println("[0]Finalizar programa");
             System.out.println("=-=-=-=-=-=-=-=-=");
             System.out.print(">> ");
@@ -395,7 +401,7 @@ public class Aplicacao {
 
                             String escreverSerie = Integer.toString(novoId) + ";" + nomeColecao + ";"
                                     + dataLancamentoColecao;
-                            escrita = new ArquivoTextoEscrita("POO_Filmes.csv");
+                            escrita = new ArquivoTextoEscrita("codigo/src/POO_Series.csv");
                             escrita.escrever(escreverSerie);
                             escrita.fecharArquivo();
 
@@ -423,7 +429,7 @@ public class Aplicacao {
                             System.out.print("Digite a data de lançamento do filme: ");
                             dataLancamentoColecao = MyIO.readLine();
 
-                            System.out.print("Digite o numero de episódios do filme: ");
+                            System.out.print("Digite a duração do filme (em minutos): ");
                             float duracao = MyIO.readFloat();
 
                             novoId = Stream.contId++;
@@ -434,7 +440,7 @@ public class Aplicacao {
 
                             String escreverFilme = Integer.toString(novoId) + ";" + nomeColecao + ";"
                                     + dataLancamentoColecao + ";" + Float.toString(duracao);
-                            escrita = new ArquivoTextoEscrita("POO_Filmes.csv");
+                            escrita = new ArquivoTextoEscrita("codigo/src/POO_Filmes.csv");
                             escrita.escrever(escreverFilme);
                             escrita.fecharArquivo();
 
@@ -456,6 +462,24 @@ public class Aplicacao {
                         String senha = MyIO.readString(); // "RMor07441"
                         novoAcesso = (Amaze.loginPlataforma(login, senha) == true ? true : false);
                     }
+                case 5:
+                    System.out.print("Digite o nome do cliente: ");
+                    String nomeCliente = MyIO.readLine();
+                    System.out.print("Digite o login do cliente: ");
+                    String loginCliente = MyIO.readLine();
+                    System.out.print("Digite a senha do cliente: ");
+                    String senhaCliente = MyIO.readLine();
+
+                    Cliente novoCliente = new Cliente(nomeCliente,loginCliente,senhaCliente);
+                    Amaze.adicionarCliente(novoCliente);
+
+                    String escreverCliente = nomeCliente + ";" + loginCliente + ";" + senhaCliente;
+                    escrita = new ArquivoTextoEscrita("codigo/src/POO_Espectadores.csv");
+                    escrita.escrever(escreverCliente);
+                    escrita.fecharArquivo();
+
+                    break;
+                case 6:
             }
 
         } while (op != 0);
