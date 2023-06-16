@@ -17,7 +17,7 @@ import java.util.List;
 public class Aplicacao {
 
     /**
-     * Método para carregar séries à plataforma
+     * Método para carregar séries à plataforma.
      * 
      * @param plataforma
      */
@@ -42,7 +42,7 @@ public class Aplicacao {
     }
 
     /**
-     * Método para carregar filmes à plataforma
+     * Método para carregar filmes à plataforma.
      * 
      * @param plataforma
      */
@@ -69,7 +69,7 @@ public class Aplicacao {
 
     /**
      * Método para carregar dados de audiência de série a clientes cadastrados na
-     * plataforma
+     * plataforma.
      * 
      * @param plataforma
      */
@@ -116,7 +116,7 @@ public class Aplicacao {
     }
 
     /**
-     * Método para criar perfis de cliente na plataforma
+     * Método para criar perfis de cliente na plataforma.
      * 
      * @param plataforma
      */
@@ -140,6 +140,16 @@ public class Aplicacao {
         file.fecharArquivo();
     }
 
+    /*
+     * Método para carregar trailers à plataforma.
+     * 
+     * @param
+     */
+    public static void carregarDadosT(){
+
+    }
+
+
     public static void main(String[] args) {
 
         // PLATAFORMA
@@ -147,7 +157,7 @@ public class Aplicacao {
         PlataformaStreaming Amaze = new PlataformaStreaming("Amaze");
 
         // ESPECTADORES
-        // Carregando dados do arquivo "POO_Espectadores.csv" para o vetor de Series
+        // Carregando dados do arquivo "POO_Espectadores.csv" para a coleção
         carregarDadosE(Amaze);
 
         // SERIE
@@ -159,8 +169,12 @@ public class Aplicacao {
         carregarDadosA(Amaze);
 
         // FILME
-        // Carregando dados do arquivo "POO_Filmes.csv" para o vetor de Series
+        // Carregando dados do arquivo "POO_Filmes.csv" para a coleção
         carregarDadosF(Amaze);
+
+        //TRAILERS
+        // Carregando dados do arquivo "POO_Trailers.csv" para a coleção
+        carregarDadosT();
 
         // REALIZAR LOGIN
         boolean acesso = false;
@@ -181,7 +195,7 @@ public class Aplicacao {
             System.out.println("=-=-=-=-=-=-=-=-=");
             System.out.println("Digite uma das opções abaixo:");
             System.out.println("[1]Catálogo"); // Pesquisar series e filmes -> Aicionar "para assistir" ou "já assistido"
-            System.out.println("[2]Perfil"); // Marcar series "já assistidas" e retornar "lista de series ja assistidas"
+            System.out.println("[2]Perfil"); // Mostrar listas de series & filmes "já assistidas" ou "para assistir" e avaliar películas "já assistidas"
             System.out.println("[3]Adicionar série ou filme ao catálogo");
             System.out.println("[4]Entrar em outra conta");
             System.out.println("[5]Cadastrar cliente");
@@ -211,6 +225,9 @@ public class Aplicacao {
                             try {
                                 opcaoEncontrada = Amaze.filtrarPorNome(nome);
                             } catch (StreamNaoEncontradoException e) {
+                                /*
+                                 * Caso a película procurada pelo nome não tenha sido encontrada na lista, esta exceção será capturada.
+                                 */
                                 System.out.println("Película não encontrada: " + e.getMessage());
                             }
                             break;
@@ -222,6 +239,9 @@ public class Aplicacao {
                                 List<Stream> midias = Amaze.filtrarPorGenero(genero);
                                 Amaze.mostrarListaStream(midias);
                             } catch (StreamNaoEncontradoException e) {
+                                /* 
+                                * Caso a película procurada pelo gênero não tenha sido encontrada na lista, esta exceção será capturada.                                         
+                                */
                                 System.out.println("Película não encontrada: " + e.getMessage());
                             }
                             break;
@@ -233,6 +253,9 @@ public class Aplicacao {
                                 List<Stream> midias = Amaze.filtrarPorIdioma(idioma);
                                 Amaze.mostrarListaStream(midias);
                             } catch (StreamNaoEncontradoException e) {
+                                /* 
+                                * Caso a película procurada pelo idioma não tenha sido encontrada na lista, esta exceção será capturada.                                         
+                                */
                                 System.out.println("Película não encontrada: " + e.getMessage());
                             }
 
@@ -256,6 +279,9 @@ public class Aplicacao {
                                     Amaze.getClienteAtual().adicionarNaListaJaVisto((StreamAvaliavel) opcaoEncontrada);
                                     System.out.println("Película adicionada com sucesso à lista *Já Visto*!");
                                 } catch (PeliculaJaExistenteException e) {
+                                    /* 
+                                    * Caso uma película que já exista dentro da lista "Já Visto" tenha sido tentada ser adicionada à mesma lista, esta exceção será capturada.                                         
+                                    */
                                     System.out.println("Película já existente na lista:" + e.getMessage());
                                 }
 
@@ -266,6 +292,9 @@ public class Aplicacao {
                                     Amaze.getClienteAtual().adicionarNaListaParaVer((StreamAvaliavel) opcaoEncontrada);
                                     System.out.println("Película adicionada com sucesso à lista *Ver Futuramente*!");
                                 } catch (PeliculaJaExistenteException e) {
+                                    /* 
+                                    * Caso uma película que já exista dentro da lista "Para Ver" tenha sido tentada ser adicionada à mesma lista, esta exceção será capturada.                                         
+                                    */
                                     System.out.println("Película já existente na lista:" + e.getMessage());
                                 }
 
@@ -294,6 +323,9 @@ public class Aplicacao {
                                 List<StreamAvaliavel> lista = Amaze.mostrarListaParaAssistir();
                                 Amaze.mostrarLista(lista);
                             } catch (ListaVaziaException e) {
+                                /* 
+                                * Caso a lista esteja vazia, esta exceção será capturada.                                         
+                                */
                                 System.out.println(e.getMessage());
                             }
                             break;
@@ -302,6 +334,9 @@ public class Aplicacao {
                                 List<StreamAvaliavel> lista = Amaze.mostrarListaJaVista();
                                 Amaze.mostrarLista(lista);
                             } catch (ListaVaziaException e) {
+                                /* 
+                                * Caso a lista esteja vazia, esta exceção será capturada.                                         
+                                */
                                 System.out.println(e.getMessage());
                                 break;
                             }
@@ -331,6 +366,9 @@ public class Aplicacao {
                                             Amaze.avaliar(inserirId, inserirNota);
                                             System.out.println("Avaliação registrada com sucesso!");
                                         } catch (PeliculaJaAvaliadaException e) {
+                                            /*
+                                             * Caso haja tentativa de avaliação mas a mesma já tenha sido registrada anteriormente, esta exceção será capturada.
+                                             */
                                             System.out.println(e.getMessage());
                                         }
 
@@ -480,6 +518,44 @@ public class Aplicacao {
 
                     break;
                 case 6:
+                    System.out.println("Mostrar: ");
+                    System.out.println("[1]O cliente que assistiu mais mídias;");
+                    System.out.println("[2]O cliente que tem mais avaliações;");
+                    System.out.println("[3]A porcentagem dos clientes com pelo menos 15 avaliações;");
+                    System.out.println("[4]As 10 mídias de melhor avaliação, com pelo menos 100 avaliações;");
+                    System.out.println("[5]As 10 mídias com mais visualizações;");
+                    System.out.println("[6]Estes mesmos dois últimos relatórios, porém com as mídias separadas por gênero;");
+                    System.out.println("[0]Finalizar programa.");
+                    int op6p1 = MyIO.readInt();
+
+                    switch(op6p1){
+                        case 1:
+
+                            break;
+                        case 2:
+
+                            break;
+                        case 3:
+                            
+                            break;
+                        case 4:
+                            
+                            break;
+                        case 5:
+                            
+                            break;
+                        case 6:
+                            
+                            break;
+
+                        case 0:
+                            System.out.println("\n\nFinalizando programa.\n\n");
+                            break;
+                        default:
+                            System.out.println("Opção inválida. Tente novamente.");
+                    }
+                    break;
+                    
             }
 
         } while (op != 0);
