@@ -88,4 +88,42 @@ public abstract class StreamAvaliavel extends Stream {
         String result =  super.toString() + "Audiência: " + this.audiencia + "\n" + "Avaliação: " + this.avaliacao + "\n";
         return result;
     }
+
+    /**
+     * Retorna o número de avaliações.
+     *
+     * @return o número de avaliações
+     */
+    public int getNumeroDeAvaliacoes() {
+        return numeroDeAvaliacoes;
+    }
+
+    /**
+     * Retorna a média das avaliações.
+     *
+     * @return a média das avaliações
+     */
+    public double getMediaDeAvaliacoes() {
+        if (numeroDeAvaliacoes == 0) {
+            return 0.0;
+        } else {
+            return somaDasAvaliacoes / numeroDeAvaliacoes;
+        }
+    }
+
+    /**
+     * Retorna o número de visualizações.
+     *
+     * @return o número de visualizações
+     */
+    public int getNumeroDeVisualizacoes() {
+        return numeroDeVisualizacoes;
+    }
+
+    /**
+     * Incrementa o número de visualizações.
+     */
+    public void incrementarNumeroDeVisualizacoes() {
+        numeroDeVisualizacoes++;
+    }
 }
