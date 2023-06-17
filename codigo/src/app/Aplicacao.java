@@ -1,6 +1,7 @@
 package app;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Projetos 3, 4 e 5 (PARTE 4)
@@ -32,7 +33,8 @@ public class Aplicacao {
 
         do {
             dadosSeparadosS = dadosS.split(";");
-            StreamAvaliavel novaSerie = new Serie(Integer.parseInt(dadosSeparadosS[0]), dadosSeparadosS[1], dadosSeparadosS[2]);
+            StreamAvaliavel novaSerie = new Serie(Integer.parseInt(dadosSeparadosS[0]), dadosSeparadosS[1],
+                    dadosSeparadosS[2]);
             plataforma.adicionarColecao(novaSerie);
             dadosS = file.ler();
 
@@ -57,7 +59,8 @@ public class Aplicacao {
 
         do {
             dadosSeparadosF = dadosF.split(";");
-            StreamAvaliavel novoFilme = new Filme(Integer.parseInt(dadosSeparadosF[0]), dadosSeparadosF[1], dadosSeparadosF[2],
+            StreamAvaliavel novoFilme = new Filme(Integer.parseInt(dadosSeparadosF[0]), dadosSeparadosF[1],
+                    dadosSeparadosF[2],
                     Float.parseFloat(dadosSeparadosF[3]));
             plataforma.adicionarColecao(novoFilme);
             dadosF = file.ler();
@@ -77,7 +80,7 @@ public class Aplicacao {
         ArquivoTextoLeitura file = new ArquivoTextoLeitura("codigo/src/POO_Audiencia.csv");
 
         int cont = 0;
-        
+
         String dadosA = file.ler();
         dadosA = file.ler(); // pula linha
 
@@ -91,7 +94,7 @@ public class Aplicacao {
 
             plataforma.login(dadosSeparadosA[0]);
             Stream stream = plataforma.encontraStreamPorId(Integer.parseInt(dadosSeparadosA[2]));
-            if( stream instanceof StreamAvaliavel ) {
+            if (stream instanceof StreamAvaliavel) {
                 if (plataforma.getClienteAtual() != null && stream != null) {
                     if (dadosSeparadosA[1].equals("F")) {
                         try {
@@ -111,7 +114,7 @@ public class Aplicacao {
         } while (dadosA != null);
 
         file.fecharArquivo();
-        
+
         System.out.println(cont);
     }
 
@@ -145,10 +148,9 @@ public class Aplicacao {
      * 
      * @param
      */
-    public static void carregarDadosT(){
+    public static void carregarDadosT() {
 
     }
-
 
     public static void main(String[] args) {
 
@@ -172,7 +174,7 @@ public class Aplicacao {
         // Carregando dados do arquivo "POO_Filmes.csv" para a coleção
         carregarDadosF(Amaze);
 
-        //TRAILERS
+        // TRAILERS
         // Carregando dados do arquivo "POO_Trailers.csv" para a coleção
         carregarDadosT();
 
@@ -194,8 +196,10 @@ public class Aplicacao {
             System.out.printf("Olá " + Amaze.getNomeClienteAtual() + "!\n");
             System.out.println("=-=-=-=-=-=-=-=-=");
             System.out.println("Digite uma das opções abaixo:");
-            System.out.println("[1]Catálogo"); // Pesquisar series e filmes -> Aicionar "para assistir" ou "já assistido"
-            System.out.println("[2]Perfil"); // Mostrar listas de series & filmes "já assistidas" ou "para assistir" e avaliar películas "já assistidas"
+            System.out.println("[1]Catálogo"); // Pesquisar series e filmes -> Aicionar "para assistir" ou "já
+                                               // assistido"
+            System.out.println("[2]Perfil"); // Mostrar listas de series & filmes "já assistidas" ou "para assistir" e
+                                             // avaliar películas "já assistidas"
             System.out.println("[3]Adicionar série ou filme ao catálogo");
             System.out.println("[4]Entrar em outra conta");
             System.out.println("[5]Cadastrar cliente");
@@ -226,22 +230,24 @@ public class Aplicacao {
                                 opcaoEncontrada = Amaze.filtrarPorNome(nome);
                             } catch (StreamNaoEncontradoException e) {
                                 /*
-                                 * Caso a película procurada pelo nome não tenha sido encontrada na lista, esta exceção será capturada.
+                                 * Caso a película procurada pelo nome não tenha sido encontrada na lista, esta
+                                 * exceção será capturada.
                                  */
                                 System.out.println("Película não encontrada: " + e.getMessage());
                             }
                             break;
                         case 2:
-                       
+
                             System.out.print("Digite o gênero: ");
                             String genero = MyIO.readLine();
                             try {
                                 List<Stream> midias = Amaze.filtrarPorGenero(genero);
                                 Amaze.mostrarListaStream(midias);
                             } catch (StreamNaoEncontradoException e) {
-                                /* 
-                                * Caso a película procurada pelo gênero não tenha sido encontrada na lista, esta exceção será capturada.                                         
-                                */
+                                /*
+                                 * Caso a película procurada pelo gênero não tenha sido encontrada na lista,
+                                 * esta exceção será capturada.
+                                 */
                                 System.out.println("Película não encontrada: " + e.getMessage());
                             }
                             break;
@@ -253,9 +259,10 @@ public class Aplicacao {
                                 List<Stream> midias = Amaze.filtrarPorIdioma(idioma);
                                 Amaze.mostrarListaStream(midias);
                             } catch (StreamNaoEncontradoException e) {
-                                /* 
-                                * Caso a película procurada pelo idioma não tenha sido encontrada na lista, esta exceção será capturada.                                         
-                                */
+                                /*
+                                 * Caso a película procurada pelo idioma não tenha sido encontrada na lista,
+                                 * esta exceção será capturada.
+                                 */
                                 System.out.println("Película não encontrada: " + e.getMessage());
                             }
 
@@ -279,9 +286,10 @@ public class Aplicacao {
                                     Amaze.getClienteAtual().adicionarNaListaJaVisto((StreamAvaliavel) opcaoEncontrada);
                                     System.out.println("Película adicionada com sucesso à lista *Já Visto*!");
                                 } catch (PeliculaJaExistenteException e) {
-                                    /* 
-                                    * Caso uma película que já exista dentro da lista "Já Visto" tenha sido tentada ser adicionada à mesma lista, esta exceção será capturada.                                         
-                                    */
+                                    /*
+                                     * Caso uma película que já exista dentro da lista "Já Visto" tenha sido tentada
+                                     * ser adicionada à mesma lista, esta exceção será capturada.
+                                     */
                                     System.out.println("Película já existente na lista:" + e.getMessage());
                                 }
 
@@ -292,9 +300,10 @@ public class Aplicacao {
                                     Amaze.getClienteAtual().adicionarNaListaParaVer((StreamAvaliavel) opcaoEncontrada);
                                     System.out.println("Película adicionada com sucesso à lista *Ver Futuramente*!");
                                 } catch (PeliculaJaExistenteException e) {
-                                    /* 
-                                    * Caso uma película que já exista dentro da lista "Para Ver" tenha sido tentada ser adicionada à mesma lista, esta exceção será capturada.                                         
-                                    */
+                                    /*
+                                     * Caso uma película que já exista dentro da lista "Para Ver" tenha sido tentada
+                                     * ser adicionada à mesma lista, esta exceção será capturada.
+                                     */
                                     System.out.println("Película já existente na lista:" + e.getMessage());
                                 }
 
@@ -323,9 +332,9 @@ public class Aplicacao {
                                 List<StreamAvaliavel> lista = Amaze.mostrarListaParaAssistir();
                                 Amaze.mostrarLista(lista);
                             } catch (ListaVaziaException e) {
-                                /* 
-                                * Caso a lista esteja vazia, esta exceção será capturada.                                         
-                                */
+                                /*
+                                 * Caso a lista esteja vazia, esta exceção será capturada.
+                                 */
                                 System.out.println(e.getMessage());
                             }
                             break;
@@ -334,9 +343,9 @@ public class Aplicacao {
                                 List<StreamAvaliavel> lista = Amaze.mostrarListaJaVista();
                                 Amaze.mostrarLista(lista);
                             } catch (ListaVaziaException e) {
-                                /* 
-                                * Caso a lista esteja vazia, esta exceção será capturada.                                         
-                                */
+                                /*
+                                 * Caso a lista esteja vazia, esta exceção será capturada.
+                                 */
                                 System.out.println(e.getMessage());
                                 break;
                             }
@@ -367,7 +376,8 @@ public class Aplicacao {
                                             System.out.println("Avaliação registrada com sucesso!");
                                         } catch (PeliculaJaAvaliadaException e) {
                                             /*
-                                             * Caso haja tentativa de avaliação mas a mesma já tenha sido registrada anteriormente, esta exceção será capturada.
+                                             * Caso haja tentativa de avaliação mas a mesma já tenha sido registrada
+                                             * anteriormente, esta exceção será capturada.
                                              */
                                             System.out.println(e.getMessage());
                                         }
@@ -411,15 +421,15 @@ public class Aplicacao {
 
                             System.out.println("Digite o gênero da série: ");
                             int contador = 0;
-                            for(String genero : Stream.generos) {
+                            for (String genero : Stream.generos) {
                                 System.out.println(contador + " - para " + genero);
                                 contador++;
                             }
                             generoColecao = MyIO.readInt();
-                            
+
                             System.out.print("Digite o idioma da série: ");
                             contador = 0;
-                            for(String idioma : Stream.idiomas) {
+                            for (String idioma : Stream.idiomas) {
                                 System.out.println(contador + " - para " + idioma);
                                 contador++;
                             }
@@ -450,7 +460,7 @@ public class Aplicacao {
 
                             System.out.println("Digite o gênero do filme: ");
                             int contador1 = 0;
-                            for(String genero : Stream.generos) {
+                            for (String genero : Stream.generos) {
                                 System.out.println(contador1 + " - para " + genero);
                                 contador1++;
                             }
@@ -458,7 +468,7 @@ public class Aplicacao {
 
                             System.out.print("Digite o idioma da série: ");
                             contador1 = 0;
-                            for(String idioma : Stream.idiomas) {
+                            for (String idioma : Stream.idiomas) {
                                 System.out.println(contador1 + " - para " + idioma);
                                 contador1++;
                             }
@@ -508,7 +518,7 @@ public class Aplicacao {
                     System.out.print("Digite a senha do cliente: ");
                     String senhaCliente = MyIO.readLine();
 
-                    Cliente novoCliente = new Cliente(nomeCliente,loginCliente,senhaCliente);
+                    Cliente novoCliente = new Cliente(nomeCliente, loginCliente, senhaCliente);
                     Amaze.adicionarCliente(novoCliente);
 
                     String escreverCliente = nomeCliente + ";" + loginCliente + ";" + senhaCliente;
@@ -518,34 +528,96 @@ public class Aplicacao {
 
                     break;
                 case 6:
+
                     System.out.println("Mostrar: ");
                     System.out.println("[1]O cliente que assistiu mais mídias;");
                     System.out.println("[2]O cliente que tem mais avaliações;");
                     System.out.println("[3]A porcentagem dos clientes com pelo menos 15 avaliações;");
                     System.out.println("[4]As 10 mídias de melhor avaliação, com pelo menos 100 avaliações;");
                     System.out.println("[5]As 10 mídias com mais visualizações;");
-                    System.out.println("[6]Estes mesmos dois últimos relatórios, porém com as mídias separadas por gênero;");
+                    System.out.println(
+                            "[6]As 10 mídias de melhor avaliação, com pelo menos 100 avaliações, separadas por gênero;");
+                    System.out.println("[7]As 10 mídias com mais visualizações, separadas por gênero.");
                     System.out.println("[0]Finalizar programa.");
                     int op6p1 = MyIO.readInt();
+                    Relatorio relatorio = new Relatorio(Amaze);
 
-                    switch(op6p1){
+                    switch (op6p1) {
                         case 1:
+                            relatorio.gerarRelatorioClienteMaisMidias();
+
+                            System.out.println(
+                                    "O cliente que assistiu mais mídias é: " + relatorio.getClienteComMaisMidias());
+                            System.out.println("Ele assistiu " + relatorio.getMaiorNumeroDeMidias() + " mídias.");
 
                             break;
                         case 2:
 
+                            relatorio.gerarRelatorioClienteMaisAvaliacoes();
+                            System.out.println(
+                                    "O cliente com mais avaliações é: " + relatorio.getClienteComMaisAvaliacoes());
+                            System.out.println("Ele fez " + relatorio.getMaiorNumeroDeAvaliacoes() + " avaliações.");
+
                             break;
                         case 3:
-                            
+
+                            relatorio.gerarRelatorioPorcentagemClientesComPeloMenos15Avaliacoes();
+
+                            System.out.println("A porcentagem de clientes com pelo menos 15 avaliações é: "
+                                    + relatorio.getPorcentagemClientesComPeloMenos15Avaliacoes() + "%");
+
                             break;
                         case 4:
-                            
+
+                            relatorio.gerarRelatorioTop10Midias();
+
+                            System.out.println("As 10 mídias de melhor avaliação com pelo menos 100 avaliações são:");
+                            for (StreamAvaliavel stream : relatorio.getTop10Midias()) {
+                                System.out.println(
+                                        stream.getNome() + " - Média de avaliações: " + stream.getMediaDeAvaliacoes());
+                            }
                             break;
                         case 5:
-                            
+
+                            relatorio.gerarRelatorioTop10MidiasComMaisVisualizacoes();
+
+                            System.out.println("As 10 mídias com mais visualizações são:");
+                            for (StreamAvaliavel stream : relatorio.getTop10MidiasComMaisVisualizacoes()) {
+                                System.out.println(stream.getNome() + " - Número de visualizações: "
+                                        + stream.getNumeroDeVisualizacoes());
+                            }
+
                             break;
                         case 6:
-                            
+                            Map<String, List<StreamAvaliavel>> top10MidiasPorGenero = relatorio
+                                    .gerarRelatorioTop10MidiasPorGenero();
+                            for (Map.Entry<String, List<StreamAvaliavel>> entry : top10MidiasPorGenero.entrySet()) {
+                                String genero = entry.getKey();
+                                List<StreamAvaliavel> top10MidiasDoGenero = entry.getValue();
+                                System.out.println("Gênero " + genero + ": as 10 mídias");
+                                for (StreamAvaliavel stream : top10MidiasDoGenero) {
+                                    System.out.println(stream.getNome() + " - Média de avaliações: "
+                                            + stream.getMediaDeAvaliacoes());
+                                }
+                            }
+
+                            break;
+
+                        case 7:
+
+                            Map<String, List<StreamAvaliavel>> top10MidiasComMaisVisualizacoesPorGenero = relatorio
+                                    .gerarRelatorioTop10MidiasComMaisVisualizacoesPorGenero();
+                            for (Map.Entry<String, List<StreamAvaliavel>> entry : top10MidiasComMaisVisualizacoesPorGenero
+                                    .entrySet()) {
+                                String genero = entry.getKey();
+                                List<StreamAvaliavel> top10MidiasDoGenero = entry.getValue();
+                                System.out.println("\n Gênero " + genero + ": as 10 mídias com mais visualizações ");
+                                for (StreamAvaliavel stream : top10MidiasDoGenero) {
+                                    System.out.println(stream.getNome() + " - Número de visualizações: "
+                                            + stream.getNumeroDeVisualizacoes());
+                                }
+                            }
+
                             break;
 
                         case 0:
@@ -555,7 +627,7 @@ public class Aplicacao {
                             System.out.println("Opção inválida. Tente novamente.");
                     }
                     break;
-                    
+
             }
 
         } while (op != 0);
