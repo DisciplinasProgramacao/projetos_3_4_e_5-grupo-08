@@ -94,7 +94,7 @@ public class Aplicacao {
 
             plataforma.login(dadosSeparadosA[0]);
             Stream stream = plataforma.encontraStreamPorId(Integer.parseInt(dadosSeparadosA[2]));
-            if (stream instanceof StreamAvaliavel) {
+            try {
                 if (plataforma.getClienteAtual() != null && stream != null) {
                     if (dadosSeparadosA[1].equals("F")) {
                         try {
@@ -108,6 +108,8 @@ public class Aplicacao {
                         plataforma.registrarAudiencia((StreamAvaliavel) stream);
                     }
                 }
+            } catch(Exception e) {
+                System.out.println(e.getMessage());
             }
 
             dadosA = file.ler();
