@@ -9,7 +9,7 @@ import java.util.List;
 public class PlataformaStreamingTest {
 
     @Test
-    public void testarPlataformaStreaming() {
+    public void testarPlataformaStreaming() throws StreamNaoEncontradoException {
         // Criação da plataforma de streaming
         PlataformaStreaming plataforma = new PlataformaStreaming("Streaming 1");
 
@@ -37,7 +37,7 @@ public class PlataformaStreamingTest {
         Assertions.assertEquals(cliente1, plataforma.getClienteAtual());
 
         // Adiciona uma série à coleção da plataforma
-        Serie serie = new Serie(1, "Friends", "Comédia", "Inglês", "1994-09-22", 236);
+        Serie serie = new Serie(1, "Friends", 0, 0, "1994-09-22", 236);
         plataforma.adicionarColecao(serie);
 
         // Verifica se a série foi adicionada corretamente à coleção da plataforma
@@ -45,11 +45,11 @@ public class PlataformaStreamingTest {
         Assertions.assertNotNull(plataforma.getColecao().get(serie.getId()));
 
         // Filtra séries por gênero
-        List<Stream> resultadoGenero = plataforma.filtrarPorGenero("Comédia");
+        List<Stream> resultadoGenero = plataforma.filtrarPorGenero(0);
         Assertions.assertEquals(serie, resultadoGenero);
 
         // Filtra séries por idioma
-        List<Stream> resultadoIdioma = plataforma.filtrarPorIdioma("Inglês");
+        List<Stream> resultadoIdioma = plataforma.filtrarPorIdioma(0);
         Assertions.assertEquals(serie, resultadoIdioma);
 
         // Filtra séries por nome
