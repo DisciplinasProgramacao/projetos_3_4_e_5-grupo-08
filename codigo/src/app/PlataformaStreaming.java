@@ -234,6 +234,10 @@ public class PlataformaStreaming {
         }
     }
 
+    /**
+     * Método genério que imprime uma lista de midias avaliaveis
+     * @param lista
+     */
     public void mostrarLista(List<StreamAvaliavel> lista) {
         for(StreamAvaliavel s : lista) {
             System.out.println(s);

@@ -95,7 +95,7 @@ public abstract class StreamAvaliavel extends Stream {
      * @return o número de avaliações
      */
     public int getNumeroDeAvaliacoes() {
-        return numeroDeAvaliacoes;
+        return contAvaliacao;
     }
 
     /**
@@ -104,10 +104,10 @@ public abstract class StreamAvaliavel extends Stream {
      * @return a média das avaliações
      */
     public double getMediaDeAvaliacoes() {
-        if (numeroDeAvaliacoes == 0) {
+        if (contAvaliacao == 0) {
             return 0.0;
         } else {
-            return somaDasAvaliacoes / numeroDeAvaliacoes;
+            return this.avaliacao;
         }
     }
 
@@ -117,13 +117,13 @@ public abstract class StreamAvaliavel extends Stream {
      * @return o número de visualizações
      */
     public int getNumeroDeVisualizacoes() {
-        return numeroDeVisualizacoes;
+        return audiencia;
     }
 
     /**
      * Incrementa o número de visualizações.
      */
     public void incrementarNumeroDeVisualizacoes() {
-        numeroDeVisualizacoes++;
+        audiencia++;
     }
 }
