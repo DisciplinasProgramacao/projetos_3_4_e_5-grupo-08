@@ -163,8 +163,8 @@ public class Relatorio {
     }
 
     /**
-     * Gera o relatório das top 10 mídias com pelo menos 100 avaliações, em ordem
-     * decrescente.
+     * Gera o relatório das top 10 mídias com pelo menos 100 avaliações, em ordem decrescente.
+     * 
      */
     public void gerarRelatorioTop10Midias() {
         HashMap<Integer, Stream> colecao = plataforma.getColecao();
@@ -191,8 +191,8 @@ public class Relatorio {
     }
 
     /**
-     * Gera o relatório das top 10 mídias com mais visualizações, em ordem
-     * decrescente.
+     * Gera o relatório das top 10 mídias com mais visualizações, em ordem decrescente.
+     * 
      */
     public void gerarRelatorioTop10MidiasComMaisVisualizacoes() {
         HashMap<Integer, Stream> colecao = plataforma.getColecao();
@@ -217,8 +217,8 @@ public class Relatorio {
     }
 
     /**
-     * Gera o relatório das top 10 mídias com mais visualizações, separadas por
-     * gênero, com pelo menos 100 visualizações.
+     * Gera o relatório das top 10 mídias com mais visualizações, separadas por gênero, com pelo menos 100 visualizações.
+     * 
      */
 
     public Map<String, List<StreamAvaliavel>> gerarRelatorioTop10MidiasPorGenero() {

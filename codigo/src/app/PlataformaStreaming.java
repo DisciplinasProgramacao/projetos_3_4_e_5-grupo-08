@@ -127,11 +127,11 @@ public class PlataformaStreaming {
      * @param genero
      * @return Stream - result
      */
-    public List<Stream> filtrarPorGenero(String genero) throws StreamNaoEncontradoException{
+    public List<Stream> filtrarPorGenero(int genero) throws StreamNaoEncontradoException{
         List<Stream> result = new ArrayList<Stream>();
         
         for (Stream i : colecao.values()) {
-            if (i.getGenero().equals(genero)) {
+            if (i.getGenero().equals(Stream.generos[genero])) {
                 result.add(i);
             }
         }
@@ -148,10 +148,11 @@ public class PlataformaStreaming {
      * @param idioma
      * @return Stream - result
      */
-    public List<Stream> filtrarPorIdioma(String idioma) throws StreamNaoEncontradoException {
+    public List<Stream> filtrarPorIdioma(int idioma) throws StreamNaoEncontradoException {
         List<Stream> result = new ArrayList<Stream>();
+        
         for (Stream i : colecao.values()) {
-            if (i.getIdioma().equals(idioma)) {
+            if (i.getIdioma().equals(Stream.idiomas[idioma])) {
                 result.add(i);
             }
         }

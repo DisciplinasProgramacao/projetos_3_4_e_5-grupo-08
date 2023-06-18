@@ -193,14 +193,12 @@ public class Aplicacao {
         int op;
         do {
             System.out.printf("=-=-=-" + Amaze.getNome() + "-=-=-=\n");
-            System.out.printf("Olá " + Amaze.getNomeClienteAtual() + "!\n");
+            System.out.printf("Olá, " + Amaze.getNomeClienteAtual() + "!\n");
             System.out.println("=-=-=-=-=-=-=-=-=");
             System.out.println("Digite uma das opções abaixo:");
-            System.out.println("[1]Catálogo"); // Pesquisar series e filmes -> Aicionar "para assistir" ou "já
-                                               // assistido"
-            System.out.println("[2]Perfil"); // Mostrar listas de series & filmes "já assistidas" ou "para assistir" e
-                                             // avaliar películas "já assistidas"
-            System.out.println("[3]Adicionar série ou filme ao catálogo");
+            System.out.println("[1]Catálogo"); // Pesquisar series e filmes -> Aicionar "para assistir" ou "já assistido"
+            System.out.println("[2]Perfil"); // Mostrar listas de series & filmes "já assistidas" ou "para assistir" avaliar películas "já assistidas"
+            System.out.println("[3]Adicionar série/filme/trailer ao catálogo");
             System.out.println("[4]Entrar em outra conta");
             System.out.println("[5]Cadastrar cliente");
             System.out.println("[6]Relatórios");
@@ -211,7 +209,7 @@ public class Aplicacao {
 
             switch (op) {
                 case 1:
-                    System.out.println("-Pesquisar Series e Filmes-");
+                    System.out.println("-Pesquisar Séries, Filmes e Trailers-");
                     System.out.println("Filtrar por:");
                     System.out.println("[1]Nome");
                     System.out.println("[2]Gênero");
@@ -238,8 +236,17 @@ public class Aplicacao {
                             break;
                         case 2:
 
-                            System.out.print("Digite o gênero: ");
-                            String genero = MyIO.readLine();
+                            System.out.println("Digite o gênero: ");
+                            
+                            
+                            int contadorGenero = 0;
+                            for (String genero : Stream.generos) {
+                                System.out.println("[" + contadorGenero + "]" + " - para " + genero);
+                                contadorGenero++;
+                            }
+                            System.out.print(">> ");
+                            int genero = MyIO.readInt();
+
                             try {
                                 List<Stream> midias = Amaze.filtrarPorGenero(genero);
                                 Amaze.mostrarListaStream(midias);
@@ -253,8 +260,16 @@ public class Aplicacao {
                             break;
                         case 3:
 
-                            System.out.print("Digite o idioma: ");
-                            String idioma = MyIO.readLine();
+                            System.out.println("Digite o idioma: ");
+
+                            int contadorIdioma = 0;
+                            for (String idioma : Stream.idiomas) {
+                                System.out.println("[" + contadorIdioma + "]" + " - para " + idioma);
+                                contadorIdioma++;
+                            }
+                            System.out.print(">> ");
+                            int idioma = MyIO.readInt();
+
                             try {
                                 List<Stream> midias = Amaze.filtrarPorIdioma(idioma);
                                 Amaze.mostrarListaStream(midias);
@@ -402,6 +417,7 @@ public class Aplicacao {
                     System.out.println("Selecione uma das opções abaixo: ");
                     System.out.println("[1]Cadastrar Série");
                     System.out.println("[2]Cadastrar Filme");
+                    System.out.println("[3]Cadastrar Trailer");
                     System.out.print(">> ");
                     int op3 = MyIO.readInt();
 
@@ -416,74 +432,80 @@ public class Aplicacao {
 
                     switch (op3) {
                         case 1:
-                            System.out.print("Digite o nome da série: ");
+                            System.out.println("Insira os seguintes dados da série: ");   
+
+                            System.out.print("Nome: ");
                             nomeColecao = MyIO.readLine();
 
-                            System.out.println("Digite o gênero da série: ");
-                            int contador = 0;
-                            for (String genero : Stream.generos) {
-                                System.out.println(contador + " - para " + genero);
-                                contador++;
-                            }
-                            generoColecao = MyIO.readInt();
-
-                            System.out.print("Digite o idioma da série: ");
-                            contador = 0;
-                            for (String idioma : Stream.idiomas) {
-                                System.out.println(contador + " - para " + idioma);
-                                contador++;
-                            }
-                            idiomaColecao = MyIO.readInt();
-
-                            System.out.print("Digite a data de lançamento da série: ");
-                            dataLancamentoColecao = MyIO.readLine();
-
-                            System.out.print("Digite o numero de episódios da série: ");
-                            int numEpisodios = MyIO.readInt();
-
-                            novoId = Stream.contId++;
-
-                            Serie novaSerie = new Serie(novoId, nomeColecao, generoColecao, idiomaColecao,
-                                    dataLancamentoColecao, numEpisodios);
-                            Amaze.adicionarColecao(novaSerie);
-
-                            String escreverSerie = Integer.toString(novoId) + ";" + nomeColecao + ";"
-                                    + dataLancamentoColecao;
-                            escrita = new ArquivoTextoEscrita("codigo/src/POO_Series.csv");
-                            escrita.escrever(escreverSerie);
-                            escrita.fecharArquivo();
-
-                            break;
-                        case 2:
-                            System.out.print("Digite o nome do filme: ");
-                            nomeColecao = MyIO.readLine();
-
-                            System.out.println("Digite o gênero do filme: ");
+                            System.out.println("Gênero: ");
                             int contador1 = 0;
                             for (String genero : Stream.generos) {
-                                System.out.println(contador1 + " - para " + genero);
+                                System.out.println("[" + contador1 + "]" + " - para " + genero);
                                 contador1++;
                             }
                             generoColecao = MyIO.readInt();
 
-                            System.out.print("Digite o idioma da série: ");
+                            System.out.println("Idioma: ");
                             contador1 = 0;
                             for (String idioma : Stream.idiomas) {
                                 System.out.println(contador1 + " - para " + idioma);
                                 contador1++;
                             }
+                            System.out.print(">> ");
+
                             idiomaColecao = MyIO.readInt();
 
-                            System.out.print("Digite a data de lançamento do filme: ");
+                            System.out.print("Data de lançamento: ");
                             dataLancamentoColecao = MyIO.readLine();
 
-                            System.out.print("Digite a duração do filme (em minutos): ");
+                            System.out.print("Número de episódios: ");
+                            int numEpisodios = MyIO.readInt();
+
+                            novoId = Stream.contId++;
+
+                            Stream novaSerie = new Serie(novoId, nomeColecao, generoColecao, idiomaColecao, dataLancamentoColecao, numEpisodios);
+                            Amaze.adicionarColecao(novaSerie);
+
+                            String escreverSerie = Integer.toString(novoId) + ";" + nomeColecao + ";" + dataLancamentoColecao;
+                            escrita = new ArquivoTextoEscrita("codigo/src/POO_Series.csv");
+                            escrita.escrever(escreverSerie);
+                            escrita.fecharArquivo();
+                            System.out.println("Série cadastrada com sucesso.");
+
+                            break;
+                        case 2:
+                            System.out.println("Insira os seguintes dados do filme: ");   
+
+                            System.out.print("Nome: ");
+                            nomeColecao = MyIO.readLine();
+
+                            System.out.println("Gênero: ");
+                            int contador2 = 0;
+                            for (String genero : Stream.generos) {
+                                System.out.println("[" + contador2 + "]" + " - para " + genero);
+                                contador2++;
+                            }
+                            generoColecao = MyIO.readInt();
+
+                            System.out.println("Idioma: ");
+                            contador2 = 0;
+                            for (String idioma : Stream.idiomas) {
+                                System.out.println(contador2 + " - para " + idioma);
+                                contador2++;
+                            }
+                            System.out.print(">> ");
+
+                            idiomaColecao = MyIO.readInt();
+
+                            System.out.print("Data de lançamento: ");
+                            dataLancamentoColecao = MyIO.readLine();
+
+                            System.out.print("Duração (em minutos): ");
                             float duracao = MyIO.readFloat();
 
                             novoId = Stream.contId++;
 
-                            Filme novoFilme = new Filme(novoId, nomeColecao, generoColecao, idiomaColecao,
-                                    dataLancamentoColecao, duracao);
+                            Stream novoFilme = new Filme(novoId, nomeColecao, generoColecao, idiomaColecao, dataLancamentoColecao, duracao);
                             Amaze.adicionarColecao(novoFilme);
 
                             String escreverFilme = Integer.toString(novoId) + ";" + nomeColecao + ";"
@@ -491,6 +513,47 @@ public class Aplicacao {
                             escrita = new ArquivoTextoEscrita("codigo/src/POO_Filmes.csv");
                             escrita.escrever(escreverFilme);
                             escrita.fecharArquivo();
+
+                            System.out.println("Filme cadastrado com sucesso.");
+
+                            break;
+                        case 3:
+                            System.out.println("Insira os seguintes dados do trailer: ");
+
+                            System.out.print("Nome: ");
+                            nomeColecao = MyIO.readLine();
+
+                            System.out.println("Gênero: ");
+                            int contador3 = 0;
+                            for (String genero : Stream.generos) {
+                                System.out.println("[" + contador3 + "]" + " - para " + genero);
+                                contador3++;
+                            }
+                            generoColecao = MyIO.readInt();
+
+                            System.out.println("Idioma: ");
+                            contador3 = 0;
+                            for (String idioma : Stream.idiomas) {
+                                System.out.println(contador3 + " - para " + idioma);
+                                contador3++;
+                            }
+                            System.out.print(">> ");
+                            idiomaColecao = MyIO.readInt();
+
+                            System.out.print("Data de lançamento: ");
+                            dataLancamentoColecao = MyIO.readLine();
+
+                            novoId = Stream.contId++;
+
+                            Stream novoTrailer = new Trailer(novoId, nomeColecao, generoColecao, idiomaColecao, dataLancamentoColecao);
+                            Amaze.adicionarColecao(novoTrailer);
+
+                            String escreverTrailer = Integer.toString(novoId) + ";" + nomeColecao + ";" + dataLancamentoColecao;
+                            escrita = new ArquivoTextoEscrita("codigo/src/POO_Trailers.csv");
+                            escrita.escrever(escreverTrailer);
+                            escrita.fecharArquivo();
+
+                            System.out.println("Trailer cadastrado com sucesso.");
 
                             break;
                         case 0:
@@ -511,11 +574,12 @@ public class Aplicacao {
                         novoAcesso = (Amaze.loginPlataforma(login, senha) == true ? true : false);
                     }
                 case 5:
-                    System.out.print("Digite o nome do cliente: ");
+                    System.out.println("Insira os seguintes dados do cliente:");
+                    System.out.print("Nome: ");
                     String nomeCliente = MyIO.readLine();
-                    System.out.print("Digite o login do cliente: ");
+                    System.out.print("Login: ");
                     String loginCliente = MyIO.readLine();
-                    System.out.print("Digite a senha do cliente: ");
+                    System.out.print("Senha: ");
                     String senhaCliente = MyIO.readLine();
 
                     Cliente novoCliente = new Cliente(nomeCliente, loginCliente, senhaCliente);
@@ -526,45 +590,43 @@ public class Aplicacao {
                     escrita.escrever(escreverCliente);
                     escrita.fecharArquivo();
 
+                    System.out.println("Cliente cadastrado com sucesso.");
+
                     break;
                 case 6:
 
-                    System.out.println("Mostrar: ");
+                    System.out.println("Exibir: ");
                     System.out.println("[1]O cliente que assistiu mais mídias;");
                     System.out.println("[2]O cliente que tem mais avaliações;");
                     System.out.println("[3]A porcentagem dos clientes com pelo menos 15 avaliações;");
                     System.out.println("[4]As 10 mídias de melhor avaliação, com pelo menos 100 avaliações;");
                     System.out.println("[5]As 10 mídias com mais visualizações;");
-                    System.out.println(
-                            "[6]As 10 mídias de melhor avaliação, com pelo menos 100 avaliações, separadas por gênero;");
+                    System.out.println("[6]As 10 mídias de melhor avaliação, com pelo menos 100 avaliações, separadas por gênero;");
                     System.out.println("[7]As 10 mídias com mais visualizações, separadas por gênero.");
                     System.out.println("[0]Finalizar programa.");
                     int op6p1 = MyIO.readInt();
+
                     Relatorio relatorio = new Relatorio(Amaze);
 
                     switch (op6p1) {
                         case 1:
                             relatorio.gerarRelatorioClienteMaisMidias();
 
-                            System.out.println(
-                                    "O cliente que assistiu mais mídias é: " + relatorio.getClienteComMaisMidias());
+                            System.out.println("O cliente que assistiu mais mídias é: " + relatorio.getClienteComMaisMidias());
                             System.out.println("Ele assistiu " + relatorio.getMaiorNumeroDeMidias() + " mídias.");
 
                             break;
                         case 2:
 
                             relatorio.gerarRelatorioClienteMaisAvaliacoes();
-                            System.out.println(
-                                    "O cliente com mais avaliações é: " + relatorio.getClienteComMaisAvaliacoes());
+                            System.out.println("O cliente com mais avaliações é: " + relatorio.getClienteComMaisAvaliacoes());
                             System.out.println("Ele fez " + relatorio.getMaiorNumeroDeAvaliacoes() + " avaliações.");
 
                             break;
                         case 3:
 
                             relatorio.gerarRelatorioPorcentagemClientesComPeloMenos15Avaliacoes();
-
-                            System.out.println("A porcentagem de clientes com pelo menos 15 avaliações é: "
-                                    + relatorio.getPorcentagemClientesComPeloMenos15Avaliacoes() + "%");
+                            System.out.println("A porcentagem de clientes com pelo menos 15 avaliações é: " + relatorio.getPorcentagemClientesComPeloMenos15Avaliacoes() + "%");
 
                             break;
                         case 4:
@@ -572,32 +634,34 @@ public class Aplicacao {
                             relatorio.gerarRelatorioTop10Midias();
 
                             System.out.println("As 10 mídias de melhor avaliação com pelo menos 100 avaliações são:");
+
                             for (StreamAvaliavel stream : relatorio.getTop10Midias()) {
-                                System.out.println(
-                                        stream.getNome() + " - Média de avaliações: " + stream.getMediaDeAvaliacoes());
+                                System.out.println(stream.getNome() + " - Média de avaliações: " + stream.getMediaDeAvaliacoes());
                             }
+
                             break;
                         case 5:
 
                             relatorio.gerarRelatorioTop10MidiasComMaisVisualizacoes();
 
                             System.out.println("As 10 mídias com mais visualizações são:");
+                            
                             for (StreamAvaliavel stream : relatorio.getTop10MidiasComMaisVisualizacoes()) {
-                                System.out.println(stream.getNome() + " - Número de visualizações: "
-                                        + stream.getNumeroDeVisualizacoes());
+                                System.out.println(stream.getNome() + " - Número de visualizações: " + stream.getNumeroDeVisualizacoes());
                             }
 
                             break;
                         case 6:
-                            Map<String, List<StreamAvaliavel>> top10MidiasPorGenero = relatorio
-                                    .gerarRelatorioTop10MidiasPorGenero();
+                            Map<String, List<StreamAvaliavel>> top10MidiasPorGenero = relatorio.gerarRelatorioTop10MidiasPorGenero();
                             for (Map.Entry<String, List<StreamAvaliavel>> entry : top10MidiasPorGenero.entrySet()) {
                                 String genero = entry.getKey();
+
                                 List<StreamAvaliavel> top10MidiasDoGenero = entry.getValue();
+
                                 System.out.println("Gênero " + genero + ": as 10 mídias");
+
                                 for (StreamAvaliavel stream : top10MidiasDoGenero) {
-                                    System.out.println(stream.getNome() + " - Média de avaliações: "
-                                            + stream.getMediaDeAvaliacoes());
+                                    System.out.println(stream.getNome() + " - Média de avaliações: " + stream.getMediaDeAvaliacoes());
                                 }
                             }
 
@@ -605,16 +669,13 @@ public class Aplicacao {
 
                         case 7:
 
-                            Map<String, List<StreamAvaliavel>> top10MidiasComMaisVisualizacoesPorGenero = relatorio
-                                    .gerarRelatorioTop10MidiasComMaisVisualizacoesPorGenero();
-                            for (Map.Entry<String, List<StreamAvaliavel>> entry : top10MidiasComMaisVisualizacoesPorGenero
-                                    .entrySet()) {
+                            Map<String, List<StreamAvaliavel>> top10MidiasComMaisVisualizacoesPorGenero = relatorio.gerarRelatorioTop10MidiasComMaisVisualizacoesPorGenero();
+                            for (Map.Entry<String, List<StreamAvaliavel>> entry : top10MidiasComMaisVisualizacoesPorGenero.entrySet()) {
                                 String genero = entry.getKey();
                                 List<StreamAvaliavel> top10MidiasDoGenero = entry.getValue();
                                 System.out.println("\n Gênero " + genero + ": as 10 mídias com mais visualizações ");
                                 for (StreamAvaliavel stream : top10MidiasDoGenero) {
-                                    System.out.println(stream.getNome() + " - Número de visualizações: "
-                                            + stream.getNumeroDeVisualizacoes());
+                                    System.out.println(stream.getNome() + " - Número de visualizações: " + stream.getNumeroDeVisualizacoes());
                                 }
                             }
 
