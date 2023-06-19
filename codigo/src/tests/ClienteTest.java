@@ -13,8 +13,13 @@ public class ClienteTest {
         Assertions.assertEquals("joao123", cliente.getNomeDeUsuario());
         Assertions.assertEquals("joao@example.com", cliente.getLogin());
         Assertions.assertEquals("senha123", cliente.getSenha());
-        Assertions.assertNull(cliente.mostrarListaJaVista());
-        Assertions.assertNull(cliente.mostrarListaParaAssistir());
+        Assertions.assertThrows(ListaVaziaException.class, () -> {
+            cliente.mostrarListaJaVista();
+        });
+        Assertions.assertThrows(ListaVaziaException.class, () -> {
+            cliente.mostrarListaParaAssistir();
+        });
+        
     }
 
     @Test
@@ -43,8 +48,9 @@ public class ClienteTest {
         Filme filme = new Filme(1, "Titanic", 6, 0, "1997-12-19", 194.5f);
         cliente.adicionarNaListaParaVer(filme);
         cliente.retirarDaLista("Titanic");
-        List<StreamAvaliavel> listaParaVer = cliente.mostrarListaParaAssistir();
-        Assertions.assertEquals(0, listaParaVer.size());
+        Assertions.assertThrows(ListaVaziaException.class, () -> {
+            cliente.mostrarListaParaAssistir();
+        });
     }
 
     @Test
@@ -83,7 +89,7 @@ public class ClienteTest {
         cliente.avaliar(1, 4.5f);
         List<StreamAvaliavel> listaJaVistas = cliente.mostrarListaJaVista();
         Assertions.assertEquals(1, listaJaVistas.size());
-        Assertions.assertEquals(4.5f, listaJaVistas.get(0).getAvaliacao());
+        Assertions.assertEquals(4.5, listaJaVistas.get(0).getAvaliacao());
     }
 
     @Test

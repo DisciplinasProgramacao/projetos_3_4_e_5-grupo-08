@@ -226,6 +226,7 @@ public class Menu {
 
                 System.out.println("[1]Avaliar mídia");
                 System.out.println("[0]Sair");
+                System.out.print(">> ");
                 int op1 = MyIO.readInt();
 
                 switch (op1) {
@@ -234,15 +235,29 @@ public class Menu {
                         while (true) {
                             System.out.print("Digite o ID da mídia: ");
                             int inserirId = MyIO.readInt();
+                            
+                            boolean idValida = false;
+                            while(idValida != true){
+                            for (AvaliacaoStream a : Amaze.getClienteAtual().listaJaVistas) {
+                                if (a.getIdStream() == inserirId){
+                                    idValida = true;
+                                } 
+                            }
+                                if(idValida == false){
+                                    System.out.println("Digite uma ID válida!");
+                                    System.out.print(">> ");
+                                    inserirId = MyIO.readInt();
+                                }
+                                    
+                            }
 
                             System.out.print("Insira a nota (entre 1 e 5): ");
                             float inserirNota = MyIO.readFloat();
 
-                            while (inserirNota < 1 && inserirNota > 5) {
-                                if (inserirNota < 1 && inserirNota > 5) {
+                            while (inserirNota < 1 || inserirNota > 5) {
                                     System.out.println("Digite uma nota válida!");
+                                    System.out.print(">> ");
                                     inserirNota = MyIO.readFloat();
-                                }
                             }
 
                             try {

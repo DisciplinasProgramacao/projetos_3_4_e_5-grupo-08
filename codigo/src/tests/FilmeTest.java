@@ -42,8 +42,7 @@ public class FilmeTest {
     public void testarToString() {
         Filme filme = new Filme(1, "Titanic", 6, 0, "1997-12-19", 194.5f);
         String expected = "Sobre o Filme: \n----------------------------------------------------------------\n" +
-                "Id: 1\nNome: Titanic\nGênero: Drama\nIdioma: Inglês\nAudiência: 0\nData: 1997-12-19\n" +
-                "Duração: 194.5";
+                "Id: 1\nNome: Titanic\nGênero: Drama\nIdioma: Ingles\nData: 1997-12-19\nAudiência: 0\nAvaliação: 0"+ "\n\nDuração: 194.5\n\n";
         Assertions.assertEquals(expected, filme.toString());
     }
 }

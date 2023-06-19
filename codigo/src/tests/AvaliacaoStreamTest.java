@@ -16,7 +16,7 @@ public class AvaliacaoStreamTest {
     public void testarSetAvaliacao() {
         Filme filme = new Filme(1, "Titanic", 6, 0, "1997-12-19", 194.5f);
         AvaliacaoStream avaliacao = new AvaliacaoStream(filme);
-        avaliacao.setAvaliacao(4);
+        avaliacao.setAvaliacao(4.5f);
         Assertions.assertEquals(4.5, avaliacao.getAvaliacao());
         Assertions.assertTrue(avaliacao.isAvaliado());
     }

@@ -3,7 +3,6 @@ import app.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
 import java.util.List;
 
 public class PlataformaStreamingTest {
@@ -23,18 +22,18 @@ public class PlataformaStreamingTest {
         Assertions.assertTrue(plataforma.getClientes().isEmpty());
 
         // Adiciona um cliente à plataforma
-        Cliente cliente1 = new Cliente("cliente1", "senha1", "Cliente 1");
-        plataforma.adicionarCliente(cliente1);
+        Cliente clienteTeste = new Cliente("Cliente 1", "cliente1", "senha1");
+        plataforma.adicionarCliente(clienteTeste);
 
         // Verifica se o cliente foi adicionado corretamente
         Assertions.assertEquals(1, plataforma.getClientes().size());
-        Assertions.assertNotNull(plataforma.getClientes().get(cliente1.getLogin()));
+        Assertions.assertNotNull(plataforma.getClientes().get(clienteTeste.getLogin()));
 
         // Faz login do cliente na plataforma
         plataforma.loginPlataforma("cliente1", "senha1");
 
         // Verifica o cliente atual na plataforma
-        Assertions.assertEquals(cliente1, plataforma.getClienteAtual());
+        Assertions.assertEquals(clienteTeste, plataforma.getClienteAtual());
 
         // Adiciona uma série à coleção da plataforma
         Serie serie = new Serie(1, "Friends", 0, 0, "1994-09-22", 236);
@@ -46,11 +45,11 @@ public class PlataformaStreamingTest {
 
         // Filtra séries por gênero
         List<Stream> resultadoGenero = plataforma.filtrarPorGenero(0);
-        Assertions.assertEquals(serie, resultadoGenero);
+        Assertions.assertEquals(serie, resultadoGenero.get(0));
 
         // Filtra séries por idioma
         List<Stream> resultadoIdioma = plataforma.filtrarPorIdioma(0);
-        Assertions.assertEquals(serie, resultadoIdioma);
+        Assertions.assertEquals(serie, resultadoIdioma.get(0));
 
         // Filtra séries por nome
         Stream resultadoNome = plataforma.filtrarPorNome("Friends");

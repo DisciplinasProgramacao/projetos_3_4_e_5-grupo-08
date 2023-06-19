@@ -1,8 +1,5 @@
 package app;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * Projetos 3, 4 e 5 (PARTE 4)
  * 
@@ -100,8 +97,6 @@ public class Aplicacao {
                         try {
                             plataforma.adicionarNaListaParaVer((StreamAvaliavel) stream);
                         } catch (PeliculaJaExistenteException e) {
-                            // TODO Auto-generated catch block
-                            // e.printStackTrace();
                             cont++;
                         }
                     } else /* dadosSeparadosA[1] == "A" */ {
@@ -132,9 +127,9 @@ public class Aplicacao {
         dadosE = file.ler(); // pula linha
 
         String[] dadosSeparadosE;
+        // Nome;Login;Senha
 
         do {
-            // Nome;Login;Senha
             dadosSeparadosE = dadosE.split(";");
             Cliente novoCliente = new Cliente(dadosSeparadosE[0], dadosSeparadosE[1], dadosSeparadosE[2]);
             plataforma.adicionarCliente(novoCliente);
