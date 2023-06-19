@@ -1,5 +1,3 @@
-//CLASSE STREAMAVALIAVEL E APLICACAO MODIFICADA!!!
-
 package app;
 
 import java.util.ArrayList;
@@ -160,6 +158,12 @@ public class Relatorio {
                 totalClientesComPeloMenos15Avaliacoes++;
             }
         }
+
+        // Calcula a porcentagem de clientes com pelo menos 15 avaliações
+        double porcentagem = (double) totalClientesComPeloMenos15Avaliacoes / totalClientes * 100;
+
+        // Imprime o resultado
+        System.out.println("Porcentagem de clientes com pelo menos 15 avaliações: " + porcentagem + "%");
     }
 
     /**
