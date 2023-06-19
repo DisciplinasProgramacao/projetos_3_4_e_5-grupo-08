@@ -345,6 +345,7 @@ public class Menu {
                 escrita = new ArquivoTextoEscrita("codigo/src/POO_Series.csv");
                 escrita.escrever(escreverSerie);
                 escrita.fecharArquivo();
+                
                 System.out.println("Série cadastrada com sucesso.");
 
                 break;
@@ -383,8 +384,7 @@ public class Menu {
                 Stream novoFilme = new Filme(novoId, nomeColecao, generoColecao, idiomaColecao, dataLancamentoColecao, duracao);
                 Amaze.adicionarColecao(novoFilme);
 
-                String escreverFilme = Integer.toString(novoId) + ";" + nomeColecao + ";"
-                        + dataLancamentoColecao + ";" + Float.toString(duracao);
+                String escreverFilme = Integer.toString(novoId) + ";" + nomeColecao + ";" + dataLancamentoColecao + ";" + Float.toString(duracao);
                 escrita = new ArquivoTextoEscrita("codigo/src/POO_Filmes.csv");
                 escrita.escrever(escreverFilme);
                 escrita.fecharArquivo();
@@ -483,6 +483,7 @@ public class Menu {
         System.out.println("[6]As 10 mídias de melhor avaliação, com pelo menos 100 avaliações, separadas por gênero;");
         System.out.println("[7]As 10 mídias com mais visualizações, separadas por gênero.");
         System.out.println("[0]Finalizar programa.");
+        System.out.println(">> ");
         int op = MyIO.readInt();
 
         Relatorio relatorio = new Relatorio(Amaze);

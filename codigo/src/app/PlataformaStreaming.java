@@ -173,7 +173,7 @@ public class PlataformaStreaming {
         Stream result = null;
         for (Stream i : colecao.values()) {
             String n = i.getNome();
-            if (n.equals(nome)) {
+            if (n.equalsIgnoreCase(nome)) {
                 result = i;
                 break;
             }
